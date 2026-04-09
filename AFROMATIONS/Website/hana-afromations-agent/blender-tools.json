@@ -1,0 +1,365 @@
+{
+  "name": "hana-blender-tools",
+  "version": "1.0.0",
+  "description": "KUPURI MEDIA™ HANA — Blender 3D Anime Agent MCP Tool Definitions",
+  "agent": "hana",
+  "brand": "KUPURI MEDIA™",
+  "mcp_server": "python apps/control-room/src/lib/blender-mcp/server.py",
+  "tools": [
+    {
+      "name": "create_anime_avatar",
+      "description": "Generate a complete anime-style 3D avatar with KUPURI brand shading, toon materials, and freestyle outlines. Exports as .glb for Three.js (Synthia-avatar format).",
+      "category": "avatar",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "character_name": {
+            "type": "string",
+            "description": "Name for the character (used in file naming)"
+          },
+          "style": {
+            "type": "string",
+            "enum": ["anime", "chibi", "semi-realistic"],
+            "default": "anime",
+            "description": "Character style preset"
+          },
+          "hair_color": {
+            "type": "string",
+            "description": "Hair color as hex (#ed6a5a) or brand token (accent1/accent2/accent3/accent4/fg/bg)",
+            "default": "accent4"
+          },
+          "outfit": {
+            "type": "string",
+            "enum": ["casual", "professional", "fantasy", "kupuri-branded"],
+            "default": "kupuri-branded"
+          },
+          "expression": {
+            "type": "string",
+            "enum": ["neutral", "happy", "confident", "thinking", "surprised"],
+            "default": "confident"
+          },
+          "pose": {
+            "type": "string",
+            "enum": ["idle", "presenting", "thinking", "waving", "pointing"],
+            "default": "presenting"
+          },
+          "export_format": {
+            "type": "string",
+            "enum": ["glb", "fbx", "obj"],
+            "default": "glb",
+            "description": "Export format — glb for Three.js/web"
+          },
+          "output_path": {
+            "type": "string",
+            "default": "/output/avatars/",
+            "description": "Output directory for the generated files"
+          }
+        },
+        "required": ["character_name"]
+      },
+      "blender_script": "scripts/create_anime_avatar.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' create_anime_avatar --character_name synthia --style anime --outfit kupuri-branded --expression confident"
+    },
+    {
+      "name": "render_scene",
+      "description": "Render a Blender scene (.blend file) to image or animation sequence using EEVEE or Cycles. Applies KUPURI brand render settings automatically.",
+      "category": "render",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blend_file": {
+            "type": "string",
+            "description": "Path to .blend file to render"
+          },
+          "output_path": {
+            "type": "string",
+            "description": "Output path for renders (include ### for frame numbering)",
+            "default": "/output/renders/frame_###"
+          },
+          "engine": {
+            "type": "string",
+            "enum": ["BLENDER_EEVEE", "CYCLES"],
+            "default": "BLENDER_EEVEE",
+            "description": "Render engine — EEVEE for speed, CYCLES for quality"
+          },
+          "mode": {
+            "type": "string",
+            "enum": ["still", "animation", "turntable"],
+            "default": "still"
+          },
+          "resolution": {
+            "type": "string",
+            "enum": ["1080p", "4K", "1:1_1080", "9:16_1080", "16:9_1080"],
+            "default": "1:1_1080",
+            "description": "Resolution preset — includes social media formats"
+          },
+          "frame_start": {
+            "type": "integer",
+            "default": 1
+          },
+          "frame_end": {
+            "type": "integer",
+            "default": 1
+          },
+          "transparent_bg": {
+            "type": "boolean",
+            "default": false,
+            "description": "Render with transparent background (for compositing)"
+          }
+        },
+        "required": ["blend_file"]
+      },
+      "blender_script": "scripts/render_scene.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' render_scene --blend_file scene.blend --mode still --resolution 1:1_1080"
+    },
+    {
+      "name": "apply_kupuri_shader",
+      "description": "Apply KUPURI brand toon shader to all objects in the current scene. Sets up 3-step light ramp, freestyle outlines, and brand color palette.",
+      "category": "materials",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blend_file": {
+            "type": "string",
+            "description": "Path to .blend file to apply shader to"
+          },
+          "target": {
+            "type": "string",
+            "enum": ["all", "selected", "characters", "props"],
+            "default": "all"
+          },
+          "outline_thickness": {
+            "type": "number",
+            "default": 1.5,
+            "description": "Freestyle outline thickness in pixels (0.5–3.0)"
+          },
+          "shadow_steps": {
+            "type": "integer",
+            "enum": [2, 3, 4],
+            "default": 3,
+            "description": "Number of toon shading steps"
+          }
+        },
+        "required": ["blend_file"]
+      },
+      "blender_script": "scripts/apply_kupuri_shader.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' apply_kupuri_shader --blend_file avatar.blend --outline_thickness 1.5"
+    },
+    {
+      "name": "export_web_avatar",
+      "description": "Export a rigged avatar as .glb optimized for Three.js web use (Synthia-avatar template format). Includes animations, shape keys, and compressed textures.",
+      "category": "export",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blend_file": {
+            "type": "string",
+            "description": "Source .blend file with rigged character"
+          },
+          "output_name": {
+            "type": "string",
+            "description": "Output filename without extension",
+            "default": "avatar"
+          },
+          "output_dir": {
+            "type": "string",
+            "default": "/output/web/models/",
+            "description": "Output directory (maps to public/models/ in Synthia-avatar)"
+          },
+          "include_animations": {
+            "type": "boolean",
+            "default": true,
+            "description": "Include all NLA animation tracks in GLB"
+          },
+          "include_shape_keys": {
+            "type": "boolean",
+            "default": true,
+            "description": "Include expression/lipsync shape keys"
+          },
+          "draco_compression": {
+            "type": "boolean",
+            "default": true,
+            "description": "Apply Draco mesh compression for smaller file size"
+          },
+          "texture_format": {
+            "type": "string",
+            "enum": ["JPEG", "WEBP", "PNG"],
+            "default": "WEBP"
+          }
+        },
+        "required": ["blend_file"]
+      },
+      "blender_script": "scripts/export_web_avatar.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' export_web_avatar --blend_file character.blend --output_name synthia --include_animations true"
+    },
+    {
+      "name": "create_animation",
+      "description": "Generate a named animation sequence for a rigged character. Keyframes are auto-generated from animation preset library.",
+      "category": "animation",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blend_file": {
+            "type": "string",
+            "description": "Source .blend file with rigged character"
+          },
+          "animation_type": {
+            "type": "string",
+            "enum": [
+              "idle_breath",
+              "idle_blink",
+              "walk_cycle",
+              "run_cycle",
+              "wave",
+              "point",
+              "think",
+              "laugh",
+              "surprise",
+              "nod",
+              "dance_loop",
+              "turntable_360"
+            ],
+            "description": "Animation preset to generate"
+          },
+          "fps": {
+            "type": "integer",
+            "default": 24,
+            "description": "Frames per second"
+          },
+          "loop": {
+            "type": "boolean",
+            "default": true,
+            "description": "Make animation loop-ready (first and last frame match)"
+          },
+          "armature_name": {
+            "type": "string",
+            "default": "Armature",
+            "description": "Name of the armature object in the scene"
+          }
+        },
+        "required": ["blend_file", "animation_type"]
+      },
+      "blender_script": "scripts/create_animation.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' create_animation --blend_file avatar.blend --animation_type idle_breath --loop true"
+    },
+    {
+      "name": "batch_render_poses",
+      "description": "Render multiple character poses or expressions from a single rigged avatar. Outputs a gallery of pose images for client review.",
+      "category": "batch",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blend_file": {
+            "type": "string"
+          },
+          "poses": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["neutral", "happy", "confident", "thinking", "surprised", "presenting", "waving", "pointing"]
+            },
+            "description": "List of poses to render",
+            "default": ["neutral", "happy", "confident", "presenting"]
+          },
+          "output_dir": {
+            "type": "string",
+            "default": "/output/pose_gallery/"
+          },
+          "resolution": {
+            "type": "string",
+            "enum": ["1:1_512", "1:1_1080", "9:16_1080"],
+            "default": "1:1_1080"
+          },
+          "transparent_bg": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": ["blend_file"]
+      },
+      "blender_script": "scripts/batch_render_poses.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' batch_render_poses --blend_file avatar.blend --poses neutral happy confident"
+    },
+    {
+      "name": "create_social_asset",
+      "description": "Generate a ready-to-post social media 3D scene: character + background + text element. Outputs at platform-correct dimensions.",
+      "category": "social",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": ["tiktok", "instagram_post", "instagram_story", "linkedin", "youtube_thumbnail"],
+            "description": "Target platform determines resolution and safe zones"
+          },
+          "blend_file": {
+            "type": "string",
+            "description": "Character .blend file"
+          },
+          "headline": {
+            "type": "string",
+            "description": "Text overlay (uses PP Rader font style in 3D)"
+          },
+          "bg_color": {
+            "type": "string",
+            "enum": ["bg", "bg2", "accent1", "accent2", "accent3", "accent4"],
+            "default": "bg",
+            "description": "Background color from KUPURI palette"
+          },
+          "output_type": {
+            "type": "string",
+            "enum": ["still_png", "animation_mp4", "loop_gif"],
+            "default": "still_png"
+          },
+          "output_path": {
+            "type": "string",
+            "default": "/output/social/"
+          }
+        },
+        "required": ["platform", "blend_file"]
+      },
+      "blender_script": "scripts/create_social_asset.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' create_social_asset --platform tiktok --blend_file synthia.blend --headline 'KUPURI MEDIA' --output_type loop_gif"
+    },
+    {
+      "name": "analyze_scene",
+      "description": "Analyze a .blend file and return a JSON report of all objects, materials, rigs, and animations. Used by Ralphy for quality coaching.",
+      "category": "analysis",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blend_file": {
+            "type": "string",
+            "description": "Path to .blend file to analyze"
+          },
+          "check_brand_compliance": {
+            "type": "boolean",
+            "default": true,
+            "description": "Check materials against KUPURI brand tokens"
+          }
+        },
+        "required": ["blend_file"]
+      },
+      "blender_script": "scripts/analyze_scene.py",
+      "cli_example": "mcp2cli --mcp-stdio 'python blender-mcp/server.py' analyze_scene --blend_file avatar.blend --check_brand_compliance true"
+    }
+  ],
+  "install": {
+    "mcp2cli": "uvx mcp2cli --help  # or: uv tool install mcp2cli",
+    "blender_mcp_server": "pip install mcp && python apps/control-room/src/lib/blender-mcp/server.py",
+    "blender_headless": "blender --background --python <script>.py -- --args",
+    "blenderless": "pip install blenderless"
+  },
+  "environment": {
+    "BLENDER_PATH": "/usr/bin/blender",
+    "HANA_OUTPUT_DIR": "/output/hana/",
+    "HANA_MODELS_DIR": "apps/web/public/models/",
+    "KUPURI_BLEND_TEMPLATES": "apps/control-room/src/lib/blender-mcp/templates/"
+  },
+  "agent_mail_integration": {
+    "from": "hana",
+    "report_to": ["synthia-prime", "merlina"],
+    "on_complete": "POST /api/mail { from: 'hana', to: ['merlina'], type: 'report', subject: '[ASSET READY] {asset_name}' }",
+    "on_error": "POST /api/mail { from: 'hana', to: ['synthia-prime'], type: 'alert', priority: 'high' }"
+  }
+}

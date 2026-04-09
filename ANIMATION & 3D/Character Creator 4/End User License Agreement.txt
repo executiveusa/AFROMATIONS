@@ -1,0 +1,82 @@
+Reallusion End User License Agreement (EULA) for Animation Tools
+
+(Updated May 10, 2024)
+
+IMPORTANT: THIS REALLUSION END USER LICENSE AGREEMENT ("EULA") FOR ANIMATION TOOLS IS A LEGAL AGREEMENT BETWEEN YOU AND REALLUSION, INC. ("REALLUSION").  READ IT CAREFULLY BEFORE PURCHASING, SUBSCRIBING, DOWNLOADING, INSTALLING OR USING THE SOFTWARE.  IT PROVIDES A LICENSE TO USE THE SOFTWARE AND CONTAINS WARRANTY INFORMATION AND LIABILITY DISCLAIMERS.  BY INSTALLING OR USING ANY OF THE SOFTWARE, YOU ARE CONFIRMING YOUR ACCEPTANCE OF THE SOFTWARE AND AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT.  IF YOU DO NOT AGREE TO BE BOUND BY THESE TERMS, THEN DO NOT PURCHASE, SUBSCRIBE, DOWNLOAD, INSTALL OR USE THE SOFTWARE.
+
+1. Definitions. 
+
+The terms in this section shall have the meanings described below, and other terms may be defined within the context of this Agreement.
+
+ 1.1 "Licensee" or "you" means the acquirer of the license rights granted by this Agreement. If you are an individual working solely on your own behalf, then you are the Licensee. If you are an employee working on behalf of your employer, then your employer is the Licensee and you confirm that you are authorized to accept the terms of this Agreement on behalf of your Employer.
+
+ 1.2 "Software" means the Reallusion software program(s) and third party software programs, in each case, supplied by Reallusion, and/or all their respective Plug-ins, and any corresponding documentation, associated media, materials, and online or electronic contents.
+
+ 1.3 "Original Character Creation" refers to a character created entirely from an original design, without using any content from Reallusion or its developers, including models, morphs, textures, hair, and outfit assets.
+
+ 1.4 "CC Avatar" means the avatar of Character Creator's component content, which can be used in the Character Creator to compose, assemble, modify.
+
+2. Grant of License. 
+
+Reallusion hereby grants you a perpetual, non-exclusive, non-sublicensable, revocable, nontransferable right to use the Software to generate images, videos, avatars, models and/or animations.  Reallusion also grants you a non-exclusive and Royalty-Free license to display image or video output generated with the Software.  You may sell or redistribute your images and videos created by the Software with full ownership and use-rights to the image or video.
+
+3. Restrictions. 
+
+ 3.1 The Software may only be used on ONE (1) computer at any one time. For use on more than one computer at a time or for use and/or storage on a network designed for more than one user, you must purchase an additional license per/computer or acquire a special multi-user license from Reallusion.
+
+ 3.2 The Software may not be used in an illegal or otherwise unlawful manner.
+
+ 3.3 You may not copy, rent, lease, sell, distribute, transfer or sublicense the Software, in whole or in part.
+
+ 3.4 You agree not to modify, alter, translate, reverse engineer, decompile, disassemble or otherwise attempt to derive the source code of the Software.
+
+ 3.5 Any use of any Reallusion logos or trademarks must be approved by Reallusion.
+
+ 3.6 You acknowledge and agree that any content assets in Reallusion proprietary formats are only allowed to be sold, distributed, and published in Reallusion's stores (Content Store, Marketplace, and ActorCore) and are not allowed to be sold, distributed, and published in any third-party marketplaces.
+
+4. Ownership. 
+
+Reallusion or its licensors own all the copyright and proprietary rights in and to the Software.  The structure, organization and code contained in the Software are the valuable trade secrets of Reallusion and its licensors.  The Software is also protected by Taiwan, United States Copyright Law and International Treaty provisions.
+
+5. Character Creator Base Model License. 
+
+The unique topology and character rigs of CC Avatar that generated from Character Creator's Base Model is Reallusion's property. 
+ 5.1 Reallusion hereby grants you a perpetual, non-exclusive, non-sublicensable, revocable, nontransferable right to use CC Avatar to generate your Original Character Creation.
+ 5.2 You may sell, distribute, and publish your Original Character Creation for any commercial use, including but not limited to image/video outputs, games, XR, interactive online services, and 3D print, without any limitations, except as listed below:
+  5.2.1 For any character generation system; 
+  5.2.2 For AI training, machine learning, synthetic data generation purpose;
+  5.2.3 For any character generating business use.
+  5.2.4 You cannot sell the 3D model created from Character Creator's Base Model as a content asset in any third-party marketplaces regardless of any file format.
+ 5.3 If the CC Avatar is not your original creation or if you do not have the license or permission from the original creators, including Reallusion and other developers' content assets, you are not allowed to sell, distribute, and publish the CC Avatar in any content marketplace or for any commercial use, including but not limited to image/video outputs, games, XR, interactive online services, and 3D print.
+
+6. LIMITED WARRANTY AND DISCLAIMER.
+
+ 6.1 REALLUSION AND ITS LICENSORS DISCLAIM ALL WARRANTIES AND REPRESENTATIONS, WHETHER EXPRESS, IMPLIED, OR OTHERWISE, INCLUDING THE WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  REALLUSION DOES NOT WARRANT THAT THE SOFTWARE IS ERROR-FREE OR WILL OPERATE WITHOUT INTERRUPTION.  
+
+ 6.2 IF APPLICABLE LAW REQUIRES ANY WARRANTIES WITH RESPECT TO THE SOFTWARE, ALL SUCH WARRANTIES ARE LIMITED IN DURATION TO NINETY (90) DAYS FROM THE DATE OF DELIVERY OR PURCHASE.
+
+ 6.3 NO ORAL OR WRITTEN INFORMATION OR ADVICE GIVEN BY PURCHASE, ITS DEALERS, DISTRIBUTORS, AFFILIATES, AGENTS OR EMPLOYEES SHALL CREATE A WARRANTY OR IN ANY WAY INCREASE THE SCOPE OF ANY WARRANTY PROVIDED HEREIN.
+
+7. Usage Data. 
+
+To help Reallusion improve the Software quality while providing you with a more optimized experience, some usage data may be collected and sent back to Reallusion for general analysis. Please take note that Reallusion takes privacy very seriously, and that Reallusion works hard to protect you from unauthorized access, alteration, disclosure or destruction of your Personal Data.  You agree to grant permission for Reallusion to collect and use the information described in the Reallusion Privacy Policy (https://www.reallusion.com/Content/EULA/EngPrivacy/privacy.htm).
+
+8. Modification.
+
+Reallusion reserves the right to make changes to the Terms from time to time without notice to you. 
+All changes shall be effective immediately, please check these Terms periodically for changes. Unless otherwise noted, the amended Terms will be effective immediately, and, your continued use of our Services and Software confirm your acceptance of the changes. The most current version of these Terms, which supersedes all previous versions.
+
+9. Governing Law. 
+
+The laws of the state of California govern this EULA, except that federal and international law governs copyrights, patents, and registered trademarks.
+
+10. Severability. 
+
+Should any court having appropriate jurisdiction find any provision of this EULA invalid, that particular provision will be deemed null and void and will not affect the validity of any other provision of this EULA.
+
+How To Contact Us
+
+If you have questions concerning this EULA or need to contact Customer Service, please contact company at this e-mail address below:
+
+ - Customer Service (returns, purchase) https://www.reallusion.com/support
+ - Licensing Requiring Development: sales@reallusion.com

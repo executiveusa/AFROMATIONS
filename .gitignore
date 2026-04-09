@@ -1,0 +1,245 @@
+# ============================================================
+# AFROMATIONS Studio - .gitignore
+# Excludes large binary/media files that exceed GitHub's 100MB limit
+# Push code, configs, agents, scripts — not production assets
+# ============================================================
+
+# ----- Secrets & Credentials (NEVER COMMIT) -----
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+*.pem
+*.key
+master.env
+
+# ----- Large Video Files -----
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.mpg
+*.mpeg
+*.ts
+*.mts
+*.m2ts
+*.vob
+*.ogv
+*.3gp
+
+# ----- Large Audio Files -----
+*.wav
+*.aiff
+*.aif
+*.flac
+*.mp3
+*.m4a
+*.ogg
+*.opus
+*.wma
+*.ape
+*.alac
+*.mid
+*.midi
+
+# ----- 3D / Animation Binary Assets -----
+*.blend
+*.blend1
+*.blend2
+*.fbx
+*.obj
+*.mtl
+*.3ds
+*.max
+*.c4d
+*.dae
+*.abc
+*.usd
+*.usda
+*.usdc
+*.usdz
+*.stl
+*.glb
+*.gltf
+*.iclone
+*.iAvatar
+*.iClothes
+*.iHair
+*.iAcc
+*.iProj
+*.rlProject
+*.ccProject
+*.iContent
+
+# Reallusion / Character Creator binary packages
+*.rlpack
+*.ccPack
+*.rlanim
+*.rlTalkingHead
+*.rlProject
+*.avatarAssets
+*.ccFaceKey
+*.ccHair
+*.ccCloth
+*.ccSkin
+*.ccMakeup
+
+# ----- Large Image / Texture Files -----
+*.psd
+*.psb
+*.tga
+*.tiff
+*.tif
+*.raw
+*.cr2
+*.nef
+*.arw
+*.dng
+*.hdr
+*.exr
+*.bmp
+
+# ----- Archive / Compressed -----
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.bz2
+*.xz
+*.iso
+*.dmg
+*.pkg
+*.msi
+
+# ----- Executables & Binaries -----
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.dat
+*.db
+*.sqlite
+*.sqlite3
+*.lnk
+*.shortcut
+
+# ----- Node / Package Build Artifacts -----
+node_modules/
+.pnpm-store/
+dist/
+build/
+.next/
+.nuxt/
+.svelte-kit/
+out/
+.output/
+*.lock
+!package-lock.json
+!pnpm-lock.yaml
+!yarn.lock
+!Gemfile.lock
+
+# ----- Python -----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+*.whl
+
+# ----- Ruby / Rails -----
+.bundle/
+vendor/bundle/
+log/
+tmp/
+coverage/
+.byebug_history
+
+# ----- OS Junk -----
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+*.tmp
+*.temp
+~$*
+
+# ----- IDE / Editor -----
+.vscode/settings.json
+.idea/
+*.suo
+*.user
+*.swp
+*.swo
+
+# ----- Large Font Binaries -----
+*.otf
+*.ttf
+*.woff
+*.woff2
+*.eot
+
+# ----- Reallusion / OpenToonz Local Cache -----
+OpenToonz stuff/sandbox/
+OpenToonz stuff/projects/
+ANIMATION & 3D/Character Creator 4/Bin64/
+ANIMATION & 3D/Character Creator 4/Program/
+ANIMATION & 3D/Reallusion Custom/Media/
+ANIMATION & 3D/Reallusion Templates/Media/
+
+# ----- n8n / StoryToolkitAI - exclude large source/media trees -----
+n8n-workflows/StoryToolkitAI-main/FFmpeg-master/
+n8n-workflows/StoryToolkitAI-main/**/*.c
+n8n-workflows/StoryToolkitAI-main/**/*.h
+n8n-workflows/StoryToolkitAI-main/**/*.cpp
+n8n-workflows/StoryToolkitAI-main/**/*.py
+n8n-workflows/StoryToolkitAI-main/**/*.mp4
+n8n-workflows/StoryToolkitAI-main/**/*.wav
+n8n-workflows/StoryToolkitAI-main/**/*.asm
+
+# Also exclude C/C++ source in ANIMATION tools
+*.c
+*.h
+*.cpp
+*.cc
+*.cxx
+*.hpp
+
+# ----- Keep these important agent/config files tracked -----
+!.github/
+!.github/agents/
+!.github/agents/*.md
+!.github/workflows/
+!**/*.agent.md
+!**/*.prompt.md
+!**/*.instructions.md
+!**/*.json
+!**/*.yaml
+!**/*.yml
+!**/*.md
+!**/*.txt
+!**/*.ts
+!**/*.js
+!**/*.tsx
+!**/*.jsx
+!**/*.py
+!**/*.rb
+!**/*.sh
+!**/*.env.example
+!**/*.config.*
+!**/Gemfile
+!**/Procfile
+!**/Rakefile

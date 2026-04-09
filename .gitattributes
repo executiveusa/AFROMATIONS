@@ -1,0 +1,35 @@
+# AFROMATIONS Studio .gitattributes
+# Disable CRLF conversion - avoids warnings and speeds up git operations
+
+* -text
+
+# Explicitly mark text files as text for better diffs
+*.md text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.py text eol=lf
+*.rb text eol=lf
+*.sh text eol=lf
+*.txt text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.svg text eol=lf
+*.xml text eol=lf
+*.ini text eol=lf
+*.lua text eol=lf
+*.qml text eol=lf
+*.env text eol=lf
+
+# Binary files - no line ending conversion
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary

@@ -1,0 +1,14 @@
+🔥 Ghibli-Style Gear Animation – Crafted Prompt for Adobe Firefly
+
+Prompt:
+*"A breathtakingly hand-drawn Studio Ghibli-style animation of interlocking, enchanted mechanical gears grinding together with immense tension. The gears, made of aged brass and deep steel-blue metal, turn with incredible precision, generating soft glowing light reflections and delicate hand-inked shadow details. As they rotate, golden sparks fly off at high speed, illuminating the darkened industrial backdrop, inspired by Laputa: Castle in the Sky and Howl’s Moving Castle’s steampunk aesthetics.
+
+The scene begins with a slow, methodical movement, as mechanical hisses and steam bursts escape from hidden pipes, adding a layer of dramatic build-up. A subtle warm golden glow pulsates from the gears’ core, intensifying with each rotation, signifying a surge of raw energy and anticipation. The camera zooms in cinematic Ghibli style, showcasing microscopic hand-drawn scratches and oil stains on the gears, enhancing realism.
+
+Suddenly, the gears accelerate, their rotations becoming faster and wilder, causing friction-induced arcs of lightning to dance between them. Tiny glowing embers scatter like shooting stars, while the metal vibrates with intense kinetic force. The screen subtly shakes, capturing the raw power and magnitude of the motion.
+
+At the climax, the gears synchronize perfectly, igniting a breathtaking explosion of magical light and energy. A pulse wave of golden-blue luminescence spreads outward in hand-painted fluid animation, forming swirling ribbons of dust and vapor akin to Spirited Away’s spirit realm transitions.
+
+As the final crescendo of movement peaks, a brilliant, crackling energy sphere surges between the gears, emitting a prismatic shockwave before suddenly snapping into a calm, glowing ember-like state, leaving behind trails of residual sparks and floating motes of warm light.
+
+This masterpiece is meticulously crafted with authentic Ghibli-style frame-by-frame hand-drawn aesthetics, featuring the legendary soft watercolor backgrounds, intricate light physics, and the subtle organic imperfections of traditional cel-shading. Render it with high-frame-rate smoothness for a stunning cinematic impact. The final output must feel like a lost scene from Laputa: Castle in the Sky or Nausicaä of the Valley of the Wind."*
