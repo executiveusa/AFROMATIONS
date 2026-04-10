@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+/* AFROMATIONS Studios — Brand Tokens */
+:root {
+  --af-black: #0a0a0a;
+  --af-red: #c41e1e;
+  --af-red-dark: #8b1515;
+  --af-cream: #f5f0e8;
+  --af-grey: #1a1a1a;
+  --af-grey-mid: #2a2a2a;
+  --af-grey-light: #8a8a8a;
+  --af-white: #fafaf8;
+  --af-gold: #d4a017;
+  --af-coral: #ed6a5a;
+  --af-teal: #9bc1bc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--af-black);
+  color: var(--af-cream);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--af-red);
+  color: var(--af-cream);
+}
+
+/* Anime grain overlay */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Speed lines overlay for sections */
+.speed-lines {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 49%,
+    rgba(196, 30, 30, 0.03) 49%,
+    rgba(196, 30, 30, 0.03) 51%,
+    transparent 51%
+  );
+}

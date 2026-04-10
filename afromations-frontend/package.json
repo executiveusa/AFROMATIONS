@@ -1,0 +1,30 @@
+{
+  "name": "@afromations/studio-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AFROMATIONS Studios — Anime Landing Page & Community Hub",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "motion": "^12.6.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.8.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "tailwindcss": "^4.1.0",
+    "postcss": "^8.5.0"
+  }
+}

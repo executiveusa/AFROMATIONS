@@ -1,0 +1,28 @@
+# Secrets - never commit these
+.env
+.env.*
+*.pem
+*.key
+
+# Claude Code local settings (contains bot tokens)
+.claude/settings.local.json
+.claude/telegram/.env
+.claude/telegram/access.json
+.claude/telegram/inbox/
+.claude/discord/.env
+.claude/discord/access.json
+.claude/discord/inbox/
+.claude/discord/approved/
+
+# MCP config (may contain server entries)
+.mcp.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~

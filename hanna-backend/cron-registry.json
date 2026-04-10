@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "crons": [
+    {
+      "id": "keepalive",
+      "schedule": "*/20 * * * *",
+      "enabled": true,
+      "description": "Keepalive ping — confirm Hanna is operational",
+      "action": "Post status check to messaging channel"
+    },
+    {
+      "id": "anime-trends",
+      "schedule": "0 9 * * *",
+      "enabled": true,
+      "description": "Morning anime trend scan — check Google Trends for top anime topics",
+      "action": "Run trends scan, generate article draft if trending topic found"
+    },
+    {
+      "id": "weekly-asset",
+      "schedule": "0 14 * * 1",
+      "enabled": true,
+      "description": "Monday asset drop — generate one production anime asset",
+      "action": "Create character/scene asset based on trending anime or community request"
+    },
+    {
+      "id": "blog-publish",
+      "schedule": "0 12 * * 3,6",
+      "enabled": true,
+      "description": "Wed/Sat blog publish — push queued articles to production",
+      "action": "Review and publish queued blog drafts"
+    },
+    {
+      "id": "community-digest",
+      "schedule": "0 18 * * 5",
+      "enabled": true,
+      "description": "Friday community digest — weekly roundup of studio activity",
+      "action": "Generate and post weekly community digest"
+    }
+  ]
+}

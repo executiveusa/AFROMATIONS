@@ -1,0 +1,21 @@
+{
+  "name": "@afromations/hanna-api",
+  "version": "1.0.0",
+  "description": "Agent Hanna — AFROMATIONS Studio Backend API",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.7.0",
+    "@hono/zod-validator": "^0.4.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250402.0",
+    "typescript": "^5.8.0",
+    "wrangler": "^4.12.0"
+  }
+}

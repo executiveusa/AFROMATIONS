@@ -1,0 +1,13 @@
+name = "hanna-api"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+
+[vars]
+STUDIO_NAME = "AFROMATIONS Studios"
+AGENT_NAME = "Hanna"
+
+# Secrets (set via `wrangler secret put`):
+# SUPABASE_URL
+# SUPABASE_SERVICE_KEY
+# GOOGLE_TRENDS_API_KEY
+# GEMINI_API_KEY

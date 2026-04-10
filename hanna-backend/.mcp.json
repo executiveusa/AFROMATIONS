@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "blender": {
+      "command": "python",
+      "args": ["tools/blender-mcp/server.py"],
+      "env": {
+        "BLENDER_PATH": "${BLENDER_PATH:-blender}"
+      },
+      "tools": [
+        "create_anime_avatar",
+        "render_scene",
+        "apply_kupuri_shader",
+        "export_web_avatar"
+      ]
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server"],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+      },
+      "tools": [
+        "query",
+        "insert",
+        "update",
+        "storage_upload",
+        "storage_list"
+      ]
+    }
+  }
+}

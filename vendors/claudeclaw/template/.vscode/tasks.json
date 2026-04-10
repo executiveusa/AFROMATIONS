@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Primary",
+      "type": "shell",
+      "command": "claude --dangerously-skip-permissions --channels plugin:telegram@claude-plugins-official",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+      },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Alpha",
+      "type": "shell",
+      "command": "claude --dangerously-skip-permissions --add-dir ${workspaceFolder} --channels plugin:telegram@claude-plugins-official",
+      "options": {
+        "cwd": "${workspaceFolder}/agents/alpha",
+        "shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+      },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Beta",
+      "type": "shell",
+      "command": "claude --dangerously-skip-permissions --add-dir ${workspaceFolder} --channels plugin:telegram@claude-plugins-official",
+      "options": {
+        "cwd": "${workspaceFolder}/agents/beta",
+        "shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+      },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Gamma",
+      "type": "shell",
+      "command": "claude --dangerously-skip-permissions --add-dir ${workspaceFolder} --channels plugin:telegram@claude-plugins-official",
+      "options": {
+        "cwd": "${workspaceFolder}/agents/gamma",
+        "shell": { "executable": "powershell.exe", "args": ["-NoProfile", "-Command"] }
+      },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Launch All Agents",
+      "dependsOn": ["Primary", "Alpha", "Beta", "Gamma"],
+      "dependsOrder": "parallel",
+      "problemMatcher": []
+    }
+  ]
+}
