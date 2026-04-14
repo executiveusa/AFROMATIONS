@@ -2,6 +2,12 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { hannaRoutes } from './routes/hanna'
+import { hanaLearnerRoutes } from './routes/hana-learner'
+import { hanaLessonRoutes } from './routes/hana-lesson'
+import { hanaAssessRoutes } from './routes/hana-assess'
+import { hanaWikiRoutes } from './routes/hana-wiki'
+import { hanaMangaRoutes } from './routes/hana-manga'
+import { hanaAdminRoutes } from './routes/hana-admin'
 import { blogRoutes } from './routes/blog'
 import { trendsRoutes } from './routes/trends'
 import { galleryRoutes } from './routes/gallery'
@@ -45,8 +51,18 @@ app.get('/api/health', (c) =>
   })
 )
 
-// Routes
+// Routes — Hanna (original studio routes)
 app.route('/api/hanna', hannaRoutes)
+
+// Routes — Hana Learning OS (new comprehensive system)
+app.route('/api/hana', hanaLearnerRoutes)
+app.route('/api/hana', hanaLessonRoutes)
+app.route('/api/hana', hanaAssessRoutes)
+app.route('/api/hana', hanaWikiRoutes)
+app.route('/api/hana', hanaMangaRoutes)
+app.route('/api/hana', hanaAdminRoutes)
+
+// Routes — Blog, Trends, Gallery
 app.route('/api/blog', blogRoutes)
 app.route('/api/trends', trendsRoutes)
 app.route('/api/gallery', galleryRoutes)
