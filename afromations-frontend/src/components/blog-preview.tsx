@@ -1,6 +1,7 @@
 'use client'
 
 import { API_URL } from '@/lib/utils'
+import { useI18n } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
 
 interface TrendTopic {
@@ -11,6 +12,7 @@ interface TrendTopic {
 
 export function BlogPreview() {
   const [trends, setTrends] = useState<TrendTopic[]>([])
+  const { t } = useI18n()
 
   useEffect(() => {
     fetch(`${API_URL}/trends`)
@@ -27,45 +29,44 @@ export function BlogPreview() {
   }, [])
 
   return (
-    <section id="blog" className="border-t border-white/5 px-6 py-32">
+    <section id="blog" className="border-t border-white/5 px-5 py-20 sm:px-6 sm:py-32">
       <div className="mx-auto max-w-6xl">
-        <p className="mb-3 text-[10px] font-medium tracking-[0.4em] text-[var(--af-red)] uppercase">
-          Trending Now
+        <p className="mb-3 text-[10px] font-medium tracking-[0.4em] text-(--af-red) uppercase">
+          {t('blog.eyebrow')}
         </p>
         <h2
-          className="text-3xl font-bold tracking-tight text-[var(--af-cream)] sm:text-4xl"
+          className="text-2xl font-bold tracking-tight text-(--af-cream) sm:text-3xl md:text-4xl"
           style={{ fontFamily: 'Sora, sans-serif' }}
         >
-          Anime Pulse
+          {t('blog.title')}
         </h2>
-        <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--af-grey-light)]">
-          Real-time anime trends monitored by Agent Hanna. Articles auto-generated
-          and curated for the community.
+        <p className="mt-3 max-w-md text-[13px] leading-relaxed text-(--af-grey-light) sm:mt-4 sm:max-w-lg sm:text-sm">
+          {t('blog.description')}
         </p>
 
         {/* Trend items */}
-        <div className="mt-12 space-y-4">
-          {trends.map((t, i) => (
+        <div className="mt-8 space-y-3 sm:mt-12 sm:space-y-4">
+          {trends.map((item, i) => (
             <div
-              key={t.topic}
-              className="group flex items-center justify-between border-b border-white/5 py-4 transition-colors hover:border-[var(--af-red)]/20"
+              key={item.topic}
+              className="group flex items-center justify-between border-b border-white/5 py-4 transition-colors hover:border-(--af-red)/20"
             >
               <div className="flex items-center gap-4">
-                <span className="text-xs tabular-nums text-[var(--af-grey-light)]">
+                <span className="text-xs tabular-nums text-(--af-grey-light)">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="text-sm text-[var(--af-cream)] group-hover:text-[var(--af-red)] transition-colors">
-                  {t.topic}
+                <span className="text-sm text-(--af-cream) group-hover:text-(--af-red) transition-colors">
+                  {item.topic}
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-xs tabular-nums text-[var(--af-grey-light)]">
-                  {t.volume}
+                <span className="text-xs tabular-nums text-(--af-grey-light)">
+                  {item.volume}
                 </span>
                 <span
-                  className={`text-[10px] ${t.rising ? 'text-emerald-500' : 'text-[var(--af-grey-light)]'}`}
+                  className={`text-[10px] ${item.rising ? 'text-emerald-500' : 'text-(--af-grey-light)'}`}
                 >
-                  {t.rising ? '↑' : '—'}
+                  {item.rising ? '↑' : '—'}
                 </span>
               </div>
             </div>
@@ -73,9 +74,20 @@ export function BlogPreview() {
         </div>
 
         {trends.length === 0 && (
-          <p className="mt-12 text-sm text-[var(--af-grey-light)]">
-            Deploy Hanna API to see live anime trends here.
+          <p className="mt-12 text-sm text-(--af-grey-light)">
+            {t('blog.empty')}
           </p>
+        )}
+
+        {trends.length > 0 && (
+          <div className="mt-8 sm:mt-12">
+            <a
+              href="/blog"
+              className="inline-flex h-10 items-center rounded-md border border-white/10 px-6 text-xs font-semibold tracking-wider text-(--af-cream) transition-colors hover:border-white/20"
+            >
+              View All Articles →
+            </a>
+          </div>
         )}
       </div>
     </section>

@@ -1,5 +1,14 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { I18nProvider } from '@/lib/i18n'
 import './globals.css'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#0a0a0a',
+}
 
 export const metadata: Metadata = {
   title: 'AFROMATIONS Studios | Black-Owned Anime Studio',
@@ -35,7 +44,9 @@ export default function RootLayout({
         />
       </head>
       <body className="grain">
-        {children}
+        <I18nProvider>
+          {children}
+        </I18nProvider>
       </body>
     </html>
   )

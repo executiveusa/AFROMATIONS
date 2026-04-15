@@ -5,6 +5,7 @@ import { hannaRoutes } from './routes/hanna'
 import { blogRoutes } from './routes/blog'
 import { trendsRoutes } from './routes/trends'
 import { galleryRoutes } from './routes/gallery'
+import { handleScheduled } from './scheduled'
 
 type Bindings = {
   SUPABASE_URL: string
@@ -60,4 +61,7 @@ app.onError((err, c) => {
   return c.json({ error: 'Internal server error' }, 500)
 })
 
-export default app
+export default {
+  fetch: app.fetch,
+  scheduled: handleScheduled,
+}

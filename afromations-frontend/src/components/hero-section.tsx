@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useI18n } from '@/lib/i18n'
+import { TegakiText } from '@/components/tegaki-text'
 
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
 
@@ -25,6 +27,7 @@ function scramble(el: HTMLElement, final: string) {
 
 export function HeroSection() {
   const headingRef = useRef<HTMLHeadingElement>(null)
+  const { t } = useI18n()
 
   useEffect(() => {
     const el = headingRef.current
@@ -38,54 +41,71 @@ export function HeroSection() {
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-14">
       {/* Red radial accent */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--af-red)] opacity-[0.04] blur-[120px]" />
+        <div className="absolute left-1/2 top-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
       </div>
 
       {/* Vertical line accents */}
-      <div className="pointer-events-none absolute inset-y-0 left-12 w-px bg-gradient-to-b from-transparent via-[var(--af-red)]/10 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-12 w-px bg-gradient-to-b from-transparent via-[var(--af-red)]/10 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-12 w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-12 w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent" />
 
       <div className="relative z-10 max-w-3xl text-center">
-        {/* Eyebrow */}
-        <p className="mb-6 text-[10px] font-medium tracking-[0.4em] text-[var(--af-red)] uppercase">
-          Black-owned anime studio
-        </p>
+        {/* Eyebrow — hand-drawn with Tegaki (use-case #1) */}
+        <div className="mb-6 flex justify-center">
+          <TegakiText
+            font="tangerine"
+            size={22}
+            color="var(--af-red)"
+            className="tracking-[0.4em] uppercase"
+          >
+            {t('hero.eyebrow')}
+          </TegakiText>
+        </div>
 
-        {/* Main heading */}
+        {/* Main heading — kanji-scramble keeps running, Tegaki draws subtitle below (use-case #2) */}
         <h1
           ref={headingRef}
-          className="text-5xl font-bold leading-[1.1] tracking-tight text-[var(--af-cream)] sm:text-7xl"
+          className="text-5xl font-bold leading-[1.1] tracking-tight text-(--af-cream) sm:text-7xl"
           style={{ fontFamily: 'Sora, sans-serif' }}
         >
-          AFROMATIONS
+          {t('hero.title')}
         </h1>
 
-        <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-[var(--af-grey-light)]">
-          Where black culture meets anime craft. 3D characters, original
-          stories, and a community built for creators who refuse to fit the
-          mold.
+        <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-(--af-grey-light)">
+          {t('hero.description')}
         </p>
+
+        {/* Hand-drawn sub-tagline — use-case #2 */}
+        <div className="mt-4 flex justify-center">
+          <TegakiText
+            font="italianno"
+            size={26}
+            color="var(--af-cream)"
+            style={{ opacity: 0.7 }}
+          >
+            {t('hero.tagline')}
+          </TegakiText>
+        </div>
 
         {/* CTA row */}
         <div className="mt-10 flex items-center justify-center gap-4">
           <a
             href="#hanna"
-            className="inline-flex h-10 items-center rounded-md bg-[var(--af-red)] px-6 text-xs font-semibold tracking-wider text-[var(--af-cream)] transition-colors hover:bg-[var(--af-red-dark)]"
+            className="inline-flex h-10 items-center rounded-md bg-(--af-red) px-6 text-xs font-semibold tracking-wider text-(--af-cream) transition-colors hover:bg-(--af-red-dark)"
           >
-            Meet Agent Hanna
+            {t('hero.cta.hanna')}
           </a>
           <a
             href="#gallery"
-            className="inline-flex h-10 items-center rounded-md border border-white/10 px-6 text-xs font-semibold tracking-wider text-[var(--af-cream)] transition-colors hover:border-white/20"
+            className="inline-flex h-10 items-center rounded-md border border-white/10 px-6 text-xs font-semibold tracking-wider text-(--af-cream) transition-colors hover:border-white/20"
           >
-            View Gallery
+            {t('hero.cta.gallery')}
           </a>
         </div>
 
         {/* Scroll indicator */}
-        <div className="mt-20 flex flex-col items-center gap-2 text-[var(--af-grey-light)]">
-          <span className="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-          <div className="h-8 w-px bg-gradient-to-b from-[var(--af-grey-light)] to-transparent" />
+        <div className="mt-20 flex flex-col items-center gap-2 text-(--af-grey-light)">
+          <span className="text-[10px] tracking-[0.3em] uppercase">{t('hero.scroll')}</span>
+          <div className="h-8 w-px bg-linear-to-b from-(--af-grey-light) to-transparent" />
         </div>
       </div>
     </section>
