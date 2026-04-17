@@ -69,3 +69,88 @@ export async function supabaseInsert(
 
   return res.json()
 }
+
+export async function supabaseUpsert(
+  c: Context,
+  table: string,
+  data: Record<string, unknown>,
+  onConflict: string = 'id'
+) {
+  const { url, serviceKey } = getConfig(c)
+
+  const res = await fetch(`${url}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation,resolution=merge-duplicates',
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    throw new Error(`Supabase upsert ${table}: ${res.status} ${res.statusText}`)
+  }
+
+  return res.json()
+}
+
+export async function supabasePatch(
+  c: Context,
+  table: string,
+  data: Record<string, unknown>,
+  filters: Record<string, string>
+) {
+  const { url, serviceKey } = getConfig(c)
+  const searchParams = new URLSearchParams()
+
+  for (const [k, v] of Object.entries(filters)) {
+    searchParams.set(k, `eq.${v}`)
+  }
+
+  const res = await fetch(`${url}/rest/v1/${table}?${searchParams}`, {
+    method: 'PATCH',
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation',
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    throw new Error(`Supabase patch ${table}: ${res.status} ${res.statusText}`)
+  }
+
+  return res.json()
+}
+
+export async function supabaseDelete(
+  c: Context,
+  table: string,
+  filters: Record<string, string>
+) {
+  const { url, serviceKey } = getConfig(c)
+  const searchParams = new URLSearchParams()
+
+  for (const [k, v] of Object.entries(filters)) {
+    searchParams.set(k, `eq.${v}`)
+  }
+
+  const res = await fetch(`${url}/rest/v1/${table}?${searchParams}`, {
+    method: 'DELETE',
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+    },
+  })
+
+  if (!res.ok) {
+    throw new Error(`Supabase delete ${table}: ${res.status} ${res.statusText}`)
+  }
+
+  return res.json()
+}
