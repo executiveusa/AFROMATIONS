@@ -26,6 +26,9 @@ importers:
       tailwind-merge:
         specifier: ^3.0.0
         version: 3.5.0
+      tegaki:
+        specifier: ^0.11.1
+        version: 0.11.1(react@19.2.5)
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.1.0
@@ -612,6 +615,23 @@ packages:
     resolution: {integrity: sha512-1MOpMXuhGzGL5TTCZFItxCc0AARf1EZFQkGqMm7ERKj8+Hgr5oLvJOVFcC+lRmR8hCe2S3jC4T5D7Vg/d7/fhA==}
     engines: {node: '>=6'}
 
+  tegaki@0.11.1:
+    resolution: {integrity: sha512-Ie4SLKcOTNFoRznLLEsAUzRU+xnOkKt/82qbsFdbbMMoVHDwJnpeynrw3b3mu4XsZFSy6G4YiLYF3zlZ8Ot4BA==}
+    peerDependencies:
+      react: '>=18'
+      solid-js: '>=1'
+      svelte: '>=5'
+      vue: '>=3'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      solid-js:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
@@ -1049,6 +1069,10 @@ snapshots:
   tailwindcss@4.2.2: {}
 
   tapable@2.3.2: {}
+
+  tegaki@0.11.1(react@19.2.5):
+    optionalDependencies:
+      react: 19.2.5
 
   tslib@2.8.1: {}
 
