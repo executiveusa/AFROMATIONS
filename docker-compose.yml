@@ -21,6 +21,7 @@ services:
       - HERMES_UID=10000
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN:-}
       - SUPABASE_URL=${SUPABASE_URL:-}
       - SUPABASE_KEY=${SUPABASE_KEY:-}
     volumes:
@@ -76,6 +77,7 @@ services:
       - GROQ_API_KEY=${GROQ_API_KEY:-}
       - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
       - TOGETHER_API_KEY=${TOGETHER_API_KEY:-}
+      - OPEN_ROUTER_API=${OPEN_ROUTER_API:-}
       - DEFAULT_PROVIDER=anthropic
       - DEFAULT_MODEL=claude-sonnet-4-20250514
     networks:

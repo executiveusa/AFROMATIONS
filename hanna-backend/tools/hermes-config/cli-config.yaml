@@ -11,6 +11,11 @@ model:
   default: "anthropic/claude-sonnet-4-20250514"
   provider: "custom"
   base_url: "http://synthia-gateway:3000/v1"
+  # Available models (all routed through Synthia Gateway):
+  #   anthropic/claude-sonnet-4-20250514  — default creative work
+  #   openai/gpt-4o                       — ChatGPT for coding/analysis
+  #   openai/gpt-4o-mini                  — fast lightweight tasks
+  #   openrouter/auto                     — auto-route via OpenRouter
 
 # =============================================================================
 # Terminal (Docker container isolation)
@@ -135,6 +140,12 @@ mcp_servers:
     env:
       SUPABASE_URL: "${SUPABASE_URL}"
       SUPABASE_KEY: "${SUPABASE_KEY}"
+  seedance:
+    command: python
+    args: ["/workspace/hanna-backend/tools/seedance-mcp/server.py"]
+    timeout: 600
+    env:
+      REPLICATE_API_TOKEN: "${REPLICATE_API_TOKEN}"
 
 # =============================================================================
 # Voice / STT

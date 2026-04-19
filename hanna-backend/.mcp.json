@@ -84,6 +84,18 @@
         "extract_data",
         "get_page_info"
       ]
+    },
+    "seedance": {
+      "command": "python",
+      "args": ["tools/seedance-mcp/server.py"],
+      "env": {
+        "REPLICATE_API_TOKEN": "${REPLICATE_API_TOKEN}"
+      },
+      "tools": [
+        "generate_video",
+        "check_video_status",
+        "generate_explainer"
+      ]
     }
   }
 }
