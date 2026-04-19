@@ -9,19 +9,22 @@
 ## CRITICAL ARCHITECTURE
 
 **CORE STACK:**
-1. **OpenMontage** (https://github.com/calesthio/OpenMontage) - Video/animation engine
-2. **PI Agent** - Hanna's conversational AI (NOT Hermes, NOT custom)
-3. **Next.js 15 + React 19** - Frontend (two separate apps)
-4. **Cloudflare Workers** - API backend
-5. **Supabase** (31.220.58.212) - Database (two separate instances)
+1. **Hermes Agent** (NousResearch/hermes-agent) - Hanna's AI brain (autonomous, persistent memory, self-improving)
+2. **Synthia Gateway** (executiveusa/synthia-gateway) - BYOK LLM proxy (OpenAI/Anthropic/Groq)
+3. **Hermes WebUI** (nesquena/hermes-webui) - 4-quadrant dashboard (Chat, Create, Learn, Gallery)
+4. **OpenMontage** (calesthio/OpenMontage) - Agentic video production system
+5. **Browser Harness** (browser-use/browser-harness) - CDP web automation
+6. **Next.js 15 + React 19** - Public-facing frontend
+7. **Cloudflare Workers** - API backend
+8. **Supabase** (31.220.58.212) - Database (two separate instances)
 
-**TWO SEPARATE APPLICATIONS:**
-1. `tyshawn-dashboard/` - Private dashboard (Phase 1, weeks 1-4)
-2. `afromations-frontend/` - Public site (Phase 2, weeks 5-6)
+**APPLICATIONS:**
+1. `Hermes WebUI` - Private 4-quadrant dashboard (Chat, Create, Learn, Gallery) — replaces tyshawn-dashboard
+2. `afromations-frontend/` - Public site
 
-**TWO SEPARATE HANNAS:**
-1. **Private Hanna** - Tyshawn's personal tutor (supabase_private:5434)
-2. **Public Hanna** - Community assistant (supabase_public:5433)
+**TWO SEPARATE HANNAS (both powered by Hermes Agent):**
+1. **Private Hanna** - Tyshawn's personal tutor via Hermes WebUI (supabase_private:5434)
+2. **Public Hanna** - Community assistant via afromations-frontend (supabase_public:5433)
 
 ---
 
@@ -184,26 +187,28 @@ Save to: `database/seeds/lessons/month{X}/day{XX}.json`
 
 **Private Hanna (Tyshawn):**
 - Database: supabase_private (port 5434)
-- PI Agent with full memory
+- Hermes Agent with full memory
 - No rate limits
 - Access to all projects, lessons, personal data
 
 **Public Hanna (Community):**
 - Database: supabase_public (port 5433)
-- PI Agent with NO memory
+- Hermes Agent with NO memory
 - Rate limit: 5 msgs/day (free), unlimited (premium)
 - NO access to personal data
 
 **Implementation:**
 ```typescript
-// private-hanna.ts
-const privateHanna = new PIAgent({
+// private-hanna.ts — Hermes Agent with full memory
+const privateHanna = new HermesAgent({
+  gateway: { url: "http://synthia-gateway:3000/v1" },
   database: { host: "31.220.58.212", port: 5434 },
   memory: { enabled: true, userId: "tyshawn" }
 });
 
-// public-hanna.ts
-const publicHanna = new PIAgent({
+// public-hanna.ts — Hermes Agent, no memory, rate limited
+const publicHanna = new HermesAgent({
+  gateway: { url: "http://synthia-gateway:3000/v1" },
   database: { host: "31.220.58.212", port: 5433 },
   memory: { enabled: false },
   rateLimits: { free: { messagesPerDay: 5 } }

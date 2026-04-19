@@ -45,6 +45,19 @@ This document maps workspace folders to named skills and API capabilities.
 | `synthia-backend` | `synthia/` | Supabase schema, UDEC audits, circuit breakers |
 | `agent-orchestration` | `hanna-backend/` | Multi-agent workspace (Alpha/Beta/Gamma teams) |
 | `n8n-workflows` | `n8n-workflows/` | Automation workflows (StoryToolkitAI) |
+| `hermes-agent` | `vendors/hermes-agent/` | Hanna's AI brain — autonomous, persistent memory, self-improving skills |
+| `synthia-gateway` | `vendors/synthia-gateway/` | BYOK LLM proxy — routes to OpenAI/Anthropic/Groq/Mistral/Together/Ollama |
+| `hermes-webui` | `vendors/hermes-webui/` | 4-quadrant dashboard: Chat, Create, Learn, Gallery |
+| `browser-harness` | `vendors/browser-harness/` | CDP-based web automation, self-healing, domain skills |
+
+### MCP Servers (hanna-backend/tools/)
+| Skill | Source | Description |
+|-------|--------|-------------|
+| `openmontage-mcp` | `hanna-backend/tools/openmontage-mcp/` | Video production: projects, scenes, timelines, rendering |
+| `manga-creator-mcp` | `hanna-backend/tools/manga-creator-mcp/` | RTL manga: pages, panels, text bubbles, PDF export |
+| `blender-mcp` | `hanna-backend/tools/blender-mcp/` | Anime avatar, Kupuri shader, Eevee/Cycles, GLB export |
+| `character-creator-mcp` | `hanna-backend/tools/character-creator-mcp/` | CC4 templates, customization, FBX/GLB export |
+| `browser-mcp` | `hanna-backend/tools/browser-mcp/` | Navigate, screenshot, click, fill, extract via CDP |
 
 ## API Endpoints
 
@@ -73,16 +86,28 @@ AFROMATIONS/
 ├── hanna-backend/           ← Agent Hanna API + orchestration (Cloudflare Workers)
 │   ├── api/                 ← Hono API server
 │   ├── shared/memory/       ← Agent conversation logs
+│   ├── tools/               ← MCP servers (6 total)
+│   │   ├── openmontage-mcp/ ← Video production
+│   │   ├── manga-creator-mcp/ ← RTL manga generation
+│   │   ├── blender-mcp/    ← Anime avatar + 3D rendering
+│   │   ├── character-creator-mcp/ ← CC4 integration
+│   │   └── browser-mcp/    ← Browser automation
 │   └── .mcp.json            ← MCP server connections
-├── vendors/                 ← Cloned reference repos
-│   ├── claudeclaw/          ← Agent Hermes template (rebranded → Hanna)
-│   ├── cinematic-site-components/  ← 30 animation modules
+├── vendors/                 ← Cloned reference + core repos
+│   ├── hermes-agent/        ← CORE: Hanna's AI brain (NousResearch)
+│   ├── hermes-webui/        ← CORE: 4-quadrant dashboard
+│   ├── synthia-gateway/     ← CORE: BYOK LLM proxy
+│   ├── browser-harness/     ← CORE: CDP web automation
+│   ├── openmontage/         ← CORE: Agentic video engine
+│   ├── claudeclaw/          ← Agent template reference
+│   ├── cinematic-site-components/  ← 33 animation modules (GSAP)
 │   └── blog/                ← Next.js blog base
 ├── synthia/                 ← SYNTHIA 3.0 backend schemas
 ├── anime-captcha/           ← SvelteKit captcha component
 ├── annict/                  ← Ruby anime tracker reference
 ├── free manga/              ← Next.js manga reader reference
 ├── n8n-workflows/           ← Automation workflows
+├── docker-compose.yml       ← Hermes Agent + WebUI + Synthia Gateway stack
 ├── AFROMATIONS/Website/     ← Existing assets (logos, audio, videos, DUO images)
 └── ANIMATION & 3D/          ← Character Creator 4, Reallusion templates
 ```
