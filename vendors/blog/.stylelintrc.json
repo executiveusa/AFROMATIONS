@@ -1,8 +1,0 @@
-{
-  "extends": "@dg-scripts/stylelint-config",
-  "rules": {
-    "import-notation": [
-      "string"
-    ]
-  }
-}

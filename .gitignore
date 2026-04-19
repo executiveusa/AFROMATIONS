@@ -250,3 +250,6 @@ n8n-workflows/StoryToolkitAI-main/**/*.asm
 .env.*
 .env*.local
 !**/*.env.example
+
+# Vendor repos (cloned via scripts/clone-vendors.sh)
+vendors/
