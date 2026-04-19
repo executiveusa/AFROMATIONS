@@ -17,15 +17,19 @@ services:
     container_name: hermes-agent
     restart: unless-stopped
     environment:
-      - HERMES_BOT_NAME=Hanna
-      - HERMES_BASE_URL=http://synthia-gateway:3000/v1
-      - HERMES_MEMORY_ENABLED=true
-      - HERMES_SKILLS_DIR=/app/skills
+      - HERMES_HOME=/opt/data
+      - HERMES_UID=10000
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SUPABASE_URL=${SUPABASE_URL:-}
+      - SUPABASE_KEY=${SUPABASE_KEY:-}
     volumes:
-      - hermes-data:/app/data
-      - hermes-skills:/app/skills
-      - ./hanna-backend/SOUL.md:/app/SOUL.md:ro
-      - ./hanna-backend/USER.md:/app/USER.md:ro
+      - hermes-data:/opt/data
+      - hermes-skills:/opt/data/skills
+      - ./hanna-backend/tools/hermes-config/cli-config.yaml:/opt/data/cli-config.yaml:ro
+      - ./hanna-backend/SOUL.md:/opt/data/SOUL.md:ro
+      - ./hanna-backend/USER.md:/opt/data/USER.md:ro
+      - ./:/workspace:ro
     networks:
       - afromations
     depends_on:
