@@ -15,3 +15,4 @@ crons = ["0 */48 * * *", "0 8 * * *"]
 # SUPABASE_SERVICE_KEY
 # GOOGLE_TRENDS_API_KEY
 # GEMINI_API_KEY
+# FIRECRAWL_API_KEY  ← get your key at https://firecrawl.dev
