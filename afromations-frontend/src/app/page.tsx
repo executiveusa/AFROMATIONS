@@ -9,14 +9,30 @@ import { CommunitySection } from '@/components/community-section'
 import { Footer } from '@/components/footer'
 import { Navbar } from '@/components/navbar'
 import { HannaChat } from '@/components/hanna-chat'
+import { CinematicIntro } from '@/components/cinematic-intro'
+import { KineticMarquee } from '@/components/kinetic-marquee'
+
+const MARQUEE_WORDS = [
+  'AFROMATIONS',
+  'DUO',
+  'Anime',
+  'Culture',
+  'Create',
+  '花',
+  'Studio',
+  'Spirit',
+]
 
 export default function Home() {
   return (
     <main>
+      <CinematicIntro />
       <Navbar />
       <HeroSection />
+      <KineticMarquee items={MARQUEE_WORDS} speed={25} className="border-t border-white/5 py-10" />
       <HannaFeature />
       <StudioShowcase />
+      <KineticMarquee items={MARQUEE_WORDS} speed={20} reverse className="border-t border-white/5 py-8" />
       <GallerySection />
       <AnimeQuoteCarousel />
       <EducationSection />

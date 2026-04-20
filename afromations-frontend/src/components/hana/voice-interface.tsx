@@ -2,6 +2,9 @@
 
 import { useEffect, useState, useRef } from 'react'
 
+// Web Speech API types (not in default TS lib)
+type SpeechRecognitionType = typeof window extends { SpeechRecognition: infer T } ? T : any
+
 interface VoiceInterfaceProps {
   prompt: string // Japanese text to speak for reference
   onRecordingComplete: (audioUrl: string, transcription: string) => void
@@ -17,7 +20,7 @@ export function VoiceInterface({
   const [transcript, setTranscript] = useState('')
   const [isBrowserSupported, setIsBrowserSupported] = useState(true)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  const recognitionRef = useRef<any>(null)
   const audioChunksRef = useRef<Blob[]>([])
 
   // Initialize Web Speech API on mount
@@ -126,8 +129,8 @@ export function VoiceInterface({
 
   if (!isBrowserSupported) {
     return (
-      <div className="p-4 bg-[var(--af-red)]/10 border border-[var(--af-red)]/30 rounded">
-        <p className="text-[var(--af-red)] text-sm">
+      <div className="p-4 bg-(--af-red)/10 border border-(--af-red)/30 rounded-sm">
+        <p className="text-(--af-red) text-sm">
           Your browser doesn't support voice recording. Please use a modern browser like Chrome, Firefox, or Edge.
         </p>
       </div>
@@ -137,45 +140,44 @@ export function VoiceInterface({
   return (
     <div className="space-y-4">
       {/* Reference text (what they should say) */}
-      <div className="p-4 bg-[var(--af-grey-mid)]/50 border border-[var(--af-grey-light)]/20 rounded">
-        <p className="text-xs font-semibold text-[var(--af-grey-light)] mb-2 uppercase tracking-wider">
+      <div className="p-4 bg-(--af-grey-mid)/50 border border-white/10 rounded-sm">
+        <p className="text-xs font-semibold text-(--af-grey-light) mb-2 uppercase tracking-wider">
           Say this:
         </p>
-        <p className="text-lg font-semibold text-[var(--af-cream)]">{prompt}</p>
+        <p className="text-lg font-semibold text-(--af-cream)">{prompt}</p>
       </div>
 
       {/* Recording button */}
       <div className="flex gap-3 items-center">
         <button
           onClick={toggleRecording}
-          className={`flex-1 py-3 px-4 rounded font-semibold text-sm tracking-wider transition-all ${
+          className={`flex-1 py-3 px-4 rounded-sm font-semibold text-sm tracking-wider transition-colors ${
             isRecording
-              ? 'bg-red-600 hover:bg-red-700 text-white animate-pulse'
-              : 'bg-[var(--af-red)] hover:bg-[var(--af-red-dark)] text-[var(--af-cream)]'
+              ? 'bg-red-600 hover:bg-red-700 text-white'
+              : 'bg-(--af-red) hover:bg-(--af-red-dark) text-(--af-cream)'
           }`}
         >
-          {isRecording ? '⏹ Stop Recording' : '🎤 Start Recording'}
+          {isRecording ? 'Stop Recording' : 'Start Recording'}
         </button>
 
         {isRecording && (
           <div className="flex gap-1 items-center">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-xs text-[var(--af-grey-light)]">Recording...</span>
+            <div className="w-2 h-2 rounded-full bg-red-500 chat-dot" />
+            <span className="text-xs text-(--af-grey-light)">Recording...</span>
           </div>
         )}
       </div>
 
       {/* Live transcript */}
       {transcript && (
-        <div className="p-3 bg-[var(--af-grey-mid)]/50 border border-green-500/30 rounded">
+        <div className="p-3 bg-(--af-grey-mid)/50 border border-green-500/30 rounded-sm">
           <p className="text-xs font-semibold text-green-400 mb-1">Transcript:</p>
-          <p className="text-sm text-[var(--af-cream)]">{transcript}</p>
+          <p className="text-sm text-(--af-cream)">{transcript}</p>
         </div>
       )}
 
-      {/* Info */}
-      <p className="text-xs text-[var(--af-grey-light)]">
-        💡 Speak clearly and naturally. Agent Hana will evaluate your pronunciation, grammar, and fluency.
+      <p className="text-xs text-(--af-grey-light)">
+        Speak clearly and naturally. Agent Hana will evaluate your pronunciation, grammar, and fluency.
       </p>
     </div>
   )

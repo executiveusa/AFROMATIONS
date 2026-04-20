@@ -1,12 +1,23 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import { useI18n } from '@/lib/i18n'
 
 export function StudioShowcase() {
   const ref = useRef<HTMLElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
   const { t } = useI18n()
+
+  /* Spotlight border — tracks cursor across the grid */
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const cards = gridRef.current?.querySelectorAll<HTMLDivElement>('.spot-card')
+    cards?.forEach((card) => {
+      const rect = card.getBoundingClientRect()
+      card.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+      card.style.setProperty('--my', `${e.clientY - rect.top}px`)
+    })
+  }, [])
 
   const showcaseItems = [
     {
@@ -54,12 +65,16 @@ export function StudioShowcase() {
           {t('studio.title')}
         </h2>
 
-        <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-3">
+        <div
+          ref={gridRef}
+          onMouseMove={handleMouseMove}
+          className="mt-8 grid gap-px overflow-hidden rounded-sm border border-white/5 bg-white/5 sm:mt-12 md:grid-cols-3"
+        >
           {showcaseItems.map((item, i) => (
             <div
               key={item.tag}
               className={`
-                group relative overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) p-6 sm:p-8
+                spot-card group relative overflow-hidden bg-(--af-grey) p-6 sm:p-8
                 transition-all duration-500
                 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
               `}

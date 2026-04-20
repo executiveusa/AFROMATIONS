@@ -47,29 +47,26 @@ export function AgeGate({ onAgeVerified }: AgeGateProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
       <div className="relative max-w-md w-full mx-4">
-        {/* Card */}
-        <div className="bg-[var(--af-grey)] border border-[var(--af-red)]/30 rounded-lg p-8">
-          {/* Header */}
+        <div className="bg-(--af-grey) border border-(--af-red)/30 rounded-sm p-8">
           <div className="mb-6">
             <h1
-              className="text-3xl font-bold text-[var(--af-cream)] mb-2"
+              className="text-3xl font-bold text-(--af-cream) mb-2"
               style={{ fontFamily: 'Sora, sans-serif' }}
             >
               Agent Hana
             </h1>
-            <p className="text-[var(--af-grey-light)] text-sm">
+            <p className="text-(--af-grey-light) text-sm">
               21+ Only
             </p>
           </div>
 
-          {/* Content */}
           <div className="mb-6">
-            <p className="text-[var(--af-cream)] text-sm leading-relaxed mb-4">
+            <p className="text-(--af-cream) text-sm leading-relaxed mb-4">
               Agent Hana is an adult-only learning companion for serious students of Japanese language and culture.
             </p>
-            <p className="text-[var(--af-cream)] text-sm leading-relaxed">
+            <p className="text-(--af-cream) text-sm leading-relaxed">
               To proceed, please verify that you are 21 years or older.
             </p>
           </div>
@@ -79,7 +76,7 @@ export function AgeGate({ onAgeVerified }: AgeGateProps) {
             <div>
               <label
                 htmlFor="birthDate"
-                className="block text-xs font-semibold tracking-wider text-[var(--af-red)] mb-2 uppercase"
+                className="block text-xs font-semibold tracking-wider text-(--af-red) mb-2 uppercase"
               >
                 Birth Date
               </label>
@@ -88,19 +85,19 @@ export function AgeGate({ onAgeVerified }: AgeGateProps) {
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-2 bg-black/40 border border-[var(--af-grey-light)]/20 rounded text-[var(--af-cream)] placeholder-[var(--af-grey-light)] focus:outline-none focus:border-[var(--af-red)] transition-colors"
+                className="w-full px-4 py-2 bg-black/40 border border-white/10 rounded-sm text-(--af-cream) placeholder:text-(--af-grey-light) focus:outline-none focus:border-(--af-red) transition-colors"
               />
             </div>
 
             {error && (
-              <div className="bg-[var(--af-red)]/10 border border-[var(--af-red)]/30 rounded px-3 py-2">
-                <p className="text-[var(--af-red)] text-sm">{error}</p>
+              <div className="bg-(--af-red)/10 border border-(--af-red)/30 rounded-sm px-3 py-2">
+                <p className="text-(--af-red) text-sm">{error}</p>
               </div>
             )}
 
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-[var(--af-red)] text-[var(--af-cream)] font-semibold text-sm tracking-wider rounded transition-colors hover:bg-[var(--af-red-dark)] disabled:opacity-50"
+              className="w-full py-2 px-4 bg-(--af-red) text-(--af-cream) font-semibold text-sm tracking-wider rounded-sm transition-colors hover:bg-(--af-red-dark) disabled:opacity-50"
               disabled={submitted && !!error}
             >
               Verify Age & Continue
@@ -108,8 +105,8 @@ export function AgeGate({ onAgeVerified }: AgeGateProps) {
           </form>
 
           {/* Footer */}
-          <div className="mt-6 pt-6 border-t border-[var(--af-grey-mid)]">
-            <p className="text-[var(--af-grey-light)] text-xs text-center">
+          <div className="mt-6 pt-6 border-t border-white/5">
+            <p className="text-(--af-grey-light) text-xs text-center">
               Your birth date is verified locally and never sent to servers.
             </p>
           </div>

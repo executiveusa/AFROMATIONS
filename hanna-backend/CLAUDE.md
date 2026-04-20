@@ -78,6 +78,7 @@ Safe operations (reading, searching, building, testing, rendering) — just do i
 | `POST /api/blog/generate` | Generate anime trend article |
 | `GET  /api/blog/trends` | Get current anime trends |
 | `GET  /api/health` | Health check |
+| `GET  /dashboard`  | Admin control panel (HTML app with Hanna chatbot) |
 
 ## Context Recovery
 

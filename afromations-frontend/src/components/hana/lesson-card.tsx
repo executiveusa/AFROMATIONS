@@ -27,16 +27,16 @@ const difficultyColors: Record<string, string> = {
   advanced: 'bg-red-900/30 text-red-300 border-red-500/30',
 }
 
-const typeEmojis: Record<string, string> = {
-  vocabulary: '📚',
-  grammar: '⚙️',
-  culture: '🌸',
-  folklore: '👻',
-  listening: '👂',
-  speaking: '🗣️',
-  reading: '📖',
-  writing: '✍️',
-  conversation: '💬',
+const typeLabels: Record<string, string> = {
+  vocabulary: 'Vocab',
+  grammar: 'Grammar',
+  culture: 'Culture',
+  folklore: 'Folklore',
+  listening: 'Listening',
+  speaking: 'Speaking',
+  reading: 'Reading',
+  writing: 'Writing',
+  conversation: 'Conversation',
 }
 
 export function LessonCard({
@@ -51,29 +51,30 @@ export function LessonCard({
   progress,
 }: LessonCardProps) {
   const difficultyClass = difficultyColors[difficulty] || difficultyColors.n5
-  const emoji = typeEmojis[type] || '📝'
+  const typeLabel = typeLabels[type] || type
   const isComplete = progress?.mastered ?? false
 
   return (
     <Link href={`/learn/${id}`}>
-      <div className="group cursor-pointer border border-[var(--af-grey-mid)] rounded-lg overflow-hidden bg-[var(--af-grey)]/50 hover:border-[var(--af-red)]/50 hover:bg-[var(--af-grey)] transition-all h-full">
+      <div className="group cursor-pointer border border-white/5 rounded-sm overflow-hidden bg-(--af-grey) hover:border-(--af-red)/50 transition-colors h-full">
         {/* Cover image or placeholder */}
-        <div className="aspect-video bg-gradient-to-br from-[var(--af-red)]/10 to-[var(--af-grey-mid)] relative overflow-hidden">
+        <div className="aspect-video bg-(--af-grey-mid) relative overflow-hidden">
           {coverImageUrl ? (
             <img
               src={coverImageUrl}
               alt={titleEn}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-5xl opacity-30">
-              {emoji}
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-sm tracking-wider uppercase text-(--af-grey-light)">
+                {typeLabel}
+              </span>
             </div>
           )}
 
-          {/* Mastery badge */}
           {isComplete && (
-            <div className="absolute top-2 right-2 bg-green-500/80 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+            <div className="absolute top-2 right-2 bg-green-500/80 text-white rounded-sm w-6 h-6 flex items-center justify-center text-xs font-bold">
               ✓
             </div>
           )}
@@ -81,39 +82,28 @@ export function LessonCard({
 
         {/* Content */}
         <div className="p-4 space-y-3">
-          {/* Japanese title */}
-          <div className="text-lg font-semibold text-[var(--af-cream)] leading-tight">
+          <div className="text-lg font-semibold text-(--af-cream) leading-tight">
             {titleJa}
           </div>
-
-          {/* English title */}
-          <div className="text-sm text-[var(--af-grey-light)]">
+          <div className="text-sm text-(--af-grey-light)">
             {titleEn}
           </div>
 
-          {/* Badges */}
           <div className="flex flex-wrap gap-2">
-            {/* Difficulty */}
-            <span
-              className={`text-xs font-semibold px-2 py-1 rounded border ${difficultyClass}`}
-            >
+            <span className={`text-xs font-semibold px-2 py-1 rounded-sm border ${difficultyClass}`}>
               {difficulty.toUpperCase()}
             </span>
-
-            {/* Type */}
-            <span className="text-xs font-semibold px-2 py-1 rounded border border-[var(--af-grey-light)]/20 text-[var(--af-grey-light)] bg-black/20">
-              {emoji} {type}
+            <span className="text-xs font-semibold px-2 py-1 rounded-sm border border-white/10 text-(--af-grey-light)">
+              {typeLabel}
             </span>
           </div>
 
-          {/* Footer */}
-          <div className="flex items-center justify-between pt-2 border-t border-[var(--af-grey-mid)]">
-            <span className="text-xs text-[var(--af-grey-light)]">
+          <div className="flex items-center justify-between pt-2 border-t border-white/5">
+            <span className="text-xs text-(--af-grey-light)">
               {durationMinutes} min
             </span>
-
             {progress && (
-              <span className="text-xs text-[var(--af-grey-light)]">
+              <span className="text-xs text-(--af-grey-light)">
                 {progress.score ? `${Math.round(progress.score)}%` : 'Not started'}
               </span>
             )}

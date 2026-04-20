@@ -20,16 +20,20 @@ This document maps workspace folders to named skills and API capabilities.
 | `community-digest` | `hanna-backend/cron-registry.json` | Weekly community digest scheduling |
 
 ### Frontend Components
-| Skill | Source | Description |
-|-------|--------|-------------|
-| `cinematic-animations` | `vendors/cinematic-site-components/` | 30 vanilla JS animation modules (GSAP) |
-| `text-scramble` | `vendors/cinematic-site-components/02-text-scramble/` | Katakana text scramble effect |
-| `cursor-reactive` | `vendors/cinematic-site-components/03-cursor-reactive/` | Magnetic cursor interactions |
-| `zoom-parallax` | `vendors/cinematic-site-components/06-zoom-parallax/` | Parallax scroll zoom |
-| `particle-button` | `vendors/cinematic-site-components/14-particle-button/` | Disintegration button effect |
-| `mesh-gradient` | `vendors/cinematic-site-components/18-mesh-gradient/` | Animated mesh gradient backgrounds |
-| `kinetic-marquee` | `vendors/cinematic-site-components/21-kinetic-marquee/` | Kinetic text marquee scroll |
-| `glitch-effect` | `vendors/cinematic-site-components/15-glitch-effect/` | Anime glitch transition |
+| Skill | Source | Status | Description |
+|-------|--------|--------|-------------|
+| `cinematic-animations` | `vendors/cinematic-site-components/` | REFERENCE | 30 vanilla JS animation modules (GSAP) |
+| `text-scramble` | `afromations-frontend/src/components/hero-section.tsx` | **ACTIVE** | Katakana text scramble on hero heading + cinematic intro |
+| `cursor-reactive` | `afromations-frontend/src/components/studio-showcase.tsx` | **ACTIVE** | Spotlight border grid tracks cursor across cards |
+| `zoom-parallax` | `vendors/cinematic-site-components/06-zoom-parallax/` | REFERENCE | Parallax scroll zoom |
+| `particle-button` | `afromations-frontend/src/components/cinematic-intro.tsx` | **ACTIVE** | Canvas spark particles on intro |
+| `mesh-gradient` | `vendors/cinematic-site-components/18-mesh-gradient/` | REFERENCE | Animated mesh gradient backgrounds |
+| `kinetic-marquee` | `afromations-frontend/src/components/kinetic-marquee.tsx` | **ACTIVE** | Kinetic text marquee between sections |
+| `glitch-effect` | `vendors/cinematic-site-components/15-glitch-effect/` | REFERENCE | Anime glitch transition |
+| `cinematic-intro` | `afromations-frontend/src/components/cinematic-intro.tsx` | **ACTIVE** | Full-screen intro: gears, sparks, text scramble, smoke dissolve |
+| `scroll-reveal` | `afromations-frontend/src/components/scroll-reveal.tsx` | **ACTIVE** | IntersectionObserver data-reveal system |
+| `tegaki-handwriting` | `afromations-frontend/src/components/tegaki-text.tsx` | **ACTIVE** | Hand-drawn text via tegaki library |
+| `spotlight-border` | `afromations-frontend/src/app/globals.css` | **ACTIVE** | CSS spotlight glow tracking cursor on card grids |
 
 ### Reference Codebases
 | Skill | Source | Description |
@@ -77,6 +81,7 @@ This document maps workspace folders to named skills and API capabilities.
 | POST | `/trends/scan` | Trigger trend scan |
 | GET | `/gallery` | List gallery assets |
 | GET | `/gallery/:id` | Get single asset |
+| GET | `/dashboard` | Admin dashboard (Hanna control + chatbot) |
 
 ## Folder Organization
 

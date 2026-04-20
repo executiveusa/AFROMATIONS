@@ -95,7 +95,7 @@ export function HannaChat() {
       {/* Chat panel */}
       <div
         className={cn(
-          'fixed bottom-20 right-6 z-50 flex w-80 flex-col overflow-hidden rounded-sm border border-white/10 bg-(--af-black) shadow-2xl transition-all duration-300 sm:w-96',
+          'fixed bottom-20 right-6 z-50 flex w-80 flex-col overflow-hidden rounded-sm border border-white/10 bg-(--af-black) shadow-md transition-all duration-300 sm:w-96',
           open ? 'h-112 opacity-100 translate-y-0' : 'h-0 opacity-0 translate-y-4 pointer-events-none'
         )}
       >
@@ -143,9 +143,9 @@ export function HannaChat() {
           ))}
           {loading && (
             <div className="flex gap-1 px-3 py-2">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-(--af-grey-light)" />
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-(--af-grey-light) [animation-delay:150ms]" />
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-(--af-grey-light) [animation-delay:300ms]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-(--af-grey-light) chat-dot" />
+              <span className="h-1.5 w-1.5 rounded-full bg-(--af-grey-light) chat-dot" style={{ animationDelay: '150ms' }} />
+              <span className="h-1.5 w-1.5 rounded-full bg-(--af-grey-light) chat-dot" style={{ animationDelay: '300ms' }} />
             </div>
           )}
         </div>

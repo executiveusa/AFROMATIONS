@@ -8,6 +8,7 @@ import { hanaAssessRoutes } from './routes/hana-assess'
 import { hanaWikiRoutes } from './routes/hana-wiki'
 import { hanaMangaRoutes } from './routes/hana-manga'
 import { hanaAdminRoutes } from './routes/hana-admin'
+import { dashboardRoutes } from './routes/dashboard'
 import { blogRoutes } from './routes/blog'
 import { trendsRoutes } from './routes/trends'
 import { galleryRoutes } from './routes/gallery'
@@ -67,6 +68,9 @@ app.route('/api/hana', hanaAdminRoutes)
 app.route('/api/blog', blogRoutes)
 app.route('/api/trends', trendsRoutes)
 app.route('/api/gallery', galleryRoutes)
+
+// Dashboard — Admin control panel
+app.route('/dashboard', dashboardRoutes)
 
 // 404
 app.notFound((c) => c.json({ error: 'Not found' }, 404))
