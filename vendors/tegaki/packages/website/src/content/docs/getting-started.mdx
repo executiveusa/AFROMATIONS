@@ -1,0 +1,164 @@
+---
+title: Getting Started
+description: Install Tegaki and render your first handwriting animation.
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import InstallTabs from '../../components/InstallTabs.astro';
+
+Tegaki generates stroke data from any font and renders beautiful handwriting animations. It works with React, Svelte, Vue, SolidJS, Astro, Web Components, or vanilla JavaScript.
+
+## Installation
+
+<InstallTabs />
+
+## Quick Start
+
+<Steps>
+
+1. **Pick a font bundle**
+
+   Use one of the built-in font bundles:
+
+   ```tsx
+   import bundle from 'tegaki/fonts/caveat';
+   ```
+
+   Built-in fonts: `caveat`, `italianno`, `tangerine`, `parisienne`.
+
+   Want a different font? Use the [interactive generator](/tegaki/generator/) to create stroke data for any Google Font, then import the downloaded bundle instead:
+
+   ```tsx
+   import bundle from './output/my-font/bundle';
+   ```
+
+2. **Render the animation**
+
+   Import the component for your framework and pass the font bundle:
+
+   <Tabs>
+     <TabItem label="React">
+       ```tsx
+       import { TegakiRenderer } from 'tegaki';
+       import bundle from 'tegaki/fonts/caveat';
+
+       function App() {
+         return (
+           <TegakiRenderer
+             font={bundle}
+             time={{ mode: 'uncontrolled', speed: 1, loop: true }}
+             style={{ fontSize: 48 }}
+           >
+             Hello World
+           </TegakiRenderer>
+         );
+       }
+       ```
+     </TabItem>
+     <TabItem label="Svelte">
+       ```svelte
+       <script>
+         import { TegakiRenderer } from 'tegaki/svelte';
+         import bundle from 'tegaki/fonts/caveat';
+       </script>
+
+       <TegakiRenderer
+         font={bundle}
+         text="Hello World"
+         time={{ mode: 'uncontrolled', speed: 1, loop: true }}
+         style="font-size: 48px"
+       />
+       ```
+     </TabItem>
+     <TabItem label="Vue">
+       ```vue
+       <script setup>
+       import { TegakiRenderer } from 'tegaki/vue';
+       import bundle from 'tegaki/fonts/caveat';
+       </script>
+
+       <template>
+         <TegakiRenderer
+           :font="bundle"
+           text="Hello World"
+           :time="{ mode: 'uncontrolled', speed: 1, loop: true }"
+           :style="{ fontSize: '48px' }"
+         />
+       </template>
+       ```
+     </TabItem>
+     <TabItem label="SolidJS">
+       ```tsx
+       import { TegakiRenderer } from 'tegaki/solid';
+       import bundle from 'tegaki/fonts/caveat';
+
+       function App() {
+         return (
+           <TegakiRenderer
+             font={bundle}
+             text="Hello World"
+             time={{ mode: 'uncontrolled', speed: 1, loop: true }}
+             style={{ 'font-size': '48px' }}
+           />
+         );
+       }
+       ```
+     </TabItem>
+     <TabItem label="Astro">
+       ```astro
+       ---
+       import { TegakiRenderer } from 'tegaki/astro';
+       import bundle from 'tegaki/fonts/caveat';
+       ---
+
+       <TegakiRenderer
+         font={bundle}
+         text="Hello World"
+         time={{ mode: 'uncontrolled', speed: 1, loop: true }}
+         style="font-size: 48px"
+       />
+       ```
+     </TabItem>
+     <TabItem label="Web Components">
+       ```html
+       <tegaki-renderer
+         font="Caveat"
+         text="Hello World"
+         loop
+         style="font-size: 48px"
+       ></tegaki-renderer>
+
+       <script type="module">
+         import { registerTegakiElement, TegakiEngine } from 'tegaki/wc';
+         import bundle from 'tegaki/fonts/caveat';
+
+         TegakiEngine.registerBundle(bundle);
+         registerTegakiElement();
+       </script>
+       ```
+     </TabItem>
+     <TabItem label="Vanilla JS">
+       ```html
+       <div id="tegaki" style="font-size: 48px"></div>
+       <script type="module">
+         import { TegakiEngine } from 'tegaki/core';
+         import bundle from 'tegaki/fonts/caveat';
+
+         new TegakiEngine(document.getElementById('tegaki'), {
+           text: 'Hello World',
+           font: bundle,
+           time: { mode: 'uncontrolled', speed: 1, loop: true },
+         });
+       </script>
+       ```
+     </TabItem>
+   </Tabs>
+
+</Steps>
+
+## What's next?
+
+- [Framework guides](/tegaki/frameworks/react/) — detailed usage for React, Svelte, Vue, SolidJS, Astro, Web Components, and vanilla JS
+- [Generating Font Data](/tegaki/guides/generating/) — learn about pipeline options and customization
+- [Rendering Animations](/tegaki/guides/rendering/) — control timing, effects, and rendering modes
+- [Generator Tool](/tegaki/generator/) — try the interactive generator

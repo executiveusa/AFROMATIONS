@@ -1,0 +1,306 @@
+---
+title: Web Components
+description: Using Tegaki as a custom element with the Web Components API.
+---
+
+import InstallTabs from '../../../components/InstallTabs.astro';
+import LiveDemo from '../../../components/wc/LiveDemo.astro';
+import LiveDemoControlled from '../../../components/wc/LiveDemoControlled.astro';
+
+Tegaki provides a `<tegaki-renderer>` custom element that works in any browser — no framework required.
+
+## Installation
+
+<InstallTabs />
+
+## Setup
+
+Register the custom element once, before using it in HTML:
+
+```js
+import { registerTegakiElement, TegakiEngine } from 'tegaki/wc';
+import caveat from 'tegaki/fonts/caveat';
+
+// Register the font bundle so the element can find it by name
+TegakiEngine.registerBundle(caveat);
+
+// Register the <tegaki-renderer> custom element
+registerTegakiElement();
+```
+
+## Using via CDN
+
+You can use Tegaki directly from a CDN without any build tools or package manager. This is the fastest way to get started — just add a `<script>` tag to any HTML page.
+
+### esm.sh (recommended)
+
+[esm.sh](https://esm.sh) serves npm packages as ES modules and bundles dependencies automatically:
+
+```html
+<tegaki-renderer font="Caveat" text="Hello from a CDN!" loop style="font-size: 48px">
+</tegaki-renderer>
+
+<script type="module">
+  import { registerTegakiElement, TegakiEngine } from 'https://esm.sh/tegaki/wc';
+  import caveat from 'https://esm.sh/tegaki/fonts/caveat';
+
+  TegakiEngine.registerBundle(caveat);
+  registerTegakiElement();
+</script>
+```
+
+To pin a specific version, add it to the URL:
+
+```js
+import { registerTegakiElement, TegakiEngine } from 'https://esm.sh/tegaki@0.8.0/wc';
+import caveat from 'https://esm.sh/tegaki@0.8.0/fonts/caveat';
+```
+
+### jsDelivr
+
+[jsDelivr](https://www.jsdelivr.com/) can serve package files directly via its ESM endpoint:
+
+```html
+<script type="module">
+  import { registerTegakiElement, TegakiEngine } from 'https://esm.run/tegaki/wc';
+  import caveat from 'https://esm.run/tegaki/fonts/caveat';
+
+  TegakiEngine.registerBundle(caveat);
+  registerTegakiElement();
+</script>
+```
+
+:::note
+`esm.run` is jsDelivr's ESM-specific domain. It resolves package exports and bundles dependencies automatically, just like esm.sh.
+:::
+
+### Import maps
+
+For cleaner imports, use an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap) to map bare specifiers to CDN URLs:
+
+```html
+<script type="importmap">
+{
+  "imports": {
+    "tegaki/wc": "https://esm.sh/tegaki/wc",
+    "tegaki/fonts/caveat": "https://esm.sh/tegaki/fonts/caveat"
+  }
+}
+</script>
+
+<tegaki-renderer font="Caveat" text="Hello World" loop style="font-size: 48px">
+</tegaki-renderer>
+
+<script type="module">
+  import { registerTegakiElement, TegakiEngine } from 'tegaki/wc';
+  import caveat from 'tegaki/fonts/caveat';
+
+  TegakiEngine.registerBundle(caveat);
+  registerTegakiElement();
+</script>
+```
+
+This lets you write the same import paths you'd use with a bundler, while loading from the CDN at runtime.
+
+### Loading font data manually with `createBundle`
+
+If the pre-built font bundles don't work in your environment, or you want to load font data from a custom URL, use `createBundle` to assemble a bundle from its parts:
+
+```html
+<script type="module">
+  import { registerTegakiElement, TegakiEngine, createBundle } from 'https://esm.sh/tegaki/wc';
+
+  const caveat = createBundle({
+    family: 'Caveat',
+    fontUrl: 'https://cdn.jsdelivr.net/npm/tegaki/fonts/caveat/caveat.ttf',
+    glyphData: await fetch('https://cdn.jsdelivr.net/npm/tegaki/fonts/caveat/glyphData.json')
+      .then(r => r.json()),
+    unitsPerEm: 1000,
+    ascender: 960,
+    descender: -300,
+  });
+
+  TegakiEngine.registerBundle(caveat);
+  registerTegakiElement();
+</script>
+```
+
+This is also useful for loading custom font bundles generated with the [interactive generator](/tegaki/generator/).
+
+### Full standalone example
+
+Here's a complete HTML file you can save and open directly in a browser:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tegaki CDN Example</title>
+</head>
+<body>
+  <tegaki-renderer font="Caveat" text="Handwriting from a CDN!" loop style="font-size: 64px">
+  </tegaki-renderer>
+
+  <script type="module">
+    import { registerTegakiElement, TegakiEngine } from 'https://esm.sh/tegaki/wc';
+    import caveat from 'https://esm.sh/tegaki/fonts/caveat';
+
+    TegakiEngine.registerBundle(caveat);
+    registerTegakiElement();
+  </script>
+</body>
+</html>
+```
+
+## Basic example
+
+```html
+<tegaki-renderer font="Caveat" text="Hello World" style="font-size: 48px">
+</tegaki-renderer>
+```
+
+<LiveDemo text="Hello World" />
+
+The element uses Shadow DOM internally. Style the host element with `font-size` and `color` as usual — the renderer inherits them.
+
+## Text content
+
+You can set the text via the `text` attribute or as the element's text content:
+
+```html
+<!-- Via attribute -->
+<tegaki-renderer font="Caveat" text="Hello World"></tegaki-renderer>
+
+<!-- Via text content (attribute takes priority if both are set) -->
+<tegaki-renderer font="Caveat">Hello World</tegaki-renderer>
+```
+
+## Controlled time
+
+Set the `time` attribute to a number to control the animation manually:
+
+```html
+<tegaki-renderer id="tegaki" font="Caveat" text="Scrub me!" time="0">
+</tegaki-renderer>
+
+<input type="range" min="0" max="10" step="0.01" value="0"
+  oninput="document.getElementById('tegaki').setAttribute('time', this.value)" />
+```
+
+<LiveDemoControlled />
+
+## Playback attributes
+
+Control uncontrolled playback via attributes:
+
+```html
+<!-- Half speed, looping -->
+<tegaki-renderer font="Caveat" text="Slow loop" speed="0.5" loop>
+</tegaki-renderer>
+
+<!-- Paused initially -->
+<tegaki-renderer font="Caveat" text="Paused" playing="false">
+</tegaki-renderer>
+```
+
+## Effects
+
+Effects are objects and can't be expressed as attributes. Use the `effects` property instead:
+
+```js
+const el = document.querySelector('tegaki-renderer');
+
+el.effects = {
+  glow: { radius: 8, color: '#00ccff' },
+  pressureWidth: true,
+  strokeGradient: { colors: 'rainbow' },
+};
+```
+
+<LiveDemo
+  text="Fancy effects"
+  effects={{ glow: { radius: 8, color: '#00ccff' }, pressureWidth: true, strokeGradient: { colors: 'rainbow' } }}
+/>
+
+## Playback controls
+
+The element exposes playback methods and read-only properties:
+
+```js
+const el = document.querySelector('tegaki-renderer');
+
+el.play();
+el.pause();
+el.seek(1.5);    // jump to 1.5 seconds
+el.restart();
+
+el.currentTime;  // current playback time (seconds)
+el.duration;     // total animation duration (seconds)
+el.isPlaying;    // whether animation is running
+el.isComplete;   // whether animation has finished
+```
+
+## Accessing the engine
+
+For advanced use cases, the underlying `TegakiEngine` instance is available:
+
+```js
+const el = document.querySelector('tegaki-renderer');
+const engine = el.engine;
+
+engine.update({ timing: { charDuration: 0.5 } });
+```
+
+## CSS time mode
+
+Use `time="css"` to drive the animation from CSS custom properties:
+
+```html
+<tegaki-renderer font="Caveat" text="CSS driven" time="css">
+</tegaki-renderer>
+```
+
+See the [Rendering Animations](/tegaki/guides/rendering/#css-time-mode) guide for details.
+
+## Custom tag name
+
+Custom element names [must contain a hyphen](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name) per the HTML spec. The default is `tegaki-renderer`, but you can choose any valid name:
+
+```js
+registerTegakiElement('my-handwriting');
+```
+
+```html
+<my-handwriting font="Caveat" text="Custom tag!"></my-handwriting>
+```
+
+## Attributes reference
+
+| Attribute | Type | Description |
+|---|---|---|
+| `text` | `string` | Text to render. Falls back to `textContent` if not set. |
+| `font` | `string` | Registered bundle name (see `TegakiEngine.registerBundle`). |
+| `time` | `number \| "css"` | Controlled time in seconds, or `"css"` for CSS mode. Omit for uncontrolled. |
+| `speed` | `number` | Playback speed multiplier (default `1`). |
+| `playing` | `"true" \| "false"` | Whether animation is playing (default `true`). |
+| `loop` | _boolean attribute_ | Loop animation when it finishes. |
+| `pixel-ratio` | `number` | Supersampling factor on top of devicePixelRatio (shortcut for `quality.pixelRatio`). |
+| `segment-size` | `number` | Max drawn segment length in CSS pixels (shortcut for `quality.segmentSize`). |
+| `show-overlay` | _boolean attribute_ | Show debug text overlay. |
+
+## Properties reference
+
+These properties are set via JavaScript and support object values that can't be expressed as attributes:
+
+| Property | Type | Description |
+|---|---|---|
+| `font` | `TegakiBundle \| string` | Font bundle object or registered name. |
+| `effects` | `TegakiEffects` | Visual effects configuration. |
+| `timing` | `TimelineConfig` | Timeline timing configuration. |
+| `quality` | `TegakiQuality` | Render-quality knobs (`pixelRatio`, `segmentSize`). |
+| `onComplete` | `() => void` | Callback when animation completes. |
+| `engine` | `TegakiEngine` _(read-only)_ | The underlying engine instance. |
+
+For the full options reference, see the [TegakiRenderer API docs](/tegaki/api/renderer/).

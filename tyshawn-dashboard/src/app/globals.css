@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+/* AFROMATIONS — Tyshawn Dashboard Tokens */
+:root {
+  /* Brand */
+  --af-black:      #0a0a0a;
+  --af-grey:       #1a1a1a;
+  --af-grey-mid:   #2a2a2a;
+  --af-grey-light: #8a8a8a;
+  --af-cream:      #f5f0e8;
+  --af-red:        #c41e1e;
+  --af-red-dark:   #8b1515;
+  --af-gold:       #d4a017;
+  --af-teal:       #9bc1bc;
+
+  /* Quadrant accent colors */
+  --q-studio:      #6366f1;  /* indigo — 3D/creation */
+  --q-learn:       #10b981;  /* emerald — learning */
+  --q-analytics:   #f59e0b;  /* amber — insights */
+  --q-content:     #c41e1e;  /* red — content/brand */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--af-black);
+  color: var(--af-cream);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+}
+
+::selection {
+  background: var(--af-red);
+  color: var(--af-cream);
+}
+
+/* Large tap targets — Steve Krug: at least 48px */
+.btn-large {
+  min-height: 56px;
+  min-width: 56px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Grain overlay — subtle anime texture */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}

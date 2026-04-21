@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+      - run: bun i --frozen-lockfile
+      - run: bunx biome check
+
+  checks:
+    needs: format
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+      - run: bun i --frozen-lockfile
+      - run: bun check
+      - run: bun typecheck
+      - run: bun run test
+
+  e2e:
+    needs: checks
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - run: apt-get update && apt-get install -y unzip curl
+      - uses: oven-sh/setup-bun@v2
+      - run: bun i --frozen-lockfile
+      - name: Run Playwright
+        working-directory: packages/website
+        run: bun test:e2e
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: packages/website/playwright-report/
+          retention-days: 14
