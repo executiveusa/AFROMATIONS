@@ -8,15 +8,19 @@ import { hanaAssessRoutes } from './routes/hana-assess'
 import { hanaWikiRoutes } from './routes/hana-wiki'
 import { hanaMangaRoutes } from './routes/hana-manga'
 import { hanaAdminRoutes } from './routes/hana-admin'
+import { dashboardRoutes } from './routes/dashboard'
 import { blogRoutes } from './routes/blog'
 import { trendsRoutes } from './routes/trends'
 import { galleryRoutes } from './routes/gallery'
+import { handleScheduled } from './scheduled'
+import { hanaScrapeRoutes } from './routes/hana-scrape'
 
 type Bindings = {
   SUPABASE_URL: string
   SUPABASE_SERVICE_KEY: string
   GOOGLE_TRENDS_API_KEY: string
   GEMINI_API_KEY: string
+  FIRECRAWL_API_KEY: string
   STUDIO_NAME: string
   AGENT_NAME: string
 }
@@ -62,10 +66,16 @@ app.route('/api/hana', hanaWikiRoutes)
 app.route('/api/hana', hanaMangaRoutes)
 app.route('/api/hana', hanaAdminRoutes)
 
+// Routes — Hana Web Skills (scrape, search, youtube transcript, research)
+app.route('/api/hana', hanaScrapeRoutes)
+
 // Routes — Blog, Trends, Gallery
 app.route('/api/blog', blogRoutes)
 app.route('/api/trends', trendsRoutes)
 app.route('/api/gallery', galleryRoutes)
+
+// Dashboard — Admin control panel
+app.route('/dashboard', dashboardRoutes)
 
 // 404
 app.notFound((c) => c.json({ error: 'Not found' }, 404))
@@ -76,4 +86,7 @@ app.onError((err, c) => {
   return c.json({ error: 'Internal server error' }, 500)
 })
 
-export default app
+export default {
+  fetch: app.fetch,
+  scheduled: handleScheduled,
+}

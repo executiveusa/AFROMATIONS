@@ -6,8 +6,13 @@ compatibility_date = "2025-04-01"
 STUDIO_NAME = "AFROMATIONS Studios"
 AGENT_NAME = "Hanna"
 
+# Cron triggers — Google Trends scan every 2 days, daily brief at 8am UTC
+[triggers]
+crons = ["0 */48 * * *", "0 8 * * *"]
+
 # Secrets (set via `wrangler secret put`):
 # SUPABASE_URL
 # SUPABASE_SERVICE_KEY
 # GOOGLE_TRENDS_API_KEY
 # GEMINI_API_KEY
+# FIRECRAWL_API_KEY  ← get your key at https://firecrawl.dev

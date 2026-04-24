@@ -4,16 +4,6 @@
 # Push code, configs, agents, scripts — not production assets
 # ============================================================
 
-# ----- Secrets & Credentials (NEVER COMMIT) -----
-.env
-.env.local
-.env.*.local
-.env.production
-.env.development
-*.pem
-*.key
-master.env
-
 # ----- Large Video Files -----
 *.mp4
 *.mov
@@ -167,6 +157,18 @@ tmp/
 coverage/
 .byebug_history
 
+# ----- Trial Software / 3D App Resources (large binary assets) -----
+ANIMATION & 3D/Character Creator 4/Resource/
+ANIMATION & 3D/Reallusion Custom/
+ANIMATION & 3D/Reallusion Templates/
+ANIMATION & 3D/Shared Plugins/
+OpenToonz stuff/
+
+# ----- Build Artifacts -----
+build-output.txt
+build.log
+tsconfig.tsbuildinfo
+
 # ----- OS Junk -----
 .DS_Store
 Thumbs.db
@@ -243,3 +245,11 @@ n8n-workflows/StoryToolkitAI-main/**/*.asm
 !**/Gemfile
 !**/Procfile
 !**/Rakefile
+.vercel
+.env
+.env.*
+.env*.local
+!**/*.env.example
+
+# Vendor repos (cloned via scripts/clone-vendors.sh)
+vendors/

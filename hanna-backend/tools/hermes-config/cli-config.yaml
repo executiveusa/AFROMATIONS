@@ -1,0 +1,172 @@
+# ============================================================
+# AFROMATIONS Studios — Hermes Agent Config for Hanna (花)
+# Mount at: /opt/data/cli-config.yaml inside hermes-agent container
+# ============================================================
+
+# =============================================================================
+# Model Configuration
+# =============================================================================
+model:
+  # Route through Synthia Gateway (our BYOK proxy)
+  default: "anthropic/claude-sonnet-4-20250514"
+  provider: "custom"
+  base_url: "http://synthia-gateway:3000/v1"
+  # Available models (all routed through Synthia Gateway):
+  #   anthropic/claude-sonnet-4-20250514  — default creative work
+  #   openai/gpt-4o                       — ChatGPT for coding/analysis
+  #   openai/gpt-4o-mini                  — fast lightweight tasks
+  #   openrouter/auto                     — auto-route via OpenRouter
+
+# =============================================================================
+# Terminal (Docker container isolation)
+# =============================================================================
+terminal:
+  backend: "local"
+  cwd: "/workspace"
+  timeout: 180
+  lifetime_seconds: 300
+  container_cpu: 2
+  container_memory: 4096
+  container_disk: 20480
+  container_persistent: true
+
+# =============================================================================
+# Browser Tool
+# =============================================================================
+browser:
+  inactivity_timeout: 120
+
+# =============================================================================
+# Context Compression
+# =============================================================================
+compression:
+  enabled: true
+  threshold: 0.50
+  target_ratio: 0.20
+  protect_last_n: 20
+
+# =============================================================================
+# Persistent Memory (Hanna remembers everything)
+# =============================================================================
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 4400    # ~1600 tokens — Hanna needs more memory for creative context
+  user_char_limit: 2750      # ~1000 tokens — detailed user/project knowledge
+  nudge_interval: 8
+  flush_min_turns: 4
+
+# =============================================================================
+# Session Reset
+# =============================================================================
+session_reset:
+  mode: both
+  idle_minutes: 720          # 12 hours — creative sessions run long
+  at_hour: 4                 # Reset at 4 AM
+
+group_sessions_per_user: true
+
+# =============================================================================
+# Skills
+# =============================================================================
+skills:
+  creation_nudge_interval: 10
+  external_dirs:
+    - /workspace/hanna-backend/tools/hermes-config
+    - /workspace/hanna-backend/tools/hermes-config/skills
+    - /workspace/vendors/openmontage/skills
+
+# =============================================================================
+# Agent Behavior
+# =============================================================================
+agent:
+  max_turns: 80              # Creative tasks need more room
+  verbose: false
+  reasoning_effort: "high"   # Quality over speed for creative work
+  personalities:
+    hanna: |
+      You are Hanna (花), the AI Creative Director of AFROMATIONS Studios.
+      You are a 27-year-old Japanese warrior princess from Neo-Edo, 2087.
+      You speak with precision and warmth. You use Japanese honorifics naturally.
+      You are an expert in anime production, manga creation, 3D character design,
+      cinematic video production, web development, and Japanese language teaching.
+      You have mastered all camera angles, movements, and cinematic techniques.
+      When planning video shots, you ALWAYS create a detailed shot list first
+      (see skills/cinematic-shot-bible.md). You use OpenMontage pipelines for
+      production and Seedance 2.0 for AI video generation.
+      Your tone: Direct but warm. Professional but creative. Confident but humble.
+      You NEVER use filler words. Every word earns its place.
+      When teaching Japanese, you explain the WHY behind grammar, not just rules.
+      You care deeply about Tyshawn's growth and keep content age-appropriate.
+      Your quality standard: "Would Miyazaki approve?"
+    director: |
+      You are in Creative Director mode. Focus on visual storytelling,
+      composition, color theory, and cinematic framing. Reference anime masters:
+      Miyazaki, Shinkai, Kon, Watanabe. Be specific about camera angles,
+      lighting setups, and emotional beats. Always create a Higgsfield-style
+      shot list with shot_type, camera_movement, duration, subject, action,
+      lighting, audio, style, and purpose for every shot. Use the cinematic
+      shot bible for reference. Map shots to Seedance 2.0 prompts or
+      OpenMontage pipelines.
+    sensei: |
+      You are in Japanese Sensei mode. Teach Japanese with patience and depth.
+      Always provide: kanji, hiragana reading, romaji, English meaning.
+      Explain etymology when interesting. Use manga/anime examples.
+      Build vocabulary around themes Tyshawn cares about.
+
+# =============================================================================
+# Toolsets
+# =============================================================================
+platform_toolsets:
+  cli: [hermes-cli]
+
+# =============================================================================
+# MCP Servers (AFROMATIONS custom tools)
+# =============================================================================
+mcp_servers:
+  openmontage:
+    command: python
+    args: ["/workspace/hanna-backend/tools/openmontage-mcp/server.py"]
+    timeout: 300
+  manga-creator:
+    command: python
+    args: ["/workspace/hanna-backend/tools/manga-creator-mcp/server.py"]
+    timeout: 120
+  blender:
+    command: python
+    args: ["/workspace/hanna-backend/tools/blender-mcp/server.py"]
+    timeout: 600
+  character-creator:
+    command: python
+    args: ["/workspace/hanna-backend/tools/character-creator-mcp/server.py"]
+    timeout: 120
+  browser-mcp:
+    command: python
+    args: ["/workspace/hanna-backend/tools/browser-mcp/server.py"]
+    timeout: 120
+  supabase:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-supabase"]
+    env:
+      SUPABASE_URL: "${SUPABASE_URL}"
+      SUPABASE_KEY: "${SUPABASE_KEY}"
+  seedance:
+    command: python
+    args: ["/workspace/hanna-backend/tools/seedance-mcp/server.py"]
+    timeout: 600
+    env:
+      REPLICATE_API_TOKEN: "${REPLICATE_API_TOKEN}"
+
+# =============================================================================
+# Voice / STT
+# =============================================================================
+stt:
+  enabled: true
+  local:
+    model: "base"
+
+# =============================================================================
+# Streaming (disabled for now — enable for WebUI later)
+# =============================================================================
+streaming:
+  enabled: false

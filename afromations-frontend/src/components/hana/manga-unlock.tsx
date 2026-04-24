@@ -40,81 +40,71 @@ export function MangaUnlock({
 
   return (
     <div
-      className={`group relative border rounded-lg overflow-hidden transition-all ${
+      className={`group relative border rounded-sm overflow-hidden transition-colors ${
         unlocked
-          ? 'border-[var(--af-red)]/50 bg-[var(--af-grey)]/30 hover:border-[var(--af-red)]/80'
-          : 'border-[var(--af-grey-mid)] bg-[var(--af-grey-mid)]/20 opacity-75'
+          ? 'border-(--af-red)/50 bg-(--af-grey) hover:border-(--af-red)/80'
+          : 'border-white/5 bg-(--af-grey-mid)/20 opacity-75'
       }`}
     >
       {/* Cover image or placeholder */}
-      <div className="aspect-[2/3] bg-gradient-to-br from-indigo-900/30 to-black relative overflow-hidden">
+      <div className="aspect-2/3 bg-(--af-grey-mid) relative overflow-hidden">
         {coverImageUrl ? (
           <img
             src={coverImageUrl}
             alt={titleEn}
-            className={`w-full h-full object-cover transition-all ${
-              unlocked ? 'group-hover:scale-105' : 'grayscale'
-            }`}
+            className={`w-full h-full object-cover ${!unlocked ? 'grayscale' : ''}`}
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-center px-4">
-            <div className="text-4xl">📖</div>
-            <div className="text-xs font-semibold text-[var(--af-grey-light)]">
+            <span className="text-xs font-semibold tracking-wider uppercase text-(--af-grey-light)">
               Issue {issueNumber}
-            </div>
+            </span>
           </div>
         )}
 
         {/* Overlay for locked state */}
         {!unlocked && isBrushingLock && (
           <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-3 p-3">
-            <div className="text-3xl">🔒</div>
-            <div className="text-xs font-semibold text-[var(--af-cream)] text-center">
-              Locked
-            </div>
+            <span className="text-sm font-bold text-(--af-cream)">Locked</span>
 
             {/* Progress bar */}
-            <div className="w-full max-w-[80%] h-1.5 bg-black/50 rounded-full overflow-hidden">
+            <div className="w-full max-w-[80%] h-1 bg-black/50 rounded-sm overflow-hidden">
               <div
-                className="h-full bg-[var(--af-red)] transition-all"
+                className="h-full bg-(--af-red) transition-all"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
 
-            <div className="text-xs text-[var(--af-grey-light)]">
+            <span className="text-xs text-(--af-grey-light)">
               {progressPercentage}% unlocked
-            </div>
+            </span>
           </div>
         )}
       </div>
 
       {/* Content */}
       <div className="p-3 space-y-2">
-        {/* Issue number and status */}
         <div className="flex items-center justify-between gap-2">
-          <span className="text-xs font-bold text-[var(--af-red)] tracking-wider uppercase">
+          <span className="text-xs font-bold text-(--af-red) tracking-wider uppercase">
             Issue {issueNumber}
           </span>
           {unlocked && (
-            <span className="text-xs font-semibold text-green-400">✓ Unlocked</span>
+            <span className="text-xs font-semibold text-green-400">Unlocked</span>
           )}
         </div>
 
-        {/* Japanese title */}
-        <div className="text-sm font-semibold text-[var(--af-cream)] leading-tight">
+        <div className="text-sm font-semibold text-(--af-cream) leading-tight">
           {titleJa}
         </div>
 
-        {/* English title */}
-        <div className="text-xs text-[var(--af-grey-light)]">
+        <div className="text-xs text-(--af-grey-light)">
           {titleEn}
         </div>
 
-        {/* Requirements (if locked) */}
         {!unlocked && requirements.length > 0 && (
-          <div className="pt-2 border-t border-[var(--af-grey-mid)] space-y-1">
-            <p className="text-xs font-semibold text-[var(--af-grey-light)] uppercase tracking-wider">
-              Unlock Requirements:
+          <div className="pt-2 border-t border-white/5 space-y-1">
+            <p className="text-xs font-semibold text-(--af-grey-light) uppercase tracking-wider">
+              Requirements
             </p>
             <div className="space-y-1">
               {requirements.map((req) => (
@@ -123,7 +113,7 @@ export function MangaUnlock({
                   className={`text-xs flex items-center justify-between ${
                     req.current >= req.required
                       ? 'text-green-400'
-                      : 'text-[var(--af-grey-light)]'
+                      : 'text-(--af-grey-light)'
                   }`}
                 >
                   <span className="capitalize">{req.domain.replace(/_/g, ' ')}</span>
@@ -140,8 +130,8 @@ export function MangaUnlock({
       {/* Interactive layer */}
       {unlocked ? (
         <Link href={`/manga/${id}`}>
-          <div className="absolute inset-0 bg-[var(--af-red)]/0 hover:bg-[var(--af-red)]/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-            <span className="text-sm font-semibold text-[var(--af-cream)]">
+          <div className="absolute inset-0 bg-(--af-red)/0 hover:bg-(--af-red)/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span className="text-sm font-semibold text-(--af-cream)">
               Read Issue
             </span>
           </div>

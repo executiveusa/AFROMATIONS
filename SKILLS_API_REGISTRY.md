@@ -20,16 +20,20 @@ This document maps workspace folders to named skills and API capabilities.
 | `community-digest` | `hanna-backend/cron-registry.json` | Weekly community digest scheduling |
 
 ### Frontend Components
-| Skill | Source | Description |
-|-------|--------|-------------|
-| `cinematic-animations` | `vendors/cinematic-site-components/` | 30 vanilla JS animation modules (GSAP) |
-| `text-scramble` | `vendors/cinematic-site-components/02-text-scramble/` | Katakana text scramble effect |
-| `cursor-reactive` | `vendors/cinematic-site-components/03-cursor-reactive/` | Magnetic cursor interactions |
-| `zoom-parallax` | `vendors/cinematic-site-components/06-zoom-parallax/` | Parallax scroll zoom |
-| `particle-button` | `vendors/cinematic-site-components/14-particle-button/` | Disintegration button effect |
-| `mesh-gradient` | `vendors/cinematic-site-components/18-mesh-gradient/` | Animated mesh gradient backgrounds |
-| `kinetic-marquee` | `vendors/cinematic-site-components/21-kinetic-marquee/` | Kinetic text marquee scroll |
-| `glitch-effect` | `vendors/cinematic-site-components/15-glitch-effect/` | Anime glitch transition |
+| Skill | Source | Status | Description |
+|-------|--------|--------|-------------|
+| `cinematic-animations` | `vendors/cinematic-site-components/` | REFERENCE | 30 vanilla JS animation modules (GSAP) |
+| `text-scramble` | `afromations-frontend/src/components/hero-section.tsx` | **ACTIVE** | Katakana text scramble on hero heading + cinematic intro |
+| `cursor-reactive` | `afromations-frontend/src/components/studio-showcase.tsx` | **ACTIVE** | Spotlight border grid tracks cursor across cards |
+| `zoom-parallax` | `vendors/cinematic-site-components/06-zoom-parallax/` | REFERENCE | Parallax scroll zoom |
+| `particle-button` | `afromations-frontend/src/components/cinematic-intro.tsx` | **ACTIVE** | Canvas spark particles on intro |
+| `mesh-gradient` | `vendors/cinematic-site-components/18-mesh-gradient/` | REFERENCE | Animated mesh gradient backgrounds |
+| `kinetic-marquee` | `afromations-frontend/src/components/kinetic-marquee.tsx` | **ACTIVE** | Kinetic text marquee between sections |
+| `glitch-effect` | `vendors/cinematic-site-components/15-glitch-effect/` | REFERENCE | Anime glitch transition |
+| `cinematic-intro` | `afromations-frontend/src/components/cinematic-intro.tsx` | **ACTIVE** | Full-screen intro: gears, sparks, text scramble, smoke dissolve |
+| `scroll-reveal` | `afromations-frontend/src/components/scroll-reveal.tsx` | **ACTIVE** | IntersectionObserver data-reveal system |
+| `tegaki-handwriting` | `afromations-frontend/src/components/tegaki-text.tsx` | **ACTIVE** | Hand-drawn text via tegaki library |
+| `spotlight-border` | `afromations-frontend/src/app/globals.css` | **ACTIVE** | CSS spotlight glow tracking cursor on card grids |
 
 ### Reference Codebases
 | Skill | Source | Description |
@@ -45,6 +49,19 @@ This document maps workspace folders to named skills and API capabilities.
 | `synthia-backend` | `synthia/` | Supabase schema, UDEC audits, circuit breakers |
 | `agent-orchestration` | `hanna-backend/` | Multi-agent workspace (Alpha/Beta/Gamma teams) |
 | `n8n-workflows` | `n8n-workflows/` | Automation workflows (StoryToolkitAI) |
+| `hermes-agent` | `vendors/hermes-agent/` | Hanna's AI brain — autonomous, persistent memory, self-improving skills |
+| `synthia-gateway` | `vendors/synthia-gateway/` | BYOK LLM proxy — routes to OpenAI/Anthropic/Groq/Mistral/Together/Ollama |
+| `hermes-webui` | `vendors/hermes-webui/` | 4-quadrant dashboard: Chat, Create, Learn, Gallery |
+| `browser-harness` | `vendors/browser-harness/` | CDP-based web automation, self-healing, domain skills |
+
+### MCP Servers (hanna-backend/tools/)
+| Skill | Source | Description |
+|-------|--------|-------------|
+| `openmontage-mcp` | `hanna-backend/tools/openmontage-mcp/` | Video production: projects, scenes, timelines, rendering |
+| `manga-creator-mcp` | `hanna-backend/tools/manga-creator-mcp/` | RTL manga: pages, panels, text bubbles, PDF export |
+| `blender-mcp` | `hanna-backend/tools/blender-mcp/` | Anime avatar, Kupuri shader, Eevee/Cycles, GLB export |
+| `character-creator-mcp` | `hanna-backend/tools/character-creator-mcp/` | CC4 templates, customization, FBX/GLB export |
+| `browser-mcp` | `hanna-backend/tools/browser-mcp/` | Navigate, screenshot, click, fill, extract via CDP |
 
 ## API Endpoints
 
@@ -64,6 +81,7 @@ This document maps workspace folders to named skills and API capabilities.
 | POST | `/trends/scan` | Trigger trend scan |
 | GET | `/gallery` | List gallery assets |
 | GET | `/gallery/:id` | Get single asset |
+| GET | `/dashboard` | Admin dashboard (Hanna control + chatbot) |
 
 ## Folder Organization
 
@@ -73,16 +91,28 @@ AFROMATIONS/
 ├── hanna-backend/           ← Agent Hanna API + orchestration (Cloudflare Workers)
 │   ├── api/                 ← Hono API server
 │   ├── shared/memory/       ← Agent conversation logs
+│   ├── tools/               ← MCP servers (6 total)
+│   │   ├── openmontage-mcp/ ← Video production
+│   │   ├── manga-creator-mcp/ ← RTL manga generation
+│   │   ├── blender-mcp/    ← Anime avatar + 3D rendering
+│   │   ├── character-creator-mcp/ ← CC4 integration
+│   │   └── browser-mcp/    ← Browser automation
 │   └── .mcp.json            ← MCP server connections
-├── vendors/                 ← Cloned reference repos
-│   ├── claudeclaw/          ← Agent Hermes template (rebranded → Hanna)
-│   ├── cinematic-site-components/  ← 30 animation modules
+├── vendors/                 ← Cloned reference + core repos
+│   ├── hermes-agent/        ← CORE: Hanna's AI brain (NousResearch)
+│   ├── hermes-webui/        ← CORE: 4-quadrant dashboard
+│   ├── synthia-gateway/     ← CORE: BYOK LLM proxy
+│   ├── browser-harness/     ← CORE: CDP web automation
+│   ├── openmontage/         ← CORE: Agentic video engine
+│   ├── claudeclaw/          ← Agent template reference
+│   ├── cinematic-site-components/  ← 33 animation modules (GSAP)
 │   └── blog/                ← Next.js blog base
 ├── synthia/                 ← SYNTHIA 3.0 backend schemas
 ├── anime-captcha/           ← SvelteKit captcha component
 ├── annict/                  ← Ruby anime tracker reference
 ├── free manga/              ← Next.js manga reader reference
 ├── n8n-workflows/           ← Automation workflows
+├── docker-compose.yml       ← Hermes Agent + WebUI + Synthia Gateway stack
 ├── AFROMATIONS/Website/     ← Existing assets (logos, audio, videos, DUO images)
 └── ANIMATION & 3D/          ← Character Creator 4, Reallusion templates
 ```

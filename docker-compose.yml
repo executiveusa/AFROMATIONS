@@ -1,0 +1,93 @@
+# AFROMATIONS Studios — Docker Compose Stack
+# Hermes Agent + WebUI + Synthia Gateway
+#
+# Usage:
+#   docker compose up -d              # Start all services
+#   docker compose logs -f hermes     # Follow Hermes Agent logs
+#   docker compose down               # Stop all services
+#
+# Deploy target: VPS at 31.220.58.212 (co-located with Supabase)
+
+services:
+  # --- Hermes Agent (Hanna's brain) ---
+  hermes-agent:
+    build:
+      context: ./vendors/hermes-agent
+      dockerfile: Dockerfile
+    container_name: hermes-agent
+    restart: unless-stopped
+    environment:
+      - HERMES_HOME=/opt/data
+      - HERMES_UID=10000
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN:-}
+      - SUPABASE_URL=${SUPABASE_URL:-}
+      - SUPABASE_KEY=${SUPABASE_KEY:-}
+    volumes:
+      - hermes-data:/opt/data
+      - hermes-skills:/opt/data/skills
+      - ./hanna-backend/tools/hermes-config/cli-config.yaml:/opt/data/cli-config.yaml:ro
+      - ./hanna-backend/SOUL.md:/opt/data/SOUL.md:ro
+      - ./hanna-backend/USER.md:/opt/data/USER.md:ro
+      - ./:/workspace:ro
+    networks:
+      - afromations
+    depends_on:
+      - synthia-gateway
+
+  # --- Hermes WebUI (4-quadrant dashboard) ---
+  hermes-webui:
+    image: ghcr.io/nesquena/hermes-webui:latest
+    container_name: hermes-webui
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+    environment:
+      - WANTED_UID=1000
+      - WANTED_GID=1000
+      - HERMES_WEBUI_HOST=0.0.0.0
+      - HERMES_WEBUI_PORT=8787
+      - HERMES_WEBUI_PASSWORD=${WEBUI_SECRET_KEY:-changeme}
+      - HERMES_WEBUI_BOT_NAME=Hanna
+      - HERMES_WEBUI_DEFAULT_WORKSPACE=/workspace
+      - HERMES_WEBUI_STATE_DIR=/home/hermeswebui/.hermes/webui-mvp
+    volumes:
+      - hermes-home:/home/hermeswebui/.hermes
+      - ./:/workspace:ro
+    networks:
+      - afromations
+    depends_on:
+      - hermes-agent
+
+  # --- Synthia Gateway (LLM proxy) ---
+  synthia-gateway:
+    build:
+      context: ./vendors/synthia-gateway
+      dockerfile: Dockerfile
+    container_name: synthia-gateway
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - AUTH_MODE=gateway-key
+      - GATEWAY_KEY=${GATEWAY_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
+      - TOGETHER_API_KEY=${TOGETHER_API_KEY:-}
+      - OPEN_ROUTER_API=${OPEN_ROUTER_API:-}
+      - DEFAULT_PROVIDER=anthropic
+      - DEFAULT_MODEL=claude-sonnet-4-20250514
+    networks:
+      - afromations
+
+volumes:
+  hermes-data:
+  hermes-skills:
+  hermes-home:
+
+networks:
+  afromations:
+    driver: bridge

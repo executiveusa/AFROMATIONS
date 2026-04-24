@@ -1,12 +1,10 @@
+'use client'
+
+import { InnerLayout } from '@/components/inner-layout'
 import { LessonCard } from '@/components/hana/lesson-card'
+import { useI18n } from '@/lib/i18n'
 
-export const metadata = {
-  title: 'Learn with Agent Hana',
-  description: 'Japanese language and culture lessons',
-}
-
-// Mock data - in production, fetch from API
-const MOCK_LESSONS = [
+const LESSONS = [
   {
     id: '1',
     titleJa: '基本的な挨拶',
@@ -45,77 +43,63 @@ const MOCK_LESSONS = [
     difficulty: 'n4',
     domain: 'daily_life',
     durationMinutes: 15,
-    progress: { score: 75 },
+    progress: { score: 75, mastered: false },
   },
 ]
 
 export default function LearnPage() {
+  const { t } = useI18n()
+
   return (
-    <main className="min-h-screen bg-black pt-24 pb-12">
-      {/* Page header */}
-      <div className="px-6 sm:px-12 max-w-7xl mx-auto mb-12">
-        <h1
-          className="text-4xl sm:text-5xl font-bold text-[var(--af-cream)] mb-4"
-          style={{ fontFamily: 'Sora, sans-serif' }}
-        >
-          Learn
-        </h1>
-        <p className="text-[var(--af-grey-light)] max-w-2xl">
-          Master Japanese language and culture through structured lessons. Each lesson builds on the previous one. Start where you are, progress where you need to go.
-        </p>
-      </div>
+    <InnerLayout>
+      <main className="min-h-screen bg-(--af-black) pt-24 pb-16">
+        {/* Page header */}
+        <section className="px-6 sm:px-12 max-w-7xl mx-auto mb-12">
+          <p data-reveal className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
+            {t('education.eyebrow')}
+          </p>
+          <h1
+            data-reveal
+            data-delay="1"
+            className="text-4xl sm:text-5xl font-bold text-(--af-cream) mb-4"
+            style={{ fontFamily: 'Sora, sans-serif' }}
+          >
+            {t('education.title')}
+          </h1>
+          <p data-reveal data-delay="2" className="text-(--af-grey-light) max-w-2xl text-sm">
+            {t('education.description')}
+          </p>
+        </section>
 
-      {/* Filter/navigation */}
-      <div className="px-6 sm:px-12 max-w-7xl mx-auto mb-8">
-        <div className="flex flex-wrap gap-2">
-          <button className="px-4 py-2 bg-[var(--af-red)] text-[var(--af-cream)] text-sm font-semibold rounded hover:bg-[var(--af-red-dark)] transition-colors">
-            All Lessons
-          </button>
-          <button className="px-4 py-2 border border-[var(--af-grey-light)]/20 text-[var(--af-grey-light)] text-sm font-semibold rounded hover:border-[var(--af-grey-light)]/50 transition-colors">
-            Vocabulary
-          </button>
-          <button className="px-4 py-2 border border-[var(--af-grey-light)]/20 text-[var(--af-grey-light)] text-sm font-semibold rounded hover:border-[var(--af-grey-light)]/50 transition-colors">
-            Grammar
-          </button>
-          <button className="px-4 py-2 border border-[var(--af-grey-light)]/20 text-[var(--af-grey-light)] text-sm font-semibold rounded hover:border-[var(--af-grey-light)]/50 transition-colors">
-            Culture
-          </button>
-          <button className="px-4 py-2 border border-[var(--af-grey-light)]/20 text-[var(--af-grey-light)] text-sm font-semibold rounded hover:border-[var(--af-grey-light)]/50 transition-colors">
-            Difficulty
-          </button>
-        </div>
-      </div>
+        {/* Lesson grid */}
+        <section className="px-6 sm:px-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {LESSONS.map((lesson) => (
+              <LessonCard key={lesson.id} {...lesson} />
+            ))}
+          </div>
+        </section>
 
-      {/* Lesson grid */}
-      <div className="px-6 sm:px-12 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {MOCK_LESSONS.map((lesson) => (
-            <LessonCard key={lesson.id} {...lesson} />
-          ))}
-        </div>
-      </div>
+        <div className="divider my-16" />
 
-      {/* Stats section */}
-      <div className="px-6 sm:px-12 max-w-7xl mx-auto mt-16 grid grid-cols-3 gap-4">
-        <div className="bg-[var(--af-grey-mid)]/30 border border-[var(--af-grey-mid)] rounded-lg p-6 text-center">
-          <div className="text-3xl font-bold text-[var(--af-cream)] mb-2">
-            12
+        {/* Stats — clean horizontal row, no KPI dashboard */}
+        <section data-reveal className="px-6 sm:px-12 max-w-7xl mx-auto">
+          <div className="flex flex-wrap gap-12 justify-center">
+            {[
+              { value: '12', label: 'Lessons Completed' },
+              { value: '8/10', label: 'Current Streak' },
+              { value: '42h', label: 'Total Time' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-3xl font-bold text-(--af-cream) mb-1">{stat.value}</p>
+                <p className="text-(--af-grey-light) text-xs tracking-wider uppercase">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
           </div>
-          <p className="text-[var(--af-grey-light)] text-sm">Lessons Completed</p>
-        </div>
-        <div className="bg-[var(--af-grey-mid)]/30 border border-[var(--af-grey-mid)] rounded-lg p-6 text-center">
-          <div className="text-3xl font-bold text-[var(--af-cream)] mb-2">
-            8/10
-          </div>
-          <p className="text-[var(--af-grey-light)] text-sm">Current Streak</p>
-        </div>
-        <div className="bg-[var(--af-grey-mid)]/30 border border-[var(--af-grey-mid)] rounded-lg p-6 text-center">
-          <div className="text-3xl font-bold text-[var(--af-cream)] mb-2">
-            42h
-          </div>
-          <p className="text-[var(--af-grey-light)] text-sm">Total Time</p>
-        </div>
-      </div>
-    </main>
+        </section>
+      </main>
+    </InnerLayout>
   )
 }

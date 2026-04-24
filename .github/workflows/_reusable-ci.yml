@@ -1,0 +1,108 @@
+name: _CI Checks (Reusable)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reusable CI workflow for AFROMATIONS afromations-frontend.
+# Called by land-the-plane.yml and any other workflow that needs CI.
+#
+# Runs:
+#   • pnpm install
+#   • TypeScript typecheck (tsc --noEmit)
+#   • ESLint (via next lint)
+#   • Next.js production build
+# ─────────────────────────────────────────────────────────────────────────────
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: "Git ref (branch, tag, or SHA) to check out and test"
+        required: true
+        type: string
+      working-directory:
+        description: "Directory containing the Next.js app"
+        required: false
+        type: string
+        default: "afromations-frontend"
+
+jobs:
+  typecheck:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm install --no-frozen-lockfile
+
+      - name: TypeScript check
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm exec tsc --noEmit
+
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Lint
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm exec next lint --dir src
+
+  build:
+    name: Production Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build Next.js
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm exec next build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: ${{ inputs.working-directory }}/.next
+          retention-days: 1

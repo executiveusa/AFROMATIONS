@@ -22,13 +22,16 @@
       "command": "python",
       "args": ["tools/blender-mcp/server.py"],
       "env": {
-        "BLENDER_PATH": "${BLENDER_PATH:-blender}"
+        "BLENDER_PATH": "${BLENDER_PATH:-blender}",
+        "RENDER_MODE": "${RENDER_MODE:-local}",
+        "TEMPLATES_DIR": "${TEMPLATES_DIR}"
       },
       "tools": [
         "create_anime_avatar",
         "render_scene",
         "apply_kupuri_shader",
-        "export_web_avatar"
+        "export_web_avatar",
+        "list_templates"
       ]
     },
     "supabase": {
@@ -44,6 +47,72 @@
         "update",
         "storage_upload",
         "storage_list"
+      ]
+    },
+    "openmontage": {
+      "command": "python",
+      "args": ["tools/openmontage-mcp/server.py"],
+      "tools": [
+        "list_pipelines",
+        "create_project",
+        "add_scene",
+        "render_video",
+        "get_project_status"
+      ]
+    },
+    "manga-creator": {
+      "command": "python",
+      "args": ["tools/manga-creator-mcp/server.py"],
+      "tools": [
+        "create_manga",
+        "add_page",
+        "add_panel",
+        "add_text_bubble",
+        "render_page",
+        "export_manga"
+      ]
+    },
+    "character-creator": {
+      "command": "python",
+      "args": ["tools/character-creator-mcp/server.py"],
+      "env": {
+        "CC4_DIR": "${CC4_DIR}",
+        "REALLUSION_TEMPLATES": "${REALLUSION_TEMPLATES}",
+        "REALLUSION_CUSTOM": "${REALLUSION_CUSTOM}"
+      },
+      "tools": [
+        "list_templates",
+        "load_template",
+        "customize_character",
+        "export_character",
+        "get_character_status"
+      ]
+    },
+    "browser": {
+      "command": "python",
+      "args": ["tools/browser-mcp/server.py"],
+      "env": {
+        "CHROME_DEBUG_PORT": "${CHROME_DEBUG_PORT:-9222}"
+      },
+      "tools": [
+        "navigate",
+        "screenshot",
+        "click",
+        "fill_form",
+        "extract_data",
+        "get_page_info"
+      ]
+    },
+    "seedance": {
+      "command": "python",
+      "args": ["tools/seedance-mcp/server.py"],
+      "env": {
+        "REPLICATE_API_TOKEN": "${REPLICATE_API_TOKEN}"
+      },
+      "tools": [
+        "generate_video",
+        "check_video_status",
+        "generate_explainer"
       ]
     }
   }

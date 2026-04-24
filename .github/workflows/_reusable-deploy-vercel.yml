@@ -1,0 +1,94 @@
+name: _Deploy to Vercel (Reusable)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reusable Vercel deployment workflow for AFROMATIONS afromations-frontend.
+# Called by land-the-plane.yml after a successful merge to main.
+#
+# Required repository secrets:
+#   VERCEL_TOKEN       — from vercel.com/account/tokens
+#   VERCEL_ORG_ID      — from .vercel/project.json or Vercel dashboard
+#   VERCEL_PROJECT_ID  — from .vercel/project.json or Vercel dashboard
+#
+# To get these values:
+#   1. npm i -g vercel
+#   2. vercel login
+#   3. cd afromations-frontend && vercel link
+#   4. cat .vercel/project.json  →  orgId + projectId
+# ─────────────────────────────────────────────────────────────────────────────
+
+on:
+  workflow_call:
+    secrets:
+      VERCEL_TOKEN:
+        required: true
+      VERCEL_ORG_ID:
+        required: true
+      VERCEL_PROJECT_ID:
+        required: true
+
+jobs:
+  deploy-vercel:
+    name: Deploy → Vercel Production
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://afromations.vercel.app
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        working-directory: afromations-frontend
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      # Pull Vercel project settings (routes, env vars, etc.)
+      - name: Pull Vercel environment
+        working-directory: afromations-frontend
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      # Build using Vercel's build pipeline (handles env vars, routes)
+      - name: Build for Vercel
+        working-directory: afromations-frontend
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+
+      # Deploy the pre-built output
+      - name: Deploy to production
+        id: deploy
+        working-directory: afromations-frontend
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          URL=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
+          echo "deployment-url=$URL" >> "$GITHUB_OUTPUT"
+          echo "🚀 Deployed: $URL"
+
+      - name: Summarize deployment
+        run: |
+          echo "## 🛬 Plane Has Landed" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Site:** [afromations.vercel.app](https://afromations.vercel.app)" >> "$GITHUB_STEP_SUMMARY"
+          echo "**URL:** ${{ steps.deploy.outputs.deployment-url }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Deployed by:** Hana 🌸" >> "$GITHUB_STEP_SUMMARY"

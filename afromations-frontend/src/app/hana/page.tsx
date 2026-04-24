@@ -1,167 +1,196 @@
-import { JapaneseText } from '@/components/hana/japanese-text'
+'use client'
 
-export const metadata = {
-  title: 'Agent Hana',
-  description: 'Meet your Japanese language and culture guide',
-}
+import { InnerLayout } from '@/components/inner-layout'
+import { useI18n } from '@/lib/i18n'
 
 export default function HanaPage() {
+  const { t } = useI18n()
+
   return (
-    <main className="min-h-screen bg-black pt-24 pb-12">
-      {/* Hero section */}
-      <div className="px-6 sm:px-12 max-w-5xl mx-auto mb-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Character image placeholder */}
-          <div className="aspect-square bg-gradient-to-br from-[var(--af-red)]/20 to-indigo-900/20 rounded-lg flex items-center justify-center border border-[var(--af-red)]/20">
-            <div className="text-center">
-              <div className="text-8xl mb-4">🗡️</div>
-              <p className="text-[var(--af-grey-light)] text-sm">
-                Agent Hana (花) — Warrior Scholar
-              </p>
-            </div>
-          </div>
-
-          {/* Right: Introduction */}
-          <div className="space-y-6">
-            <div>
-              <h1
-                className="text-4xl sm:text-5xl font-bold text-[var(--af-cream)] mb-2"
-                style={{ fontFamily: 'Sora, sans-serif' }}
-              >
-                Meet Hana
-              </h1>
-              <p className="text-[var(--af-grey-light)]">
-                Your guide through Japanese language, culture, and the wisdom that bridges worlds.
-              </p>
+    <InnerLayout>
+      <main className="min-h-screen bg-(--af-black) pt-24 pb-16">
+        {/* Hero */}
+        <section className="px-6 sm:px-12 max-w-5xl mx-auto mb-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Character placeholder */}
+            <div
+              data-reveal
+              className="aspect-square border border-white/10 rounded-sm bg-(--af-grey) flex items-center justify-center"
+            >
+              <div className="text-center space-y-3">
+                <p
+                  className="text-6xl font-light text-(--af-red)"
+                  style={{ fontFamily: 'Sora, sans-serif' }}
+                >
+                  花
+                </p>
+                <p className="text-(--af-grey-light) text-xs tracking-wider uppercase">
+                  Agent Hana — Warrior Scholar
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold text-[var(--af-cream)] mb-2">
-                  Who is Hana?
-                </h3>
-                <p className="text-[var(--af-grey-light)] leading-relaxed">
-                  Hana is not a historical figure. She's an AI scholar designed in 2056, rooted in both Japanese tradition and Black culture. She teaches because language is power, and knowledge should never be gatekept.
+            {/* Introduction */}
+            <div className="space-y-6">
+              <div data-reveal>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-4">
+                  {t('hanna.eyebrow')}
+                </p>
+                <h1
+                  className="text-4xl sm:text-5xl font-bold text-(--af-cream) mb-2"
+                  style={{ fontFamily: 'Sora, sans-serif' }}
+                >
+                  {t('hanna.title')}
+                </h1>
+                <p className="text-(--af-grey-light) text-sm">
+                  {t('hanna.subtitle')}
                 </p>
               </div>
 
-              <div>
-                <h3 className="text-lg font-semibold text-[var(--af-cream)] mb-2">
+              <p data-reveal data-delay="1" className="text-(--af-grey-light) leading-relaxed">
+                Hana is not a historical figure. She&apos;s an AI scholar designed in 2056, rooted
+                in both Japanese tradition and Black culture. She teaches because language is power,
+                and knowledge should never be gatekept.
+              </p>
+
+              <div data-reveal data-delay="2" className="space-y-2">
+                <h3 className="text-sm font-semibold text-(--af-cream)">
                   What Does Hana Teach?
                 </h3>
-                <ul className="text-[var(--af-grey-light)] space-y-2">
-                  <li>✓ Japanese language (JLPT N5–N1 + beyond)</li>
-                  <li>✓ Grammar, particles, and sentence structure</li>
-                  <li>✓ Culture, folklore, mythology, and kami</li>
-                  <li>✓ Oral production, listening, and comprehension</li>
+                <ul className="text-(--af-grey-light) text-sm space-y-1.5">
+                  <li className="flex items-start gap-2">
+                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
+                    Japanese language (JLPT N5–N1 + beyond)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
+                    Grammar, particles, and sentence structure
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
+                    Culture, folklore, mythology, and kami
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
+                    Oral production, listening, and comprehension
+                  </li>
                 </ul>
               </div>
-            </div>
 
-            <div className="pt-4 border-t border-[var(--af-grey-mid)]">
-              <p className="text-[var(--af-grey-light)] text-sm italic">
-                "Fluency isn't fast. It's deep. And depth comes from respect."
-              </p>
-              <p className="text-[var(--af-grey-light)] text-xs mt-2">
-                — Agent Hana
-              </p>
+              <div data-reveal data-delay="3" className="pt-4 border-t border-white/5">
+                <p className="text-(--af-grey-light) text-sm italic">
+                  &ldquo;Fluency isn&apos;t fast. It&apos;s deep. And depth comes from respect.&rdquo;
+                </p>
+                <p className="text-(--af-grey-light) text-xs mt-1">— Agent Hana</p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Key principles */}
-      <div className="px-6 sm:px-12 max-w-5xl mx-auto mb-16">
-        <h2
-          className="text-3xl font-bold text-[var(--af-cream)] mb-8"
-          style={{ fontFamily: 'Sora, sans-serif' }}
-        >
-          How Hana Works
-        </h2>
+        <div className="divider" />
 
-        <div className="grid sm:grid-cols-2 gap-6">
-          <div className="border border-[var(--af-grey-mid)] rounded-lg p-6 bg-[var(--af-grey)]/30">
-            <div className="text-4xl mb-3">📚</div>
-            <h3 className="font-semibold text-[var(--af-cream)] mb-2">
-              Structured Lessons
-            </h3>
-            <p className="text-[var(--af-grey-light)] text-sm">
-              Each lesson builds on the previous. Vocabulary before fluency. Culture before shallow phrases.
-            </p>
-          </div>
-
-          <div className="border border-[var(--af-grey-mid)] rounded-lg p-6 bg-[var(--af-grey)]/30">
-            <div className="text-4xl mb-3">🎯</div>
-            <h3 className="font-semibold text-[var(--af-cream)] mb-2">
-              Real Assessment
-            </h3>
-            <p className="text-[var(--af-grey-light)] text-sm">
-              No shallow quizzes. Hana evaluates oral production, listening comprehension, and deep understanding.
-            </p>
-          </div>
-
-          <div className="border border-[var(--af-grey-mid)] rounded-lg p-6 bg-[var(--af-grey)]/30">
-            <div className="text-4xl mb-3">🧠</div>
-            <h3 className="font-semibold text-[var(--af-cream)] mb-2">
-              Memory Graph
-            </h3>
-            <p className="text-[var(--af-grey-light)] text-sm">
-              Hana learns your learning patterns and adapts. Your memory is encrypted and under your control.
-            </p>
-          </div>
-
-          <div className="border border-[var(--af-grey-mid)] rounded-lg p-6 bg-[var(--af-grey)]/30">
-            <div className="text-4xl mb-3">🔒</div>
-            <h3 className="font-semibold text-[var(--af-cream)] mb-2">
-              Consent First
-            </h3>
-            <p className="text-[var(--af-grey-light)] text-sm">
-              Voice, memory, vision features require explicit permission. You control what Hana can do.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Philosophy */}
-      <div className="px-6 sm:px-12 max-w-5xl mx-auto mb-16">
-        <div className="bg-gradient-to-r from-[var(--af-red)]/10 to-indigo-900/10 border border-[var(--af-red)]/20 rounded-lg p-8">
-          <h3
-            className="text-2xl font-bold text-[var(--af-cream)] mb-4"
+        {/* How Hana Works — spotlight-border grid pattern */}
+        <section className="px-6 sm:px-12 max-w-5xl mx-auto py-20">
+          <p data-reveal className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
+            Methodology
+          </p>
+          <h2
+            data-reveal
+            data-delay="1"
+            className="text-3xl font-bold text-(--af-cream) mb-10"
             style={{ fontFamily: 'Sora, sans-serif' }}
           >
-            Hana's Philosophy
-          </h3>
+            How Hana Works
+          </h2>
 
-          <div className="space-y-3 text-[var(--af-grey-light)]">
-            <p>
-              • <strong>Language is not a code.</strong> It's a way of thinking. You're learning to think like a Japanese speaker, not to decode messages.
-            </p>
-            <p>
-              • <strong>Culture comes first.</strong> Meaning without context is empty. Understanding the culture makes the language stick.
-            </p>
-            <p>
-              • <strong>Fluency is hard.</strong> There are no shortcuts. But the work is worth it because the destination is real comprehension, not fake familiarity.
-            </p>
-            <p>
-              • <strong>Your agency matters.</strong> You decide what to learn, how fast, and what you share. Hana is a tool you control, not a system that controls you.
-            </p>
+          <div className="grid sm:grid-cols-2 gap-px bg-white/5 rounded-sm overflow-hidden">
+            {[
+              {
+                title: 'Structured Lessons',
+                desc: 'Each lesson builds on the previous. Vocabulary before fluency. Culture before shallow phrases.',
+              },
+              {
+                title: 'Real Assessment',
+                desc: 'No shallow quizzes. Hana evaluates oral production, listening comprehension, and deep understanding.',
+              },
+              {
+                title: 'Memory Graph',
+                desc: 'Hana learns your learning patterns and adapts. Your memory is encrypted and under your control.',
+              },
+              {
+                title: 'Consent First',
+                desc: 'Voice, memory, vision features require explicit permission. You control what Hana can do.',
+              },
+            ].map((card, i) => (
+              <div
+                key={card.title}
+                data-reveal
+                data-delay={String(i + 1)}
+                className="bg-(--af-black) p-8 transition-colors duration-200 hover:bg-(--af-grey)"
+              >
+                <h3 className="font-semibold text-(--af-cream) mb-2 text-sm">
+                  {card.title}
+                </h3>
+                <p className="text-(--af-grey-light) text-sm leading-relaxed">
+                  {card.desc}
+                </p>
+              </div>
+            ))}
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* CTA */}
-      <div className="px-6 sm:px-12 max-w-5xl mx-auto text-center">
-        <p className="text-[var(--af-grey-light)] mb-6 max-w-2xl mx-auto">
-          Ready to start learning? Begin with the fundamentals and progress at your own pace. Hana is here when you're ready.
-        </p>
+        <div className="divider" />
 
-        <a
-          href="/learn"
-          className="inline-flex h-11 items-center rounded-md bg-[var(--af-red)] px-8 text-sm font-semibold tracking-wider text-[var(--af-cream)] transition-colors hover:bg-[var(--af-red-dark)]"
-        >
-          Begin Learning
-        </a>
-      </div>
-    </main>
+        {/* Philosophy */}
+        <section className="px-6 sm:px-12 max-w-5xl mx-auto py-20">
+          <div data-reveal className="border border-white/10 rounded-sm p-8">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
+              Philosophy
+            </p>
+            <h3
+              className="text-2xl font-bold text-(--af-cream) mb-6"
+              style={{ fontFamily: 'Sora, sans-serif' }}
+            >
+              Hana&apos;s Philosophy
+            </h3>
+
+            <div className="space-y-4 text-(--af-grey-light) text-sm leading-relaxed">
+              <p>
+                <strong className="text-(--af-cream)">Language is not a code.</strong> It&apos;s a
+                way of thinking. You&apos;re learning to think like a Japanese speaker, not to
+                decode messages.
+              </p>
+              <p>
+                <strong className="text-(--af-cream)">Culture comes first.</strong> Meaning without
+                context is empty. Understanding the culture makes the language stick.
+              </p>
+              <p>
+                <strong className="text-(--af-cream)">Fluency is hard.</strong> There are no
+                shortcuts. But the work is worth it because the destination is real comprehension,
+                not fake familiarity.
+              </p>
+              <p>
+                <strong className="text-(--af-cream)">Your agency matters.</strong> You decide what
+                to learn, how fast, and what you share. Hana is a tool you control, not a system
+                that controls you.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section data-reveal className="px-6 sm:px-12 max-w-5xl mx-auto text-center pb-8">
+          <p className="text-(--af-grey-light) mb-6 max-w-xl mx-auto text-sm">
+            Ready to start learning? Begin with the fundamentals and progress at your own pace.
+          </p>
+          <a
+            href="/learn"
+            className="inline-flex h-11 items-center rounded-sm bg-(--af-red) px-8 text-sm font-semibold tracking-wider text-(--af-cream) transition-colors hover:bg-(--af-red-dark)"
+          >
+            Begin Learning
+          </a>
+        </section>
+      </main>
+    </InnerLayout>
   )
 }
