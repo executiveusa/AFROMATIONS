@@ -6,7 +6,51 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      clsx:
+        specifier: ^2.1.0
+        version: 2.1.1
+      motion:
+        specifier: ^12.6.0
+        version: 12.38.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      next:
+        specifier: ^15.3.0
+        version: 15.5.15(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.5
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.2.5(react@19.2.5)
+      tailwind-merge:
+        specifier: ^3.0.0
+        version: 3.5.0
+      tegaki:
+        specifier: ^0.11.1
+        version: 0.11.1(react@19.2.5)
+    devDependencies:
+      '@tailwindcss/postcss':
+        specifier: ^4.1.0
+        version: 4.2.4
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.17
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      postcss:
+        specifier: ^8.5.0
+        version: 8.5.10
+      tailwindcss:
+        specifier: ^4.1.0
+        version: 4.2.4
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
 
   afromations-frontend:
     dependencies:

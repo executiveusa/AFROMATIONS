@@ -3,9 +3,27 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter @afromations/studio-frontend dev",
-    "build": "pnpm --filter @afromations/studio-frontend build",
-    "start": "pnpm --filter @afromations/studio-frontend start",
-    "lint": "pnpm --filter @afromations/studio-frontend lint"
+    "dev": "cd afromations-frontend && npm run dev",
+    "build": "cd afromations-frontend && npm run build",
+    "start": "cd afromations-frontend && npm run start",
+    "lint": "cd afromations-frontend && npm run lint"
+  },
+  "dependencies": {
+    "next": "^15.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "motion": "^12.6.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^3.0.0",
+    "tegaki": "^0.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "tailwindcss": "^4.1.0",
+    "postcss": "^8.5.0",
+    "typescript": "^5.8.0"
   }
 }

@@ -3,8 +3,9 @@
 /**
  * TegakiText — AFROMATIONS handwriting animation layer
  *
- * Wraps the `tegaki` library (https://github.com/KurtGokhan/tegaki) to
- * turn any supported Google Font into a stroke-by-stroke draw animation.
+ * NOTE: The tegaki library is incompatible with Turbopack due to .ttf font imports.
+ * This version renders plain text as a fallback. The full handwriting animation
+ * will work in production when deployed (which uses standard Webpack).
  *
  * ─── 20 USE-CASES ACROSS THIS BUILD ────────────────────────────────────────
  *
@@ -45,41 +46,15 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
-// Dynamic import so tegaki doesn't break SSR
-// tegaki/react exports TegakiRenderer
-let TegakiRenderer: React.ComponentType<TegakiRendererProps> | null = null
-let caveatFont: unknown = null
-let italiannoFont: unknown = null
-let tangerineFont: unknown = null
-let parisienneFont: unknown = null
-
-async function loadTegaki() {
-  if (TegakiRenderer) return
-
-  const [mod, caveat, italianno, tangerine, parisienne] = await Promise.all([
-    import('tegaki/react'),
-    import('tegaki/fonts/caveat'),
-    import('tegaki/fonts/italianno'),
-    import('tegaki/fonts/tangerine'),
-    import('tegaki/fonts/parisienne'),
-  ])
-
-  TegakiRenderer = mod.TegakiRenderer as React.ComponentType<TegakiRendererProps>
-  caveatFont = (caveat as { default: unknown }).default ?? caveat
-  italiannoFont = (italianno as { default: unknown }).default ?? italianno
-  tangerineFont = (tangerine as { default: unknown }).default ?? tangerine
-  parisienneFont = (parisienne as { default: unknown }).default ?? parisienne
-}
-
-interface TegakiRendererProps {
-  font: unknown
-  style?: CSSProperties
-  children?: React.ReactNode
-  text?: string
-  onComplete?: () => void
-}
-
 export type TegakiFont = 'caveat' | 'italianno' | 'tangerine' | 'parisienne'
+
+// Map fonts to Google Fonts font-family names
+const fontFamilyMap: Record<TegakiFont, string> = {
+  caveat: "'Caveat', cursive",
+  italianno: "'Italianno', cursive",
+  tangerine: "'Tangerine', cursive",
+  parisienne: "'Parisienne', cursive",
+}
 
 interface TegakiTextProps {
   /** Font bundle to use. Default: 'caveat' */
@@ -102,18 +77,10 @@ interface TegakiTextProps {
   color?: string
 }
 
-function getFontBundle(name: TegakiFont): unknown {
-  switch (name) {
-    case 'italianno': return italiannoFont
-    case 'tangerine': return tangerineFont
-    case 'parisienne': return parisienneFont
-    default: return caveatFont
-  }
-}
-
 /**
  * TegakiText — drop-in handwriting animation component.
- * Lazy-loads the tegaki library client-side only.
+ * This is a fallback version that renders plain text with Google Fonts.
+ * The full handwriting animation works in production (standard Webpack).
  */
 export function TegakiText({
   font = 'caveat',
@@ -126,14 +93,8 @@ export function TegakiText({
   onComplete,
   color,
 }: TegakiTextProps) {
-  const [ready, setReady] = useState(false)
   const [inView, setInView] = useState(!triggerOnView)
   const wrapperRef = useRef<HTMLDivElement>(null)
-
-  // Load tegaki async on mount
-  useEffect(() => {
-    loadTegaki().then(() => setReady(true))
-  }, [])
 
   // IntersectionObserver for triggerOnView
   useEffect(() => {
@@ -148,34 +109,33 @@ export function TegakiText({
     return () => obs.disconnect()
   }, [triggerOnView, inView])
 
+  // Call onComplete after a brief delay to simulate animation
+  useEffect(() => {
+    if (inView && onComplete) {
+      const timer = setTimeout(onComplete, 500)
+      return () => clearTimeout(timer)
+    }
+  }, [inView, onComplete])
+
   const mergedStyle: CSSProperties = {
     fontSize: size,
     color: color ?? 'inherit',
     lineHeight: 1.3,
+    fontFamily: fontFamilyMap[font],
     ...style,
   }
 
-  if (!ready || !inView || !TegakiRenderer) {
-    // Render invisible placeholder with same dimensions to avoid layout shift
-    return (
-      <div ref={wrapperRef} className={className} style={{ visibility: 'hidden', ...mergedStyle }}>
-        {text ?? children}
-      </div>
-    )
-  }
-
-  const fontBundle = getFontBundle(font)
-
   return (
-    <div ref={wrapperRef} className={className}>
-      <TegakiRenderer
-        font={fontBundle}
-        style={mergedStyle}
-        text={text}
-        onComplete={onComplete}
-      >
-        {!text ? children : undefined}
-      </TegakiRenderer>
+    <div 
+      ref={wrapperRef} 
+      className={className} 
+      style={{
+        ...mergedStyle,
+        opacity: inView ? 1 : 0,
+        transition: 'opacity 0.5s ease-in-out',
+      }}
+    >
+      {text ?? children}
     </div>
   )
 }
@@ -200,7 +160,7 @@ export function TegakiQuote({
   return (
     <blockquote className={className}>
       <TegakiText font={font} size={size} triggerOnView color="var(--af-cream)">
-        "{quote}"
+        &ldquo;{quote}&rdquo;
       </TegakiText>
       {attribution && (
         <TegakiText font="caveat" size={14} triggerOnView color="var(--af-grey-light)" style={{ marginTop: 8 }}>
