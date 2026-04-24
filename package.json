@@ -1,0 +1,11 @@
+{
+  "name": "afromations",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @afromations/studio-frontend dev",
+    "build": "pnpm --filter @afromations/studio-frontend build",
+    "start": "pnpm --filter @afromations/studio-frontend start",
+    "lint": "pnpm --filter @afromations/studio-frontend lint"
+  }
+}

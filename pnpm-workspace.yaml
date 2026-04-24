@@ -1,0 +1,3 @@
+packages:
+  - "afromations-frontend"
+  - "hanna-backend/api"
