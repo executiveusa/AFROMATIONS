@@ -1,0 +1,55 @@
+{
+  "name": "@tegaki/website",
+  "version": "0.11.1",
+  "private": true,
+  "type": "module",
+  "description": "Documentation and demo website for Tegaki",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/KurtGokhan/tegaki.git",
+    "directory": "packages/website"
+  },
+  "imports": {
+    "#*": "./*"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check && tsc --noEmit",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots",
+    "test:e2e:docker": "./scripts/e2e-docker.sh",
+    "test:e2e:docker:update": "./scripts/e2e-docker.sh --update"
+  },
+  "dependencies": {
+    "@anthropic-ai/bedrock-sdk": "^0.28.1",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/react": "^5.0.3",
+    "@astrojs/solid-js": "^6.0.1",
+    "@astrojs/starlight": "^0.38.3",
+    "@astrojs/starlight-tailwind": "^5.0.0",
+    "@astrojs/svelte": "^8.0.5",
+    "@astrojs/vue": "^6.0.1",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.1.8",
+    "fflate": "^0.8.2",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "sharp": "^0.34.5",
+    "solid-js": "^1.9.12",
+    "starlight-theme-nova": "^0.11.9",
+    "svelte": "^5.55.4",
+    "tailwindcss": "^4.2.2",
+    "tegaki": "workspace:*",
+    "tegaki-generator": "workspace:*",
+    "vue": "^3.5.32"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
+  }
+}

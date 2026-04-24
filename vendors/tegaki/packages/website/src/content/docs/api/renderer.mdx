@@ -1,0 +1,83 @@
+---
+title: TegakiRenderer
+description: API reference for TegakiRenderer and TegakiEngine options.
+---
+
+The renderer component is available for every supported framework. See the [framework guides](/tegaki/frameworks/react/) for import paths.
+
+## Import
+
+```tsx
+import { TegakiRenderer } from 'tegaki';        // React
+import { TegakiRenderer } from 'tegaki/svelte';  // Svelte
+import { TegakiRenderer } from 'tegaki/vue';     // Vue
+import { TegakiRenderer } from 'tegaki/solid';   // SolidJS
+import { TegakiRenderer } from 'tegaki/astro';   // Astro
+import { TegakiEngine } from 'tegaki/core';       // Vanilla JS
+```
+
+## Props
+
+### `font`
+
+**Type:** `TegakiBundle` — **Required**
+
+The font bundle containing glyph components, metrics, and timing data.
+
+### `children` / `text`
+
+**Type:** `string`
+
+The text to render. Can be passed as children or the `text` prop.
+
+### `time`
+
+**Type:** `number | TimeControlProp`
+
+Controls animation timing. Pass a number for controlled mode, or an object:
+
+```ts
+// Uncontrolled — component manages its own clock
+{ mode: 'uncontrolled', speed?: number, loop?: boolean }
+
+// CSS — animation driven by CSS transitions
+{ mode: 'css', speed?: number }
+```
+
+### `effects`
+
+**Type:** `TegakiEffectConfigs`
+
+Effects configuration:
+
+```ts
+{
+  glow?: { radius: number, color: string, offsetX?: number, offsetY?: number },
+  wobble?: { amplitude: number, frequency: number, mode?: 'sine' | 'noise' },
+  pressureWidth?: { strength: number },
+  taper?: { startLength: number, endLength: number },
+  strokeGradient?: { colors: string | string[], saturation?: number, lightness?: number },
+}
+```
+
+### `style`
+
+Style object or string applied to the container. Use `fontSize` to control the text size.
+
+### `onComplete`
+
+**Type:** `() => void`
+
+Callback fired when the animation reaches the end (uncontrolled mode only).
+
+## Helper functions
+
+### `computeTimeline(text, font)`
+
+Computes the total animation duration for a given text and font bundle. Useful for controlled time mode.
+
+```ts
+import { computeTimeline } from 'tegaki';
+
+const { totalDuration } = computeTimeline('Hello', bundle);
+```

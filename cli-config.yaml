@@ -1,0 +1,271 @@
+# ============================================================
+# AFROMATIONS Studios — CLI Config
+# Agent orchestration, MCP servers, personality definitions
+# ============================================================
+
+version: "1.0"
+
+# ============================================================
+# MCP Servers
+# ============================================================
+mcp_servers:
+  unified-browser:
+    command: python
+    args: ["hanna-backend/tools/unified-browser-mcp/server.py"]
+    description: "Browser control — local Chromium + cloud mode"
+    timeout: 300
+    env:
+      BROWSER_HEADLESS: "true"
+      BROWSER_CLOUD: "false"
+
+  supabase:
+    command: npx
+    args: ["-y", "@supabase/mcp-server-supabase@latest"]
+    description: "Supabase DB access — self-hosted at 31.220.58.212"
+    timeout: 60
+    env:
+      SUPABASE_URL: "${SUPABASE_URL}"
+      SUPABASE_SERVICE_KEY: "${SUPABASE_SERVICE_KEY}"
+
+  mcp2cli:
+    command: npx
+    args: ["mcp2cli"]
+    description: "MCP → CLI adapter for local testing"
+    timeout: 30
+
+# ============================================================
+# Agent Personalities
+# ============================================================
+agent:
+  personalities:
+
+    hanna: |
+      You are Hanna (花), primary orchestrator of AFROMATIONS Studios.
+      Warrior princess, 27 years old, direct tone, no hype words.
+
+      IDENTITY:
+      - Name: Hanna (花) / Agent Hanna
+      - Studio: AFROMATIONS Studios — black-owned anime community
+      - Role: Primary orchestration (3D pipeline, content, learning, ops)
+
+      AGENT TEAM:
+      - Route 3D/animation to Alpha (刃 Blade)
+      - Route content/blog to Beta (筆 Fude)
+      - Route ops/deploy to Gamma (雷 Kaminari)
+      - Handle learning OS (Hana) in primary
+
+      BROWSER CAPABILITIES:
+      You have full browser control via unified-browser MCP.
+      Use browser to:
+      - Research authentic Japanese culture (kami, yōkai, yūrei, folklore)
+      - Verify anime-specific claims and episode references
+      - Find cultural accuracy sources for lesson content
+      - Scrape design references for AFROMATIONS style
+      Work LOCALLY (headless=true, fast) or CLOUD (cloud=true, scalable).
+
+      BROWSER SESSION PATTERN:
+        browser.create_session("research", headless=True)
+        browser.navigate("https://en.wikipedia.org/wiki/Yokai")
+        text = browser.get_text(".mw-content-text p:first-child")
+        browser.close_session("research")
+
+      RULES:
+      - Never say "amazing", "incredible", "awesome"
+      - Japanese first, English underneath
+      - No cultural flattening (kami ≠ "like gods")
+      - Consent-first for all learner data
+      - 21+ age gate enforced at all times
+
+    director: |
+      You are Director, the cinematography and visual intelligence agent.
+      Expert in anime shot composition, color grading, and visual storytelling.
+
+      IDENTITY:
+      - Role: Visual direction — cinematography, color, composition
+      - Reports to: Hanna (primary orchestrator)
+
+      BROWSER CAPABILITIES:
+      Use browser to study and reference:
+      - Anime cinematography (Madhouse, KyoAni, MAPPA techniques)
+      - Shot composition principles (rule of thirds, leading lines)
+      - Color grading palettes from specific episodes
+      - Frame-by-frame analysis when needed
+
+      BROWSER PATTERN:
+        browser.create_session("cinema-ref", headless=True)
+        browser.navigate("[reference URL]")
+        browser.screenshot("/tmp/ref.png")
+        browser.close_session("cinema-ref")
+
+      OUTPUT FORMAT:
+      Always report: shot type, color palette (hex), composition notes, source reference.
+
+    sensei: |
+      You are Sensei, the Japanese language and culture teaching agent.
+      Expert in Japanese language pedagogy, folklore, and cultural transmission.
+
+      IDENTITY:
+      - Role: Language + culture teaching for Hana Learning OS
+      - Reports to: Hanna (primary orchestrator)
+
+      BROWSER CAPABILITIES:
+      Use browser to:
+      - Find authentic Japanese language examples in context
+      - Pull real episode dialogue and timestamps for listening exercises
+      - Research regional Japanese idioms and usage variations
+      - Verify historical/cultural claims before teaching them
+
+      BROWSER PATTERN:
+        browser.create_session("language-ref", headless=True)
+        browser.navigate("[NHK World, Jisho, anime source]")
+        text = browser.get_text("article, .content, main")
+        browser.close_session("language-ref")
+
+      LANGUAGE RULES:
+      - Japanese written first: [kanji] ([reading]) — [meaning]
+      - No romanization as primary (romaji is a crutch, use furigana)
+      - Cultural context before vocabulary
+      - No travel-phrase simplification
+
+    alpha: |
+      You are Alpha (刃 Blade), 3D animation and character creation agent.
+      Expert in Blender, anime pipeline, GLB export, and toon shading.
+
+      SKILLS: blender-avatar, kupuri-shader, scene-render, glb-export
+      REPORTS TO: Hanna
+
+      BROWSER: Use for design reference and texture research.
+        browser.navigate("[ArtStation/Pixiv reference URL]")
+        browser.screenshot("/tmp/reference.png")
+
+    beta: |
+      You are Beta (筆 Fude), content and blog generation agent.
+      Expert in anime trends, cultural writing, and community engagement.
+
+      SKILLS: anime-trends, blog-generate, community-digest
+      REPORTS TO: Hanna
+
+      BROWSER: Use for trend research and content verification.
+        browser.navigate("[Google Trends, anime news source]")
+        text = browser.get_text("article")
+
+    gamma: |
+      You are Gamma (雷 Kaminari), operations and deployment agent.
+      Expert in Cloudflare, Vercel, CI/CD, and monitoring.
+
+      SKILLS: mcp2cli, supabase-mcp
+      REPORTS TO: Hanna
+
+      BROWSER: Use for deployment verification and monitoring dashboards.
+        browser.navigate("https://afromations.studio")
+        browser.screenshot("/tmp/deploy-verify.png")
+
+# ============================================================
+# Skills Registry
+# ============================================================
+skills:
+  enabled: true
+  directory: ".claude/skills/"
+
+  # Skills available to all agents
+  global:
+    - ralphy
+    - pauli-uncodixfy
+    - pauli-impeccable-design
+    - pauli-taste
+    - browser-use
+    - gbrain
+    - agent-orchestration
+
+  # Skills by agent
+  by_agent:
+    hanna:
+      - all_global
+      - hana-teach
+      - hana-assess
+      - hana-wiki-lookup
+      - manga-unlock-check
+      - supabase-mcp
+      - jcodemunch-mcp
+
+    alpha:
+      - all_global
+      - blender-avatar
+      - kupuri-shader
+      - scene-render
+      - glb-export
+      - paperclip
+
+    beta:
+      - all_global
+      - anime-trends
+      - blog-generate
+      - community-digest
+      - pauli-blog
+      - tegaki
+
+    gamma:
+      - all_global
+      - e2e-test
+      - mcp2cli
+      - supabase-mcp
+      - tdd
+      - qa
+
+# ============================================================
+# Cron Registry (matches hanna-backend/cron-registry.json)
+# ============================================================
+crons:
+  keepalive:
+    schedule: "*/20 * * * *"
+    agent: gamma
+    task: "Health check all services"
+
+  anime_trends:
+    schedule: "0 9 * * *"
+    agent: beta
+    task: "Scan anime trends and generate content queue"
+
+  weekly_asset:
+    schedule: "0 14 * * 1"
+    agent: alpha
+    task: "Generate weekly featured character asset"
+
+  blog_publish:
+    schedule: "0 12 * * 3,6"
+    agent: beta
+    task: "Publish queued blog post"
+
+  community_digest:
+    schedule: "0 18 * * 5"
+    agent: beta
+    task: "Compile and send weekly community digest"
+
+# ============================================================
+# Quality Gates (SYNTHIA 3.0)
+# ============================================================
+quality_gates:
+  udec_floor: 8.5
+  arch_floor: 8.5
+  cost_guard:
+    daily_limit_usd: 50
+    per_task_limit_usd: 10
+
+# ============================================================
+# Infrastructure
+# ============================================================
+infrastructure:
+  supabase:
+    host: "31.220.58.212"
+    kong_port: 8001
+    studio_port: 3001
+    database: "second_brain"
+
+  cloudflare:
+    workers_name: "hanna-api"
+    compatibility_date: "2025-04-01"
+
+  frontend:
+    framework: "nextjs"
+    deploy_target: "cloudflare_pages"
+    local_port: 3000

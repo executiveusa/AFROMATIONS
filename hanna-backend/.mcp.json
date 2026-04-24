@@ -1,5 +1,23 @@
 {
   "mcpServers": {
+    "unified-browser": {
+      "command": "python",
+      "args": ["tools/unified-browser-mcp/server.py"],
+      "description": "Browser control for all agent personalities (Hanna, Director, Sensei, Alpha, Beta, Gamma)",
+      "timeout": 300,
+      "tools": [
+        "create_session",
+        "navigate",
+        "get_text",
+        "get_html",
+        "screenshot",
+        "click",
+        "fill",
+        "evaluate",
+        "close_session",
+        "list_sessions"
+      ]
+    },
     "blender": {
       "command": "python",
       "args": ["tools/blender-mcp/server.py"],
