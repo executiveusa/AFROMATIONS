@@ -8,7 +8,7 @@ const CHARS = 'アイウエオカキクケコサシスセソタチツテトナ�
 
 function scramble(el: HTMLElement, final: string) {
   let frame = 0
-  const total = 18
+  const total = 12
   const interval = setInterval(() => {
     el.textContent = final
       .split('')
@@ -22,7 +22,7 @@ function scramble(el: HTMLElement, final: string) {
       el.textContent = final
       clearInterval(interval)
     }
-  }, 40)
+  }, 35)
 }
 
 export function HeroSection() {
@@ -33,30 +33,31 @@ export function HeroSection() {
     const el = headingRef.current
     if (!el) return
     const final = el.textContent ?? ''
-    const timer = setTimeout(() => scramble(el, final), 600)
+    // Reduced delay from 600ms → 300ms so the scramble starts sooner
+    const timer = setTimeout(() => scramble(el, final), 300)
     return () => clearTimeout(timer)
   }, [])
 
   return (
     <section
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-14"
+      className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 pt-14 sm:px-6"
       aria-label="Hero"
     >
-      {/* Red radial accent */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
+      {/* Red radial accent — contained, no overflow risk */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-1/2 h-[min(600px,120vw)] w-[min(600px,120vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
       </div>
 
-      {/* Vertical line accents */}
-      <div className="pointer-events-none absolute inset-y-0 left-12 w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-12 w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent" />
+      {/* Vertical line accents — hidden on small screens */}
+      <div className="pointer-events-none absolute inset-y-0 left-12 hidden w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent sm:block" />
+      <div className="pointer-events-none absolute inset-y-0 right-12 hidden w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent sm:block" />
 
-      <div className="relative z-10 max-w-3xl text-center">
+      <div className="relative z-10 w-full max-w-3xl text-center">
         {/* Eyebrow */}
-        <div className="mb-6 flex justify-center">
+        <div className="mb-5 flex justify-center">
           <TegakiText
             font="tangerine"
-            size={22}
+            size={20}
             color="var(--af-red)"
             className="tracking-[0.4em] uppercase"
           >
@@ -64,33 +65,37 @@ export function HeroSection() {
           </TegakiText>
         </div>
 
-        {/* Primary headline — AFROMATIONS with scramble reveal */}
+        {/* Primary headline — fluid size that never overflows on iPhone SE (320px) */}
         <h1
           ref={headingRef}
           className="font-bold leading-[0.95] tracking-tight text-(--af-cream)"
-          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(3.5rem, 10vw, 6.5rem)' }}
+          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(2.25rem, 10vw, 6.5rem)' }}
         >
           {t('hero.title')}
         </h1>
 
-        {/* Subtitle — community value prop */}
+        {/* Subtitle — balanced wrapping, readable on all phones */}
         <h2
-          className="mx-auto mt-6 max-w-2xl font-semibold leading-[1.2] text-(--af-cream)"
-          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(1.4rem, 3.5vw, 2.5rem)' }}
+          className="mx-auto mt-5 max-w-2xl font-semibold leading-[1.25] text-(--af-cream)"
+          style={{
+            fontFamily: 'Sora, sans-serif',
+            fontSize: 'clamp(1.1rem, 3.5vw, 2.5rem)',
+            textWrap: 'balance',
+          } as React.CSSProperties}
         >
           {t('hero.subtitle')}
         </h2>
 
         {/* Description */}
-        <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-(--af-grey-light)">
+        <p className="mx-auto mt-5 max-w-lg px-2 text-sm leading-relaxed text-(--af-grey-light) sm:px-0">
           {t('hero.description')}
         </p>
 
-        {/* CTA row */}
-        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+        {/* CTA row — stacked on mobile, side-by-side on sm+ */}
+        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 px-4 sm:flex-row sm:items-center sm:px-0">
           <a
             href="#blog"
-            className="af-btn-primary inline-flex h-11 items-center rounded-full px-6 text-xs font-semibold tracking-wider"
+            className="af-btn-primary inline-flex h-12 items-center justify-center rounded-full px-7 text-xs font-semibold tracking-wider sm:h-11"
             aria-label={t('hero.cta.trends')}
           >
             {t('hero.cta.trends')}
@@ -99,7 +104,7 @@ export function HeroSection() {
             href="https://discord.gg/afromations"
             target="_blank"
             rel="noopener noreferrer"
-            className="af-btn-secondary inline-flex h-11 items-center rounded-full border px-6 text-xs font-semibold tracking-wider"
+            className="af-btn-secondary inline-flex h-12 items-center justify-center rounded-full border px-7 text-xs font-semibold tracking-wider sm:h-11"
             aria-label="Join the AFROMATIONS Discord community"
           >
             {t('hero.cta.discord')}
@@ -107,10 +112,10 @@ export function HeroSection() {
         </div>
 
         {/* Hand-drawn tagline */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-5 flex justify-center">
           <TegakiText
             font="italianno"
-            size={26}
+            size={24}
             color="var(--af-cream)"
             style={{ opacity: 0.7 }}
           >
@@ -119,12 +124,12 @@ export function HeroSection() {
         </div>
 
         {/* Footnote — Hanna callout */}
-        <p className="mt-4 text-xs leading-relaxed text-(--af-grey-light)" style={{ opacity: 0.75 }}>
+        <p className="mx-auto mt-3 max-w-sm px-2 text-xs leading-relaxed text-(--af-grey-light) sm:px-0" style={{ opacity: 0.75 }}>
           {t('hero.footnote')}
         </p>
 
         {/* Scroll indicator */}
-        <div className="mt-16 flex flex-col items-center gap-2 text-(--af-grey-light)">
+        <div className="mt-12 flex flex-col items-center gap-2 text-(--af-grey-light)">
           <span className="text-[10px] tracking-[0.3em] uppercase">{t('hero.scroll')}</span>
           <div className="h-8 w-px bg-linear-to-b from-(--af-grey-light) to-transparent" />
         </div>
