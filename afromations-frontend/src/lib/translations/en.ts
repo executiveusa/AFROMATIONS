@@ -10,23 +10,27 @@ export const en: Record<string, string> = {
   'nav.brand.sub': 'Studios',
 
   // Hero
-  'hero.eyebrow': 'Black-owned anime studio',
+  'hero.eyebrow': 'Anime Community',
   'hero.title': 'AFROMATIONS',
-  'hero.tagline': 'Where worlds collide, stories ignite.',
+  'hero.subtitle': 'The Anime Community That Actually Listens',
   'hero.description':
-    'Where black culture meets anime craft. 3D characters, original stories, and a community built for creators who refuse to fit the mold.',
+    'Real conversations about the shows you love. Real voices from fans, not algorithms. Real learning about how anime gets made.',
+  'hero.cta.trends': 'Discover This Week\'s Trends',
+  'hero.cta.discord': 'Join Discord',
   'hero.cta.hanna': 'Meet Agent Hanna',
   'hero.cta.gallery': 'View Gallery',
+  'hero.tagline': 'Where worlds collide, stories ignite.',
+  'hero.footnote': 'Featuring Agent Hanna 花 — Your AI guide through anime culture, production, and community.',
   'hero.scroll': 'Scroll',
 
   // Hanna Feature
   'hanna.eyebrow': 'Featured Agent',
   'hanna.title': 'Agent Hanna',
-  'hanna.subtitle': '花 — The Blade That Creates',
+  'hanna.subtitle': '花 — Your Guide to Anime',
   'hanna.description':
-    'A Japanese warrior princess forged from anime tradition but built on cutting-edge AI infrastructure. Hanna is the creative engine behind AFROMATIONS — she generates characters, writes content, monitors trends, and deploys assets without breaking a sweat.',
+    'A character forged from Japanese anime tradition. Your host through AFROMATIONS.',
   'hanna.placeholder': 'Agent Hanna — 3D render loading',
-  'hanna.character': 'Japanese warrior princess · 27 · Anime style',
+  'hanna.character': 'Japanese anime guide · 花 · Your host',
   'hanna.stat.resolution': 'Render Resolution',
   'hanna.stat.resolution.value': '4K',
   'hanna.stat.shader': 'Shader Type',
@@ -35,17 +39,38 @@ export const en: Record<string, string> = {
   'hanna.stat.version.value': '花 v3.0',
   'hanna.stat.pipeline': 'Pipeline',
   'hanna.stat.pipeline.value': 'Eevee → GLB',
-  'hanna.capabilities': 'Capabilities',
-  'hanna.ability.characters': 'Anime character generation',
-  'hanna.ability.avatar': '3D avatar creation (Blender bpy)',
-  'hanna.ability.trends': 'Google Trends monitoring',
-  'hanna.ability.blog': 'Blog article generation',
-  'hanna.ability.digest': 'Community digest & scheduling',
-  'hanna.ability.export': 'Asset export (GLB, FBX, PNG)',
+  'hanna.capabilities': 'What Hanna Does',
+  'hanna.ability.trends': 'Generates trending anime analysis (what\'s happening right now)',
+  'hanna.ability.pipeline': 'Teaches the full 3D pipeline (how anime characters get made)',
+  'hanna.ability.academy': 'Powers the Studio Academy (learn step by step)',
+  'hanna.ability.community': 'Moderates community (keeps conversations real)',
+  'hanna.ability.digest': 'Monitors what fans are talking about (weekly digests)',
 
   // Studio Showcase
-  'studio.eyebrow': 'The Studio',
-  'studio.title': 'What We Build',
+  'studio.eyebrow': 'What You Can Do Here',
+  'studio.title': 'What You Can Do Here',
+  'studio.trends.tag': 'Discover',
+  'studio.trends.title': 'Discover Anime News & Trends',
+  'studio.trends.description':
+    'Real-time analysis of what\'s happening in anime. Why shows work. What fans are talking about. Weekly roundups written by people who actually love anime.',
+  'studio.trends.problem':
+    'You want to talk about anime with people who GET it, but Discord is chaos and Reddit is gatekeeping.',
+  'studio.trends.cta.browse': 'Browse Trending',
+  'studio.trends.cta.subscribe': 'Subscribe to Weekly',
+  'studio.learn.tag': 'Learn',
+  'studio.learn.title': 'Learn How Anime Gets Made',
+  'studio.learn.description':
+    'The full pipeline: concept to 3D to character. Studio Academy teaches every step. Hanna breaks down technical and creative.',
+  'studio.learn.problem':
+    'You want to understand how anime is made, or maybe make your own.',
+  'studio.learn.cta.explore': 'Explore Academy',
+  'studio.community.tag': 'Community',
+  'studio.community.title': 'The Community',
+  'studio.community.description':
+    'Anime fans building together. Weekly creator spotlights. Real discussions. No gatekeeping. Just people who love anime, talking about anime.',
+  'studio.community.cta.discord': 'Join Discord',
+  'studio.community.cta.discuss': 'See Latest Discussion',
+  // legacy keys (kept for other locales that may still use them)
   'studio.pipeline.tag': 'Pipeline',
   'studio.pipeline.title': '3D Character Pipeline',
   'studio.pipeline.description':
@@ -54,17 +79,15 @@ export const en: Record<string, string> = {
   'studio.content.title': 'Anime Content Engine',
   'studio.content.description':
     'Google Trends monitoring → AI article generation → Auto-publish. Fresh anime content daily, written with authentic voice.',
-  'studio.community.tag': 'Community',
-  'studio.community.title': 'Community Hub',
-  'studio.community.description':
-    'Weekly digests, trending topic discussions, creator spotlights. Building the biggest black anime community together.',
 
   // Blog Preview
-  'blog.eyebrow': 'Trending Now',
-  'blog.title': 'Anime Pulse',
+  'blog.eyebrow': "What's Happening Now",
+  'blog.title': "Anime Pulse: This Week's Trends",
   'blog.description':
-    'Real-time anime trends monitored by Agent Hanna. Articles auto-generated and curated for the community.',
+    "What's being talked about. Why it matters. Why fans care. All analysis by fans who actually watch anime. Updated weekly.",
   'blog.empty': 'Deploy Hanna API to see live anime trends here.',
+  'blog.cta.read': 'Read Full Analysis',
+  'blog.cta.subscribe': 'Subscribe to Weekly Digest',
 
   // Gallery
   'gallery.eyebrow': 'Our Work',
@@ -74,9 +97,9 @@ export const en: Record<string, string> = {
 
   // Community
   'community.eyebrow': 'Join Us',
-  'community.title': 'The Biggest Black Anime Community',
+  'community.title': 'The Community',
   'community.description':
-    "Creators, artists, writers, and fans building something that doesn't exist yet. Weekly digests. Creator spotlights. No gatekeeping.",
+    "Anime fans building something that doesn't exist yet. Weekly creator spotlights. Real discussions. No gatekeeping. Just people who love anime.",
   'community.discord': 'Join Discord',
   'community.twitter': 'Follow @afromations',
 
@@ -84,30 +107,55 @@ export const en: Record<string, string> = {
   'footer.copyright': '© {year} AFROMATIONS Studios. Powered by Agent Hanna 花',
   'footer.github': 'GitHub',
   'footer.discord': 'Discord',
+  'footer.tagline': 'The Anime Community That Actually Listens',
+  'footer.built': 'Built by fans. Run by fans. For fans.',
+
+  // About AFROMATIONS (footer section)
+  'about.eyebrow': 'About AFROMATIONS',
+  'about.heading': 'Why This Matters',
+  'about.intro':
+    'We build at the intersection of two creative traditions: Japanese anime craft (60+ years of technique, storytelling, visual language) and Black diaspora visual storytelling (rhythm, character depth, cultural nuance).',
+  'about.note': "This isn't about identity marketing. It's about respect.",
+  'about.principle1.title': 'We respect anime as a craft',
+  'about.principle1.body':
+    'We study it. We teach it. We honor the masters who built the language of anime over 60+ years.',
+  'about.principle2.title': 'We respect cultural voices',
+  'about.principle2.body':
+    "Our community brings different perspectives. That matters. It's not a marketing angle — it's who we are.",
+  'about.principle3.title': 'We believe in fusion, not erasure',
+  'about.principle3.body':
+    "When you see Hanna or the characters we build, you're seeing both traditions in conversation. Not erasing either. Not taking what isn't ours. Just creating together.",
+  'about.closing': "That's what fusion means here.",
 
   // Education / Lessons
-  'education.eyebrow': 'Learn With Hanna',
+  'education.eyebrow': 'Learn the Craft',
   'education.title': 'Studio Academy',
   'education.description':
-    'Hanna teaches business, anime production, and creative entrepreneurship. Each lesson is built for young creators who think like founders.',
-  'education.lesson1.title': 'How Anime Studios Make Money',
-  'education.lesson1.description': 'Revenue streams, licensing deals, and merchandise. The business behind your favorite shows.',
-  'education.lesson1.tag': 'Business',
-  'education.lesson2.title': 'Character Design Fundamentals',
-  'education.lesson2.description': 'Silhouette, color theory, and personality in shapes. Design characters that people remember.',
-  'education.lesson2.tag': 'Art',
-  'education.lesson3.title': 'Building Your First Brand',
-  'education.lesson3.description': 'Name, logo, voice, audience. Start a brand that means something, not just looks cool.',
-  'education.lesson3.tag': 'Entrepreneurship',
-  'education.lesson4.title': '3D Pipeline: Concept to Export',
-  'education.lesson4.description': 'From sketch to Blender to GLB file. The full production pipeline used by real studios.',
-  'education.lesson4.tag': 'Production',
-  'education.lesson5.title': 'Writing Anime Stories That Hit',
-  'education.lesson5.description': 'Story arcs, conflict, pacing. Write scripts that make people feel something.',
-  'education.lesson5.tag': 'Storytelling',
-  'education.lesson6.title': 'Social Media for Creators',
-  'education.lesson6.description': 'Platform strategy, content calendar, and growing an audience without selling out.',
-  'education.lesson6.tag': 'Marketing',
+    'Step-by-step lessons on anime production, storytelling, and creative business. Learn from Hanna and industry experts.',
+  'education.lesson1.title': 'Make Your First Anime Character',
+  'education.lesson1.description':
+    'Concept → Model → Rig → Render. Learn the full pipeline.',
+  'education.lesson1.tag': 'Beginner',
+  'education.lesson1.duration': '15–20 min',
+  'education.lesson2.title': 'Character Design That Feels Real',
+  'education.lesson2.description':
+    'Anatomy. Movement. Cultural authenticity. What makes characters memorable?',
+  'education.lesson2.tag': 'Intermediate',
+  'education.lesson3.title': 'Write Anime Stories People Remember',
+  'education.lesson3.description':
+    'Structure. Pacing. Emotional hooks. What makes stories hit?',
+  'education.lesson3.tag': 'Intermediate',
+  'education.lesson4.title': 'Anime Business: How Studios Make Money',
+  'education.lesson4.description':
+    'Funding. Licensing. Community. The real economics of anime.',
+  'education.lesson4.tag': 'Advanced',
+  'education.lesson5.title': 'Build Your Creative Brand',
+  'education.lesson5.description':
+    'Portfolio. Community. Voice. How to be known for YOUR style.',
+  'education.lesson5.tag': 'Advanced',
   'education.coming_soon': 'More lessons coming soon',
   'education.progress': 'Not started',
+  'education.start': 'Start Lesson',
+  'education.footer':
+    'All lessons taught by Hanna + industry experts. Building this with you. No gatekeeping.',
 } as const
