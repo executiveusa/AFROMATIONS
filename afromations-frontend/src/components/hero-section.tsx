@@ -38,7 +38,10 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-14">
+    <section
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-14"
+      aria-label="Hero"
+    >
       {/* Red radial accent */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
@@ -49,7 +52,7 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-y-0 right-12 w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent" />
 
       <div className="relative z-10 max-w-3xl text-center">
-        {/* Eyebrow — hand-drawn with Tegaki (use-case #1) */}
+        {/* Eyebrow */}
         <div className="mb-6 flex justify-center">
           <TegakiText
             font="tangerine"
@@ -61,21 +64,50 @@ export function HeroSection() {
           </TegakiText>
         </div>
 
-        {/* Main heading — kanji-scramble keeps running, Tegaki draws subtitle below (use-case #2) */}
+        {/* Primary headline — AFROMATIONS with scramble reveal */}
         <h1
           ref={headingRef}
-          className="text-5xl font-bold leading-[1.1] tracking-tight text-(--af-cream) sm:text-7xl"
-          style={{ fontFamily: 'Sora, sans-serif' }}
+          className="font-bold leading-[0.95] tracking-tight text-(--af-cream)"
+          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(3.5rem, 10vw, 6.5rem)' }}
         >
           {t('hero.title')}
         </h1>
 
+        {/* Subtitle — community value prop */}
+        <h2
+          className="mx-auto mt-6 max-w-2xl font-semibold leading-[1.2] text-(--af-cream)"
+          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(1.4rem, 3.5vw, 2.5rem)' }}
+        >
+          {t('hero.subtitle')}
+        </h2>
+
+        {/* Description */}
         <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-(--af-grey-light)">
           {t('hero.description')}
         </p>
 
-        {/* Hand-drawn sub-tagline — use-case #2 */}
-        <div className="mt-4 flex justify-center">
+        {/* CTA row */}
+        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <a
+            href="#blog"
+            className="af-btn-primary inline-flex h-11 items-center rounded-full px-6 text-xs font-semibold tracking-wider"
+            aria-label={t('hero.cta.trends')}
+          >
+            {t('hero.cta.trends')}
+          </a>
+          <a
+            href="https://discord.gg/afromations"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="af-btn-secondary inline-flex h-11 items-center rounded-full border px-6 text-xs font-semibold tracking-wider"
+            aria-label="Join the AFROMATIONS Discord community"
+          >
+            {t('hero.cta.discord')}
+          </a>
+        </div>
+
+        {/* Hand-drawn tagline */}
+        <div className="mt-6 flex justify-center">
           <TegakiText
             font="italianno"
             size={26}
@@ -86,24 +118,13 @@ export function HeroSection() {
           </TegakiText>
         </div>
 
-        {/* CTA row */}
-        <div className="mt-10 flex items-center justify-center gap-4">
-          <a
-            href="#hanna"
-            className="inline-flex h-10 items-center rounded-md bg-(--af-red) px-6 text-xs font-semibold tracking-wider text-(--af-cream) transition-colors hover:bg-(--af-red-dark)"
-          >
-            {t('hero.cta.hanna')}
-          </a>
-          <a
-            href="#gallery"
-            className="inline-flex h-10 items-center rounded-md border border-white/10 px-6 text-xs font-semibold tracking-wider text-(--af-cream) transition-colors hover:border-white/20"
-          >
-            {t('hero.cta.gallery')}
-          </a>
-        </div>
+        {/* Footnote — Hanna callout */}
+        <p className="mt-4 text-xs leading-relaxed text-(--af-grey-light)" style={{ opacity: 0.75 }}>
+          {t('hero.footnote')}
+        </p>
 
         {/* Scroll indicator */}
-        <div className="mt-20 flex flex-col items-center gap-2 text-(--af-grey-light)">
+        <div className="mt-16 flex flex-col items-center gap-2 text-(--af-grey-light)">
           <span className="text-[10px] tracking-[0.3em] uppercase">{t('hero.scroll')}</span>
           <div className="h-8 w-px bg-linear-to-b from-(--af-grey-light) to-transparent" />
         </div>
