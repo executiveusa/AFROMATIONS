@@ -70,14 +70,15 @@ export function HannaChat() {
 
   return (
     <>
-      {/* Floating trigger button */}
+      {/* Floating trigger button — safe-area aware on iOS */}
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          'fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-all',
+          'fixed right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-all sm:right-6',
           'bg-(--af-red) text-(--af-cream) hover:bg-(--af-red-dark)',
           open && 'rotate-45'
         )}
+        style={{ bottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}
         aria-label="Chat with Hanna"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -92,12 +93,15 @@ export function HannaChat() {
         </svg>
       </button>
 
-      {/* Chat panel */}
+      {/* Chat panel — mobile-safe width and positioning */}
       <div
         className={cn(
-          'fixed bottom-20 right-6 z-50 flex w-80 flex-col overflow-hidden rounded-sm border border-white/10 bg-(--af-black) shadow-md transition-all duration-300 sm:w-96',
-          open ? 'h-112 opacity-100 translate-y-0' : 'h-0 opacity-0 translate-y-4 pointer-events-none'
+          'fixed right-4 z-50 flex flex-col overflow-hidden rounded-lg border border-white/10 bg-(--af-black) shadow-md sm:right-6',
+          'w-[calc(100vw-2rem)] max-w-[20rem] sm:max-w-[24rem]',
+          'transition-all duration-200',
+          open ? 'h-[min(28rem,70svh)] opacity-100 translate-y-0' : 'h-0 opacity-0 translate-y-4 pointer-events-none'
         )}
+        style={{ bottom: 'calc(max(1.25rem, env(safe-area-inset-bottom)) + 3.75rem)' }}
       >
         {/* Header */}
         <div className="flex items-center gap-3 border-b border-white/5 px-4 py-3">
