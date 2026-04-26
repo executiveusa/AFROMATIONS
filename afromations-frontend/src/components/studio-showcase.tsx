@@ -45,7 +45,7 @@ export function StudioShowcase() {
           <article
             className={`
               af-card md:col-span-2
-              transition-all duration-300
+              transition-all duration-150
               ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
             `}
             style={{ transitionDelay: '0ms' }}
@@ -82,7 +82,7 @@ export function StudioShowcase() {
           <article
             className={`
               af-card
-              transition-all duration-300
+              transition-all duration-150
               ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
             `}
             style={{ transitionDelay: '120ms' }}
@@ -116,7 +116,7 @@ export function StudioShowcase() {
           <article
             className={`
               af-card md:col-span-3
-              transition-all duration-300
+              transition-all duration-150
               ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
             `}
             style={{ transitionDelay: '240ms' }}

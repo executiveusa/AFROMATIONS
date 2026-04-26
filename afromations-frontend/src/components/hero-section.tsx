@@ -22,7 +22,7 @@ function scramble(el: HTMLElement, final: string) {
       el.textContent = final
       clearInterval(interval)
     }
-  }, 35)
+  }, 22)
 }
 
 export function HeroSection() {
@@ -33,8 +33,7 @@ export function HeroSection() {
     const el = headingRef.current
     if (!el) return
     const final = el.textContent ?? ''
-    // Reduced delay from 600ms → 300ms so the scramble starts sooner
-    const timer = setTimeout(() => scramble(el, final), 300)
+    const timer = setTimeout(() => scramble(el, final), 80)
     return () => clearTimeout(timer)
   }, [])
 

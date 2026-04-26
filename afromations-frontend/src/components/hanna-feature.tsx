@@ -56,7 +56,7 @@ export function HannaFeature() {
               className={`
                 relative h-56 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey)
                 sm:h-90 md:h-120
-                transition-all duration-400 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                transition-all duration-200 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
               `}
             >
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
@@ -81,7 +81,7 @@ export function HannaFeature() {
           <div
             className={`
               flex flex-col justify-center
-              transition-all duration-400 delay-100
+              transition-all duration-200 delay-100
               ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
             `}
           >
