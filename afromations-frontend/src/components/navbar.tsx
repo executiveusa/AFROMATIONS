@@ -23,11 +23,12 @@ export function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open; auto-close when viewport grows to desktop
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
@@ -36,6 +37,15 @@ export function Navbar() {
     }
     return () => { document.body.style.overflow = '' }
   }, [open])
+
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 768px)')
+    const onBreakpoint = (e: MediaQueryListEvent) => {
+      if (e.matches) { setOpen(false); setLangOpen(false) }
+    }
+    mql.addEventListener('change', onBreakpoint)
+    return () => mql.removeEventListener('change', onBreakpoint)
+  }, [])
 
   function handleLinkClick() {
     setOpen(false)
@@ -190,8 +200,7 @@ export function Navbar() {
                   open ? 'opacity-100' : 'opacity-0'
                 )}
                 style={{
-                  transitionDelay: open ? `${i * 30}ms` : '0ms',
-                  transition: 'opacity 0.2s ease, background-color 0.15s ease',
+                  transition: `opacity 0.2s ease ${open ? i * 30 : 0}ms, background-color 0.15s ease`,
                 }}
               >
                 <span>{l.label}</span>

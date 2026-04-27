@@ -21,14 +21,25 @@ export function useDevice(): DeviceInfo {
     const ua = navigator.userAgent.toLowerCase()
     const isTouch = navigator.maxTouchPoints > 0
     const isAndroid = /android/.test(ua)
-    const isIos = /iphone|ipad|ipod/.test(ua)
-    const isMobileWidth = window.matchMedia('(max-width: 767px)').matches
+    // iPadOS 13+ reports a "Macintosh" UA in desktop mode — detect via touch points.
+    const isIos =
+      /iphone|ipad|ipod/.test(ua) ||
+      (/macintosh/.test(ua) && navigator.maxTouchPoints > 1)
 
-    setInfo({
-      platform: isAndroid ? 'android' : isIos ? 'ios' : isMobileWidth ? 'desktop' : 'desktop',
-      isMobile: isAndroid || isIos || isMobileWidth,
-      isTouch,
-    })
+    const mql = window.matchMedia('(max-width: 767px)')
+
+    const update = () => {
+      const isMobileWidth = mql.matches
+      setInfo({
+        platform: isAndroid ? 'android' : isIos ? 'ios' : 'desktop',
+        isMobile: isAndroid || isIos || isMobileWidth,
+        isTouch,
+      })
+    }
+
+    update()
+    mql.addEventListener('change', update)
+    return () => mql.removeEventListener('change', update)
   }, [])
 
   return info

@@ -4,6 +4,11 @@ import { useEffect, useRef } from 'react'
 import { useI18n } from '@/lib/i18n'
 import { TegakiText } from '@/components/tegaki-text'
 
+// Drop an MP4 file into /public and set this path to enable the hero video.
+// Leave as null to show the default gradient background.
+const HERO_VIDEO_SRC: string | null = null
+// e.g. const HERO_VIDEO_SRC = '/videos/hero.mp4'
+
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
 
 function scramble(el: HTMLElement, final: string) {
@@ -42,10 +47,27 @@ export function HeroSection() {
       className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 pt-14 sm:px-6"
       aria-label="Hero"
     >
-      {/* Red radial accent — contained, no overflow risk */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 h-[min(600px,120vw)] w-[min(600px,120vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
-      </div>
+      {/* ── Background: video when available, gradient fallback ── */}
+      {HERO_VIDEO_SRC ? (
+        <>
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            src={HERO_VIDEO_SRC}
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+          />
+          {/* Dark overlay so text stays readable over the video */}
+          <div className="absolute inset-0 bg-(--af-black)/60" aria-hidden="true" />
+        </>
+      ) : (
+        /* Red radial accent — contained, no overflow risk */
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-1/2 top-1/2 h-[min(600px,120vw)] w-[min(600px,120vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
+        </div>
+      )}
 
       {/* Vertical line accents — hidden on small screens */}
       <div className="pointer-events-none absolute inset-y-0 left-12 hidden w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent sm:block" />

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useI18n } from '@/lib/i18n'
 
 interface Lesson {
@@ -95,13 +96,13 @@ export function EducationSection() {
                 {/* CTA */}
                 {isAvailable && (
                   <div className="mt-5">
-                    <a
+                    <Link
                       href="/learn"
                       className="af-btn-primary inline-flex h-9 items-center rounded-lg px-5 text-xs font-semibold tracking-wider"
                       aria-label={`Start lesson: ${t(lesson.titleKey)}`}
                     >
                       {t('education.start')}
-                    </a>
+                    </Link>
                   </div>
                 )}
 
