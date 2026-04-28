@@ -48,15 +48,9 @@ export function KineticMarquee({ items, speed = 30, reverse = false, className }
     function measure() {
       const isSm = window.matchMedia('(min-width: 640px)').matches
       const isMd = window.matchMedia('(min-width: 768px)').matches
-      computeHalfWidth(items, isSm, isMd)
-        .then((w) => {
-          if (!cancelled) halfWidthRef.current = w
-        })
-        .catch((err) => {
-          if (process.env.NODE_ENV !== 'production') {
-            console.warn('[KineticMarquee] pretext measurement failed:', err)
-          }
-        })
+      computeHalfWidth(items, isSm, isMd).then((w) => {
+        if (!cancelled) halfWidthRef.current = w
+      })
     }
 
     measure()

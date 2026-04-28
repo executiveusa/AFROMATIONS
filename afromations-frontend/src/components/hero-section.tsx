@@ -27,7 +27,7 @@ function scramble(el: HTMLElement, final: string) {
       el.textContent = final
       clearInterval(interval)
     }
-  }, 22)
+  }, 35)
 }
 
 export function HeroSection() {
@@ -38,7 +38,8 @@ export function HeroSection() {
     const el = headingRef.current
     if (!el) return
     const final = el.textContent ?? ''
-    const timer = setTimeout(() => scramble(el, final), 80)
+    // Reduced delay from 600ms → 300ms so the scramble starts sooner
+    const timer = setTimeout(() => scramble(el, final), 300)
     return () => clearTimeout(timer)
   }, [])
 
@@ -47,27 +48,10 @@ export function HeroSection() {
       className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 pt-14 sm:px-6"
       aria-label="Hero"
     >
-      {/* ── Background: video when available, gradient fallback ── */}
-      {HERO_VIDEO_SRC ? (
-        <>
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src={HERO_VIDEO_SRC}
-            autoPlay
-            loop
-            muted
-            playsInline
-            aria-hidden="true"
-          />
-          {/* Dark overlay so text stays readable over the video */}
-          <div className="absolute inset-0 bg-(--af-black)/60" aria-hidden="true" />
-        </>
-      ) : (
-        /* Red radial accent — contained, no overflow risk */
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-1/2 top-1/2 h-[min(600px,120vw)] w-[min(600px,120vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
-        </div>
-      )}
+      {/* Red radial accent — contained, no overflow risk */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-1/2 h-[min(600px,120vw)] w-[min(600px,120vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--af-red) opacity-[0.04] blur-[120px]" />
+      </div>
 
       {/* Vertical line accents — hidden on small screens */}
       <div className="pointer-events-none absolute inset-y-0 left-12 hidden w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent sm:block" />

@@ -96,13 +96,13 @@ export function EducationSection() {
                 {/* CTA */}
                 {isAvailable && (
                   <div className="mt-5">
-                    <Link
+                    <a
                       href="/learn"
                       className="af-btn-primary inline-flex h-9 items-center rounded-lg px-5 text-xs font-semibold tracking-wider"
                       aria-label={`Start lesson: ${t(lesson.titleKey)}`}
                     >
                       {t('education.start')}
-                    </Link>
+                    </a>
                   </div>
                 )}
 
