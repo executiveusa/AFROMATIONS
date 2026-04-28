@@ -3,57 +3,11 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 
-/* ─── Katakana charset for text scramble ─── */
+/* ─── Katakana + kanji charset ─── */
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
 
-/* ─── SVG Gear Generator ─── */
-function makeGearPath(teeth: number, outerR: number): string {
-  const innerR = outerR * 0.8
-  const seg = (2 * Math.PI) / teeth
-  const tw = seg * 0.28
-
-  const pts: string[] = []
-  for (let i = 0; i < teeth; i++) {
-    const a = i * seg
-    pts.push(`${(outerR * Math.cos(a - tw)).toFixed(1)},${(outerR * Math.sin(a - tw)).toFixed(1)}`)
-    pts.push(`${(outerR * Math.cos(a + tw)).toFixed(1)},${(outerR * Math.sin(a + tw)).toFixed(1)}`)
-    const va = a + seg / 2
-    pts.push(`${(innerR * Math.cos(va - tw)).toFixed(1)},${(innerR * Math.sin(va - tw)).toFixed(1)}`)
-    pts.push(`${(innerR * Math.cos(va + tw)).toFixed(1)},${(innerR * Math.sin(va + tw)).toFixed(1)}`)
-  }
-  return `M${pts.join('L')}Z`
-}
-
-function GearSVG({
-  size,
-  teeth,
-  className,
-  style,
-}: {
-  size: number
-  teeth: number
-  className?: string
-  style?: React.CSSProperties
-}) {
-  const r = size / 2 - 2
-  const holeR = r * 0.3
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox={`${-size / 2} ${-size / 2} ${size} ${size}`}
-      className={className}
-      style={style}
-      aria-hidden="true"
-    >
-      <path d={makeGearPath(teeth, r)} fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="0" cy="0" r={holeR} fill="none" stroke="currentColor" strokeWidth="1" />
-    </svg>
-  )
-}
-
-/* ─── Spark Particle Interface ─── */
-interface Spark {
+/* ─── Ember Particle ─── */
+interface Ember {
   x: number
   y: number
   vx: number
@@ -61,72 +15,85 @@ interface Spark {
   life: number
   maxLife: number
   size: number
+  color: string
 }
 
-/* ─── Main Cinematic Intro ─── */
+/* ─── Phase definitions
+  0 — hidden (session already seen)
+  1 — black screen → battle image fades in
+  2 — kanji stamp + red flash
+  3 — character panel slides in
+  4 — manga cover slam
+  5 — title scramble
+  6 — dissolve out
+─── */
+
+function scramble(target: string, frame: number, total: number): string {
+  return target
+    .split('')
+    .map((ch, i) => {
+      if (i < Math.floor((frame / total) * target.length)) return ch
+      return CHARS[Math.floor(Math.random() * CHARS.length)]
+    })
+    .join('')
+}
+
 export function CinematicIntro() {
   const [phase, setPhase] = useState(0)
   const [done, setDone] = useState(false)
-  const [scrambleText, setScrambleText] = useState('')
-  const [studiosVisible, setStudiosVisible] = useState(false)
+  const [titleText, setTitleText] = useState('')
+  const [subVisible, setSubVisible] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const sparksRef = useRef<Spark[]>([])
+  const embersRef = useRef<Ember[]>([])
   const rafRef = useRef<number>(0)
 
-  /* Check session — only play once per visit */
+  /* Check session */
   useEffect(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('af-intro')) {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('af-intro-v2')) {
       setDone(true)
     }
   }, [])
 
-  /* Phase timeline orchestrator */
+  /* Phase timeline */
   useEffect(() => {
     if (done) return
-    const timers = [
-      setTimeout(() => setPhase(1), 300),     // gears + steam appear
-      setTimeout(() => setPhase(2), 1000),    // logo reveals
-      setTimeout(() => setPhase(3), 2500),    // sparks + energy pulse
-      setTimeout(() => setPhase(4), 3500),    // text scramble
-      setTimeout(() => setStudiosVisible(true), 4300),
-      setTimeout(() => setPhase(5), 5200),    // dissolve
+    const t = [
+      setTimeout(() => setPhase(1), 200),   // battle bg fades in
+      setTimeout(() => setPhase(2), 1100),  // kanji stamp
+      setTimeout(() => setPhase(3), 2000),  // character panel slides
+      setTimeout(() => setPhase(4), 3000),  // manga cover slam
+      setTimeout(() => setPhase(5), 4000),  // title scramble
+      setTimeout(() => setSubVisible(true), 4800),
+      setTimeout(() => setPhase(6), 5600),  // dissolve
       setTimeout(() => {
         setDone(true)
-        sessionStorage.setItem('af-intro', '1')
-      }, 6200),
+        sessionStorage.setItem('af-intro-v2', '1')
+      }, 6600),
     ]
-    return () => timers.forEach(clearTimeout)
+    return () => t.forEach(clearTimeout)
   }, [done])
 
-  /* Text scramble for "AFROMATIONS" */
+  /* Title scramble */
   useEffect(() => {
-    if (phase < 4) return
+    if (phase < 5) return
     const target = 'AFROMATIONS'
     let frame = 0
-    const total = 22
+    const total = 20
     const iv = setInterval(() => {
-      setScrambleText(
-        target
-          .split('')
-          .map((ch, i) => {
-            if (i < Math.floor((frame / total) * target.length)) return ch
-            return CHARS[Math.floor(Math.random() * CHARS.length)]
-          })
-          .join('')
-      )
+      setTitleText(scramble(target, frame, total))
       frame++
       if (frame > total) {
-        setScrambleText(target)
+        setTitleText(target)
         clearInterval(iv)
       }
-    }, 45)
+    }, 50)
     return () => clearInterval(iv)
   }, [phase])
 
-  /* Canvas spark particles */
+  /* Ember canvas — active from phase 2 */
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas || phase < 3 || done) return
+    if (!canvas || phase < 2 || done) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
@@ -138,56 +105,53 @@ export function CinematicIntro() {
     window.addEventListener('resize', resize)
 
     const isMobile = window.innerWidth < 768
-    const maxSparks = isMobile ? 35 : 70
+    const maxEmbers = isMobile ? 40 : 90
+    const COLORS = ['rgba(245,200,80,', 'rgba(220,80,30,', 'rgba(255,140,60,']
 
     function emit() {
-      const cx = canvas!.width / 2
-      const cy = canvas!.height / 2 - 20
-      const angle = Math.random() * Math.PI * 2
-      const speed = 1 + Math.random() * 3.5
-      sparksRef.current.push({
-        x: cx + (Math.random() - 0.5) * 80,
-        y: cy + (Math.random() - 0.5) * 80,
+      const cx = canvas!.width * (0.35 + Math.random() * 0.3)
+      const cy = canvas!.height * (0.4 + Math.random() * 0.25)
+      const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.2
+      const speed = 0.6 + Math.random() * 2.8
+      embersRef.current.push({
+        x: cx,
+        y: cy,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 0.8,
+        vy: Math.sin(angle) * speed - 0.5,
         life: 0,
-        maxLife: 35 + Math.random() * 45,
-        size: 0.8 + Math.random() * 2.2,
+        maxLife: 40 + Math.random() * 60,
+        size: 0.6 + Math.random() * 2.4,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
       })
-      if (sparksRef.current.length > maxSparks) sparksRef.current.shift()
+      if (embersRef.current.length > maxEmbers) embersRef.current.shift()
     }
 
     function loop() {
       if (!ctx || !canvas) return
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      for (let i = 0; i < (isMobile ? 2 : 3); i++) emit()
-
-      sparksRef.current = sparksRef.current.filter((s) => {
-        s.x += s.vx
-        s.y += s.vy
-        s.vy += 0.025
-        s.life++
-        const alpha = 1 - s.life / s.maxLife
+      for (let i = 0; i < (isMobile ? 2 : 4); i++) emit()
+      embersRef.current = embersRef.current.filter((e) => {
+        e.x += e.vx
+        e.y += e.vy
+        e.vy += 0.018
+        e.vx *= 0.995
+        e.life++
+        const alpha = Math.pow(1 - e.life / e.maxLife, 1.4)
         if (alpha <= 0) return false
-
-        // Golden ember glow
+        // glow halo
         ctx.beginPath()
-        ctx.arc(s.x, s.y, s.size + 1, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(212, 160, 23, ${alpha * 0.3})`
+        ctx.arc(e.x, e.y, e.size + 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = `${e.color}${(alpha * 0.25).toFixed(3)})`
         ctx.fill()
-        // Core spark
+        // core
         ctx.beginPath()
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(245, 200, 80, ${alpha})`
+        ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2)
+        ctx.fillStyle = `${e.color}${alpha.toFixed(3)})`
         ctx.fill()
-
         return true
       })
-
       rafRef.current = requestAnimationFrame(loop)
     }
-
     loop()
     return () => {
       cancelAnimationFrame(rafRef.current)
@@ -195,10 +159,10 @@ export function CinematicIntro() {
     }
   }, [phase, done])
 
-  /* Tap / click to skip */
   const skip = useCallback(() => {
+    cancelAnimationFrame(rafRef.current)
     setDone(true)
-    sessionStorage.setItem('af-intro', '1')
+    sessionStorage.setItem('af-intro-v2', '1')
   }, [])
 
   if (done) return null
@@ -206,237 +170,238 @@ export function CinematicIntro() {
   return (
     <AnimatePresence>
       <motion.div
-        key="cinematic-intro"
-        className="fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
+        key="hana-intro"
+        className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#000]"
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         onClick={skip}
+        role="presentation"
+        aria-hidden="true"
       >
-        {/* ── Steam Wisps ── */}
-        {phase >= 1 && (
-          <div className="pointer-events-none absolute inset-0">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="intro-steam"
-                style={{
-                  left: `${12 + i * 20}%`,
-                  animationDelay: `${i * 0.5}s`,
-                }}
-              />
-            ))}
-          </div>
-        )}
 
-        {/* ── Rotating Gears ── */}
-        {phase >= 1 && (
-          <>
-            <GearSVG
-              size={180}
-              teeth={12}
-              className="intro-gear-cw"
-              style={{
-                position: 'absolute',
-                top: '8%',
-                right: '3%',
-                color: 'rgba(100, 120, 140, 0.12)',
-              }}
-            />
-            <GearSVG
-              size={140}
-              teeth={8}
-              className="intro-gear-ccw"
-              style={{
-                position: 'absolute',
-                bottom: '15%',
-                left: '2%',
-                color: 'rgba(100, 120, 140, 0.12)',
-              }}
-            />
-            <GearSVG
-              size={100}
-              teeth={10}
-              className="intro-gear-cw-slow"
-              style={{
-                position: 'absolute',
-                top: '55%',
-                right: '10%',
-                color: 'rgba(100, 120, 140, 0.08)',
-              }}
-            />
-            <GearSVG
-              size={70}
-              teeth={6}
-              className="intro-gear-ccw"
-              style={{
-                position: 'absolute',
-                top: '20%',
-                left: '8%',
-                color: 'rgba(100, 120, 140, 0.08)',
-              }}
-            />
-          </>
-        )}
+        {/* ── 1: Battle Background ── */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{
+            opacity: phase >= 1 && phase < 6 ? 1 : 0,
+            scale: phase >= 1 ? 1 : 1.08,
+          }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5d47160a-6b1b-46e3-b4d4-73eece0f9bd5-aP54HFYy97hSyAwi01hC4C5mvAgjl5.png"
+            alt=""
+            className="h-full w-full object-cover object-center"
+            style={{ filter: 'brightness(0.55) saturate(1.2)' }}
+          />
+          {/* Dark vignette overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 20%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.88) 100%)',
+            }}
+          />
+          {/* Bottom fade */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-1/3"
+            style={{ background: 'linear-gradient(to top, #000 0%, transparent 100%)' }}
+          />
+          {/* Top fade */}
+          <div
+            className="absolute inset-x-0 top-0 h-24"
+            style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%)' }}
+          />
+        </motion.div>
 
-        {/* ── Spark Canvas ── */}
+        {/* ── Ember Canvas ── */}
         <canvas
           ref={canvasRef}
           className="pointer-events-none absolute inset-0 z-10"
-          style={{ opacity: phase >= 5 ? 0 : 1, transition: 'opacity 0.8s' }}
+          style={{
+            opacity: phase >= 6 ? 0 : 1,
+            transition: 'opacity 1s',
+          }}
         />
 
-        {/* ── Red Glow Behind Logo ── */}
-        {phase >= 2 && (
-          <motion.div
-            className="absolute z-0"
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{
-              scale: [0.5, 1.3, 1],
-              opacity: [0, 0.2, 0.1],
-            }}
-            transition={{ duration: 1.8, ease: 'easeOut' }}
-          >
-            <div
-              className="h-62.5 w-62.5 rounded-full sm:h-90 sm:w-90"
-              style={{
-                background: 'radial-gradient(circle, rgba(196,30,30,0.5) 0%, rgba(196,30,30,0.1) 40%, transparent 70%)',
-              }}
-            />
-          </motion.div>
-        )}
-
-        {/* ── Logo Reveal ── */}
-        {phase >= 2 && (
-          <motion.div
-            className="relative z-20"
-            initial={{ scale: 0.4, opacity: 0 }}
-            animate={{
-              scale: phase >= 5 ? 1.3 : 1,
-              opacity: phase >= 5 ? 0 : 1,
-            }}
-            transition={{
-              scale: { duration: phase >= 5 ? 0.6 : 1.2, ease: [0.16, 1, 0.3, 1] },
-              opacity: { duration: phase >= 5 ? 0.5 : 0.8, ease: 'easeOut' },
-            }}
-          >
-            {/* Screen shake on sparks phase */}
+        {/* ── 2: Kanji Stamp — 前 (Zen = Forward/Before) ── */}
+        <AnimatePresence>
+          {phase >= 2 && phase < 4 && (
             <motion.div
-              animate={
-                phase === 3
-                  ? {
-                      x: [0, -2, 3, -1, 2, -1, 0],
-                      y: [0, 1, -2, 3, -1, 2, 0],
-                    }
-                  : {}
-              }
-              transition={{ duration: 0.5, repeat: 2 }}
+              className="pointer-events-none absolute z-20 select-none"
+              style={{ top: '8%', left: '5%' }}
+              initial={{ opacity: 0, scale: 2.5, rotate: -12 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0, scale: 0.7 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="relative overflow-hidden rounded-full border-2 border-white/10 shadow-2xl"
+              <span
                 style={{
-                  width: 'clamp(160px, 45vw, 260px)',
-                  height: 'clamp(160px, 45vw, 260px)',
+                  fontFamily: 'serif',
+                  fontSize: 'clamp(72px, 14vw, 140px)',
+                  color: 'rgba(196,30,30,0.85)',
+                  fontWeight: 900,
+                  lineHeight: 1,
+                  display: 'block',
+                  textShadow: '0 0 60px rgba(196,30,30,0.4)',
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo.png"
-                  alt="AFROMATIONS Studios"
-                  className="h-full w-full scale-[1.15] object-cover"
-                  style={{
-                    objectPosition: '50% 42%',
-                    filter: `drop-shadow(0 0 30px rgba(196, 30, 30, 0.5))`,
-                  }}
-                />
-              </div>
+                前
+              </span>
             </motion.div>
-          </motion.div>
-        )}
+          )}
+        </AnimatePresence>
 
-        {/* ── Energy Pulse Flash ── */}
-        {phase === 3 && (
-          <motion.div
-            className="pointer-events-none absolute inset-0 z-30"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.2, 0] }}
-            transition={{ duration: 0.6 }}
-            style={{
-              background:
-                'radial-gradient(circle at center, rgba(212,160,23,0.3) 0%, transparent 55%)',
-            }}
-          />
-        )}
-
-        {/* ── Text Scramble Reveal ── */}
-        {phase >= 4 && (
-          <motion.div
-            className="absolute z-20 text-center"
-            style={{ bottom: 'clamp(18%, 22vw, 26%)' }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{
-              opacity: phase >= 5 ? 0 : 1,
-              y: 0,
-            }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1
-              className="text-2xl font-bold tracking-[0.12em] text-[#f5f0e8] sm:text-4xl md:text-5xl"
-              style={{ fontFamily: 'Sora, sans-serif' }}
-            >
-              {scrambleText}
-            </h1>
-            {studiosVisible && (
-              <motion.p
-                className="mt-1 text-[10px] font-medium tracking-[0.5em] text-[#c41e1e] uppercase sm:text-xs sm:mt-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
-              >
-                Studios
-              </motion.p>
-            )}
-          </motion.div>
-        )}
-
-        {/* ── Smoke Dissolve ── */}
-        {phase >= 5 && (
-          <>
+        {/* ── Red flash on kanji stamp ── */}
+        <AnimatePresence>
+          {phase === 2 && (
             <motion.div
-              className="pointer-events-none absolute inset-0 z-40"
+              className="pointer-events-none absolute inset-0 z-30"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0.18, 0] }}
+              transition={{ duration: 0.5 }}
+              style={{ background: 'rgba(196,30,30,1)' }}
+            />
+          )}
+        </AnimatePresence>
+
+        {/* ── 3: Character Panel slides in from right ── */}
+        <AnimatePresence>
+          {phase >= 3 && phase < 5 && (
+            <motion.div
+              className="pointer-events-none absolute bottom-0 right-0 z-20 flex items-end"
+              style={{ height: '92%', maxWidth: '50vw' }}
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2ac394a7-27d0-4d7b-ad58-0a0232d83168-xjZaGgeN2SVNi451pGipd6BnB6OYJ5.png"
+                alt=""
+                className="h-full w-full object-contain object-bottom"
+                style={{
+                  filter: 'drop-shadow(-8px 0 40px rgba(196,30,30,0.5))',
+                  maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 60%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 60%, transparent 100%)',
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── 4: Manga Cover slam in ── */}
+        <AnimatePresence>
+          {phase >= 4 && phase < 6 && (
+            <motion.div
+              className="pointer-events-none absolute z-20 overflow-hidden rounded-sm shadow-[0_0_80px_rgba(0,0,0,0.9)]"
+              style={{
+                width: 'clamp(160px, 28vw, 320px)',
+                right: '5%',
+                top: '50%',
+                translateY: '-50%',
+              }}
+              initial={{ scale: 1.4, opacity: 0, rotate: 6 }}
+              animate={{
+                scale: phase >= 6 ? 0.8 : 1,
+                opacity: phase >= 6 ? 0 : 1,
+                rotate: phase >= 6 ? -4 : 0,
+              }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2026%2C%202026%2C%2010_25_32%20AM-H9nWCiJQUtMgQw9D4TJ7rO63m8ICtA.png"
+                alt=""
+                className="w-full"
+              />
+              {/* Glint sweep */}
+              <motion.div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%)',
+                }}
+                initial={{ x: '-100%' }}
+                animate={{ x: '200%' }}
+                transition={{ duration: 0.7, delay: 0.2, ease: 'easeInOut' }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── 5: Title scramble + subtitle ── */}
+        <AnimatePresence>
+          {phase >= 5 && phase < 6 && (
+            <motion.div
+              className="absolute z-30 text-center"
+              style={{ bottom: 'clamp(14%, 18vw, 22%)' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.45 }}
+            >
+              {/* ONNA-BUGEISHA eyebrow */}
+              <p
+                className="mb-2 tracking-[0.45em] text-[#c41e1e] uppercase"
+                style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(9px, 1.5vw, 12px)' }}
+              >
+                ONNA-BUGEISHA · WARRIORS OF LIGHT
+              </p>
+
+              <h1
+                className="font-black tracking-[0.08em] text-[#f5f0e8]"
+                style={{
+                  fontFamily: 'Sora, sans-serif',
+                  fontSize: 'clamp(2rem, 8vw, 5.5rem)',
+                  textShadow: '0 0 60px rgba(196,30,30,0.35)',
+                }}
+              >
+                {titleText}
+              </h1>
+
+              {subVisible && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="mt-2 flex items-center justify-center gap-3"
+                >
+                  <div className="h-px w-8 bg-[#c41e1e]/50" />
+                  <span
+                    className="tracking-[0.4em] text-[#f5f0e8]/60 uppercase"
+                    style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(9px, 1.2vw, 11px)' }}
+                  >
+                    Studios
+                  </span>
+                  <div className="h-px w-8 bg-[#c41e1e]/50" />
+                </motion.div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Dissolve overlay ── */}
+        <AnimatePresence>
+          {phase >= 6 && (
+            <motion.div
+              className="pointer-events-none absolute inset-0 z-40 bg-[#0a0a0a]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.2 }}
-              style={{
-                background:
-                  'radial-gradient(ellipse at center, transparent 0%, transparent 15%, rgba(10,10,10,0.6) 40%, #0a0a0a 65%)',
-              }}
+              transition={{ duration: 1, ease: 'easeIn' }}
             />
-            {/* Smoke particles */}
-            {[0, 1, 2, 3, 4, 5].map((i) => (
-              <motion.div
-                key={`smoke-${i}`}
-                className="pointer-events-none absolute z-30 rounded-full"
-                style={{
-                  width: `${60 + i * 30}px`,
-                  height: `${60 + i * 30}px`,
-                  left: `${20 + i * 12}%`,
-                  top: `${30 + (i % 3) * 15}%`,
-                  background: `radial-gradient(circle, rgba(80,80,80,0.15) 0%, transparent 70%)`,
-                  filter: 'blur(20px)',
-                }}
-                initial={{ opacity: 0, scale: 0.5, y: 0 }}
-                animate={{ opacity: [0, 0.4, 0], scale: [0.5, 1.5], y: -40 }}
-                transition={{ duration: 1.5, delay: i * 0.12 }}
-              />
-            ))}
-          </>
-        )}
+          )}
+        </AnimatePresence>
 
-        {/* ── Skip Hint ── */}
+        {/* ── Skip hint ── */}
         <motion.p
-          className="absolute bottom-5 z-50 text-[10px] tracking-[0.3em] text-white/25 uppercase sm:bottom-8"
+          className="absolute bottom-5 z-50 text-[10px] tracking-[0.35em] text-white/20 uppercase sm:bottom-8"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          transition={{ delay: 2.5 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: 2 }}
         >
           Tap to skip
         </motion.p>

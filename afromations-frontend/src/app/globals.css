@@ -291,3 +291,50 @@ html, body {
 .bottom-safe {
   bottom: max(1.5rem, env(safe-area-inset-bottom));
 }
+
+/* ─── Cinematic Intro v2 — Hana ─── */
+
+/* Horizontal scan-line CRT overlay */
+.cinematic-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  z-index: 999;
+}
+
+/* Manga panel impact border flash */
+@keyframes impact-flash {
+  0%   { box-shadow: 0 0 0 0 rgba(196, 30, 30, 0); }
+  30%  { box-shadow: 0 0 0 8px rgba(196, 30, 30, 0.4); }
+  100% { box-shadow: 0 0 0 0 rgba(196, 30, 30, 0); }
+}
+.manga-impact {
+  animation: impact-flash 0.6s ease-out forwards;
+}
+
+/* Ink bleed text effect */
+@keyframes ink-bleed {
+  0%   { letter-spacing: 0.6em; opacity: 0; filter: blur(8px); }
+  60%  { opacity: 0.9; filter: blur(1px); }
+  100% { letter-spacing: 0.08em; opacity: 1; filter: blur(0); }
+}
+.ink-bleed-in {
+  animation: ink-bleed 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Speed line radial burst — behind character reveal */
+@keyframes speed-burst {
+  0%   { transform: scale(0.4); opacity: 0.7; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.speed-burst {
+  animation: speed-burst 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
