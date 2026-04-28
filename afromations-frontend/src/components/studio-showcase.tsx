@@ -3,21 +3,21 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { InView } from '@/components/motion/in-view'
-import { TextEffect } from '@/components/motion/text-effect'
+import { TegakiText } from '@/components/tegaki-text'
 import { useI18n } from '@/lib/i18n'
 
-/* ─── Open-Source Tool Registry ─── */
+/* ─── Open-Source Tool Registry — Formation Studio ─── */
 const STUDIO_TOOLS = [
   {
-    id: 'openmontage',
-    tag: 'VIDEO & ANIMATION',
-    name: 'OpenMontage',
-    tagline: 'AI-powered anime scene assembly',
+    id: 'blender',
+    tag: 'ANIMATION & 3D',
+    name: 'Blender Studio',
+    tagline: 'Create anime characters, scenes, and animations',
     description:
-      'Storyboard, composite, and render anime scenes directly in the browser. OpenMontage handles keyframe interpolation, cel-shading, and timeline editing — all open source.',
-    features: ['Scene Storyboarding', 'Cel-shade Rendering', 'Timeline Editor', 'AI Auto-Fill'],
-    href: 'https://github.com/openmontage/openmontage',
-    launchLabel: 'Open Animation Studio',
+      'Full 3D pipeline for anime production. Model characters, rig for animation, apply toon shaders, and render cel-style output. Integrated with Hana for AI-assisted workflows.',
+    features: ['Character Modeling', 'Toon Shaders', 'Animation Rigging', 'Scene Compositing'],
+    href: 'https://www.blender.org',
+    launchLabel: 'Open Blender Studio',
     accentColor: 'var(--af-red)',
     icon: '映',
   },
@@ -27,7 +27,7 @@ const STUDIO_TOOLS = [
     name: 'LMMS',
     tagline: 'Full DAW — make beats, compose scores',
     description:
-      'Linux MultiMedia Studio runs entirely in-browser via WebAssembly. Lay down beats, compose anime-style orchestral scores, record vocals, and export stems — no install needed.',
+      'Linux MultiMedia Studio for complete music production. Lay down beats, compose orchestral scores for your anime, record vocals, and export professional-quality audio.',
     features: ['Beat Sequencer', 'Piano Roll', 'VST Plugins', 'MIDI Support'],
     href: 'https://lmms.io',
     launchLabel: 'Open Music Studio',
@@ -37,10 +37,10 @@ const STUDIO_TOOLS = [
   {
     id: 'audacity',
     tag: 'AUDIO EDITING',
-    name: 'Audacity Web',
+    name: 'Audacity',
     tagline: 'Record, mix, and master your tracks',
     description:
-      'The world\'s most popular open-source audio editor, rebuilt for the web. Record vocals, layer sound effects, EQ, compress, and export studio-quality audio for your anime projects.',
+      'The world\'s most popular open-source audio editor. Record vocals, layer sound effects, EQ, compress, and export studio-quality audio for your anime projects.',
     features: ['Multi-track Recording', 'Noise Removal', 'EQ & Compression', 'Waveform Editor'],
     href: 'https://www.audacityteam.org',
     launchLabel: 'Open Audio Editor',
@@ -53,7 +53,7 @@ const STUDIO_TOOLS = [
     name: 'MuseScore',
     tagline: 'Compose and score your soundtrack',
     description:
-      'Write full orchestral scores for your anime. MuseScore\'s web player lets you compose, share, and export sheet music with 800+ soundfonts including Japanese traditional instruments.',
+      'Write orchestral scores for your anime soundtrack. Compose with 800+ soundfonts including Japanese traditional instruments like shamisen and koto.',
     features: ['Orchestral Scoring', '800+ Soundfonts', 'MIDI Export', 'Community Scores'],
     href: 'https://musescore.com',
     launchLabel: 'Open Score Editor',
@@ -64,14 +64,14 @@ const STUDIO_TOOLS = [
 
 type ToolId = (typeof STUDIO_TOOLS)[number]['id']
 
-/* ─── OpenHarness Agent Panel ─── */
+/* ─── Agent Hana Panel (OpenHarness) ─── */
 function AgentPanel({ activeToolId }: { activeToolId: ToolId }) {
   const tool = STUDIO_TOOLS.find((t) => t.id === activeToolId)!
   const suggestions: Record<ToolId, string[]> = {
-    openmontage: [
-      'Generate a 30-second opening sequence for my anime',
-      'Storyboard a battle scene with 6 panels',
-      'Apply cel-shading to my character sketches',
+    blender: [
+      'Generate a character model from my concept sketch',
+      'Apply anime toon shading to this 3D model',
+      'Rig this character for walk cycle animation',
     ],
     lmms: [
       'Create a lo-fi hip-hop beat at 85 BPM',
@@ -156,7 +156,7 @@ function AgentPanel({ activeToolId }: { activeToolId: ToolId }) {
 
 /* ─── Main Component ─── */
 export function StudioShowcase() {
-  const [activeId, setActiveId] = useState<ToolId>('openmontage')
+  const [activeId, setActiveId] = useState<ToolId>('blender')
   const { t } = useI18n()
   const activeTool = STUDIO_TOOLS.find((t) => t.id === activeId)!
 
@@ -174,29 +174,36 @@ export function StudioShowcase() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           once
         >
-          <p className="mb-2 text-[10px] font-medium tracking-[0.4em] text-(--af-red) uppercase">
-            {t('studio.eyebrow')}
-          </p>
-          <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mb-2 flex justify-center sm:justify-start">
+            <TegakiText
+              font="tangerine"
+              size={18}
+              color="var(--af-red)"
+              className="tracking-[0.4em] uppercase"
+            >
+              {t('studio.eyebrow')}
+            </TegakiText>
+          </div>
+          <div className="flex flex-col gap-1 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
             <h2
               id="studio-heading"
               className="text-2xl font-bold tracking-tight text-(--af-cream) sm:text-3xl md:text-4xl"
               style={{ fontFamily: 'Sora, sans-serif' }}
             >
-              {t('studio.title')}
+              Formation Studio
             </h2>
             <p className="text-[11px] text-(--af-grey-light) sm:text-right">
               Real open-source tools.{' '}
               <span style={{ color: 'var(--af-red)' }}>AI-powered</span> by Agent Hana.
             </p>
           </div>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-(--af-grey-light)">
-            This is a real live creative studio — not mockups. Come in, create anime, produce music, and build worlds. Every tool below is open source and runs in your browser with Hana running the backend via OpenHarness.
+          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-(--af-grey-light) sm:mx-0 sm:text-left">
+            This is a real live creative studio — not mockups. Create anime, produce music, and build worlds. Every tool below is open source with Hana running the backend via OpenHarness.
           </p>
         </InView>
 
         {/* Tool tabs */}
-        <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Studio tools">
+        <div className="mt-8 flex flex-wrap justify-center gap-2 sm:justify-start" role="tablist" aria-label="Studio tools">
           {STUDIO_TOOLS.map((tool) => (
             <button
               key={tool.id}
@@ -287,7 +294,7 @@ export function StudioShowcase() {
                     rel="noopener noreferrer"
                     className="text-[10px] tracking-wider text-(--af-grey-light) underline-offset-3 hover:underline"
                   >
-                    View on GitHub →
+                    Learn More →
                   </a>
                 </div>
               </div>
@@ -318,17 +325,17 @@ export function StudioShowcase() {
                   {t('studio.community.description')}
                 </p>
               </div>
-              <div className="mt-5 flex shrink-0 flex-wrap gap-3 md:mt-0">
+              <div className="mt-5 flex shrink-0 flex-wrap justify-center gap-3 md:mt-0 md:justify-end">
                 <a
                   href="https://discord.gg/afromations"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="af-btn-primary inline-flex h-9 items-center rounded-full px-5 text-xs font-semibold tracking-wider"
+                  className="af-btn-primary inline-flex h-10 items-center rounded-full px-6 text-xs font-semibold tracking-wider"
                   aria-label="Join the AFROMATIONS Discord community"
                 >
                   {t('studio.community.cta.discord')}
                 </a>
-                <button className="af-btn-secondary inline-flex h-9 items-center rounded-full border px-5 text-xs font-semibold tracking-wider">
+                <button className="af-btn-secondary inline-flex h-10 items-center rounded-full border px-6 text-xs font-semibold tracking-wider">
                   {t('studio.community.cta.discuss')}
                 </button>
               </div>
