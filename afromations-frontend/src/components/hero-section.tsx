@@ -4,6 +4,11 @@ import { useEffect, useRef } from 'react'
 import { useI18n } from '@/lib/i18n'
 import { TegakiText } from '@/components/tegaki-text'
 
+// Drop an MP4 file into /public and set this path to enable the hero video.
+// Leave as null to show the default gradient background.
+const HERO_VIDEO_SRC: string | null = null
+// e.g. const HERO_VIDEO_SRC = '/videos/hero.mp4'
+
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
 
 function scramble(el: HTMLElement, final: string) {

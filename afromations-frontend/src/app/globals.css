@@ -133,6 +133,10 @@ body {
 }
 
 /* ─── Mobile-first Touch Enhancements ─── */
+a, button {
+  touch-action: manipulation;
+}
+
 @media (hover: none) {
   a, button {
     min-height: 44px;

@@ -89,7 +89,7 @@ export function BlogPreview() {
               return (
                 <article
                   key={item.topic}
-                  className="group flex gap-4 rounded-xl border border-white/5 bg-(--af-grey) p-5 transition-all duration-300 hover:border-(--af-red)/20 hover:translate-x-1 sm:gap-6 sm:p-6"
+                  className="group flex gap-4 rounded-xl border border-white/5 bg-(--af-grey) p-5 transition-all duration-150 hover:border-(--af-red)/20 hover:translate-x-1 sm:gap-6 sm:p-6"
                 >
                   {/* Arrow indicator */}
                   <span
@@ -138,11 +138,11 @@ export function BlogPreview() {
           <div className="mt-8 flex flex-col gap-3 sm:mt-12 sm:flex-row">
             <a
               href="/blog"
-              className="af-btn-primary inline-flex h-10 items-center rounded-full px-6 text-xs font-semibold tracking-wider"
+              className="af-btn-primary inline-flex h-11 items-center justify-center rounded-full px-6 text-xs font-semibold tracking-wider sm:h-10"
             >
               {t('blog.cta.read')}
             </a>
-            <button className="af-btn-secondary inline-flex h-10 items-center rounded-full border px-6 text-xs font-semibold tracking-wider">
+            <button className="af-btn-secondary inline-flex h-11 items-center justify-center rounded-full border px-6 text-xs font-semibold tracking-wider sm:h-10">
               {t('blog.cta.subscribe')}
             </button>
           </div>

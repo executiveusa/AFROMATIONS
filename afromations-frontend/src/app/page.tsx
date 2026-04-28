@@ -29,10 +29,10 @@ export default function Home() {
       <CinematicIntro />
       <Navbar />
       <HeroSection />
-      <KineticMarquee items={MARQUEE_WORDS} speed={25} className="border-t border-white/5 py-10" />
+      <KineticMarquee items={MARQUEE_WORDS} speed={75} className="border-t border-white/5 py-10" />
       <HannaFeature />
       <StudioShowcase />
-      <KineticMarquee items={MARQUEE_WORDS} speed={20} reverse className="border-t border-white/5 py-8" />
+      <KineticMarquee items={MARQUEE_WORDS} speed={60} reverse className="border-t border-white/5 py-8" />
       <GallerySection />
       <AnimeQuoteCarousel />
       <EducationSection />
