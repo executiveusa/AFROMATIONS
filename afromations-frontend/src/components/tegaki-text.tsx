@@ -10,13 +10,13 @@
  * ─── 20 USE-CASES ACROSS THIS BUILD ────────────────────────────────────────
  *
  *  1. Hero section eyebrow  — "AFROMATIONS STUDIOS" fades-draws on load
- *  2. Hero main heading     — "DUO: Where Worlds Collide" draws itself (Caveat)
+ *  2. Hero main heading     — "DUAL: Where Worlds Collide" draws itself (Caveat)
  *  3. Cinematic intro text  — studio name appears as handwriting before video
  *  4. Hanna chat replies    — every AI response streams stroke-by-stroke
  *  5. Gallery section title — "Character Art & Scenes" in Italianno
  *  6. Gallery hover overlay — artwork title hand-drawn on hover
  *  7. Education card titles — lesson names drawn as they scroll into view
- *  8. Studio showcase title — "Built in the DUO Universe" in Tangerine
+ *  8. Studio showcase title — "Built in the DUAL Universe" in Tangerine
  *  9. Blog preview heading  — latest post title drawn on page load
  * 10. Blog post dropcap     — first letter of each post drawn (Parisienne)
  * 11. Community CTA         — "Join the Family" invitation in Italianno
