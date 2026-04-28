@@ -6,7 +6,7 @@ export function CommunitySection() {
   const { t } = useI18n()
 
   return (
-    <section id="community" className="border-t border-white/5 px-5 py-20 sm:px-6 sm:py-32">
+    <section id="community" className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-32 md:px-8">
       <div className="mx-auto max-w-3xl text-center">
         <p className="mb-3 text-[10px] font-medium tracking-[0.4em] text-(--af-red) uppercase">
           {t('community.eyebrow')}

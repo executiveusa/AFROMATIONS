@@ -25,10 +25,10 @@ export function EducationSection() {
   return (
     <section
       id="education"
-      className="relative border-t border-white/5 bg-(--af-black) py-20 sm:py-28"
+      className="relative border-t border-white/5 bg-(--af-black) py-16 px-4 sm:py-28 sm:px-6 md:px-8"
       aria-labelledby="education-heading"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl">
         {/* Header */}
         <p className="mb-3 text-[10px] font-medium tracking-[0.4em] text-(--af-gold) uppercase">
           {t('education.eyebrow')}

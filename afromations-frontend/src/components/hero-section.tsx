@@ -121,7 +121,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 pt-14 sm:px-6"
+      className="relative flex min-h-svh items-center justify-center overflow-hidden px-4 pt-14 sm:px-6 md:px-8"
       aria-label="Hero"
     >
       {/* ── Cinematic DUAL Background ── */}
