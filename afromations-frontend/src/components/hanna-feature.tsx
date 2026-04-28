@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useRef, useEffect, useState } from 'react'
 import { useI18n } from '@/lib/i18n'
 
@@ -59,17 +60,14 @@ export function HannaFeature() {
                 transition-all duration-400 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
               `}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                <aside aria-label="Agent Hanna (Japanese character: hana, meaning flower)">
-                  <span aria-hidden="true" className="mb-4 block text-6xl">花</span>
-                </aside>
-                <p className="text-xs tracking-wider text-(--af-grey-light)">
-                  {t('hanna.placeholder')}
-                </p>
-                <p className="mt-1 text-[10px] text-(--af-grey-light)">
-                  {t('hanna.character')}
-                </p>
-              </div>
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2ac394a7-27d0-4d7b-ad58-0a0232d83168-2WjrPIws90jJnGxDC6ec9Kwt5lk08j.png"
+                alt="Hana — Onna-Bugeisha, Warrior Princess of the Aizu Clan. AI Agent character sheet showing full body armor and portrait."
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
 
               {/* Red corner accent */}
               <div className="absolute right-0 top-0 h-16 w-px bg-(--af-red)" />
