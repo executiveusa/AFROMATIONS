@@ -46,7 +46,7 @@ export function HannaFeature() {
     >
       <div className="mx-auto max-w-6xl">
         {/* Section label */}
-        <p className="mb-3 text-[10px] font-medium tracking-[0.4em] text-(--af-red) uppercase">
+        <p className="mb-3 text-center text-[10px] font-medium tracking-[0.4em] text-(--af-red) uppercase">
           {t('hanna.eyebrow')}
         </p>
 
