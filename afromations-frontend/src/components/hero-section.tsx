@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { motion, useInView } from 'motion/react'
 import { useI18n } from '@/lib/i18n'
 import { TegakiText } from '@/components/tegaki-text'
+import { TextEffect } from '@/components/motion/text-effect'
 
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
 
@@ -95,6 +97,8 @@ function useEmberCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
 export function HeroSection() {
   const headingRef = useRef<HTMLHeadingElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const taglineRef = useRef<HTMLDivElement>(null)
+  const taglineInView = useInView(taglineRef, { once: true })
   const { t } = useI18n()
 
   useEmberCanvas(canvasRef)
@@ -140,10 +144,7 @@ export function HeroSection() {
           style={{ background: 'linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)' }}
         />
         {/* Subtle red tint overlay */}
-        <div
-          className="absolute inset-0"
-          style={{ background: 'rgba(196,30,30,0.04)' }}
-        />
+        <div className="absolute inset-0" style={{ background: 'rgba(196,30,30,0.04)' }} />
       </div>
 
       {/* ── Ember Canvas ── */}
@@ -198,8 +199,29 @@ export function HeroSection() {
 
       {/* ── Main Content ── */}
       <div className="relative z-10 w-full max-w-3xl text-center">
-        {/* Eyebrow */}
-        <div className="mb-5 flex justify-center">
+
+        {/* ── Affirmations label (top) ── */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="mb-1 flex justify-center"
+        >
+          <span
+            className="text-[10px] font-semibold tracking-[0.5em] uppercase"
+            style={{ color: 'var(--af-gold)' }}
+          >
+            Affirmations
+          </span>
+        </motion.div>
+
+        {/* ── Anime Community — slides in from left as eyebrow ── */}
+        <motion.div
+          initial={{ opacity: 0, x: -48 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+          className="mb-5 flex justify-center"
+        >
           <TegakiText
             font="tangerine"
             size={20}
@@ -208,7 +230,7 @@ export function HeroSection() {
           >
             {t('hero.eyebrow')}
           </TegakiText>
-        </div>
+        </motion.div>
 
         {/* Primary headline */}
         <h1
@@ -219,28 +241,44 @@ export function HeroSection() {
           {t('hero.title')}
         </h1>
 
-        {/* Subtitle */}
-        <h2
-          className="mx-auto mt-5 max-w-2xl font-semibold leading-[1.25] text-(--af-cream)"
-          style={{
-            fontFamily: 'Sora, sans-serif',
-            fontSize: 'clamp(1.1rem, 3.5vw, 2.5rem)',
-            textWrap: 'balance',
-          } as React.CSSProperties}
-        >
-          {t('hero.subtitle')}
-        </h2>
+        {/* "Where Worlds Collide, Stories Ignite" — 20% bigger, scroll-in */}
+        <div ref={taglineRef} className="mt-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={taglineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="mx-auto max-w-2xl text-center font-semibold leading-[1.2] text-(--af-cream)"
+            style={{
+              fontFamily: 'Sora, sans-serif',
+              fontSize: 'clamp(1.32rem, 4.2vw, 3rem)',
+              textWrap: 'balance',
+            } as React.CSSProperties}
+          >
+            {t('hero.subtitle')}
+          </motion.h2>
+        </div>
 
         {/* Description */}
-        <p className="mx-auto mt-5 max-w-lg px-2 text-sm leading-relaxed text-(--af-grey-light) sm:px-0">
+        <TextEffect
+          as="p"
+          per="word"
+          preset="fade-in-blur"
+          delay={0.3}
+          className="mx-auto mt-5 max-w-lg px-2 text-center text-sm leading-relaxed text-(--af-grey-light) sm:px-0"
+        >
           {t('hero.description')}
-        </p>
+        </TextEffect>
 
-        {/* CTA row */}
-        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 px-4 sm:flex-row sm:items-center sm:px-0">
+        {/* CTA row — equal size buttons, fully centered */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          className="mt-8 flex flex-col items-center justify-center gap-3 px-4 sm:flex-row sm:px-0"
+        >
           <a
             href="#blog"
-            className="af-btn-primary inline-flex h-12 items-center justify-center rounded-full px-7 text-xs font-semibold tracking-wider sm:h-11"
+            className="af-btn-primary inline-flex h-11 w-full items-center justify-center rounded-full px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[200px]"
             aria-label={t('hero.cta.trends')}
           >
             {t('hero.cta.trends')}
@@ -249,12 +287,29 @@ export function HeroSection() {
             href="https://discord.gg/afromations"
             target="_blank"
             rel="noopener noreferrer"
-            className="af-btn-secondary inline-flex h-12 items-center justify-center rounded-full border px-7 text-xs font-semibold tracking-wider sm:h-11"
+            className="af-btn-secondary inline-flex h-11 w-full items-center justify-center rounded-full border px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[200px]"
             aria-label="Join the AFROMATIONS Discord community"
           >
             {t('hero.cta.discord')}
           </a>
-        </div>
+        </motion.div>
+
+        {/* "Featuring Agent Hana" — right-aligned with buttons, centered block */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-4 flex justify-center"
+        >
+          <p
+            className="text-center text-[10px] tracking-[0.3em] uppercase"
+            style={{ color: 'var(--af-grey-light)', opacity: 0.7 }}
+          >
+            Featuring Agent{' '}
+            <span style={{ color: 'var(--af-red)' }}>Hana</span>
+            {' '}花
+          </p>
+        </motion.div>
 
         {/* Hand-drawn tagline */}
         <div className="mt-5 flex justify-center">
@@ -270,7 +325,7 @@ export function HeroSection() {
 
         {/* Footnote */}
         <p
-          className="mx-auto mt-3 max-w-sm px-2 text-xs leading-relaxed text-(--af-grey-light) sm:px-0"
+          className="mx-auto mt-3 max-w-sm px-2 text-center text-xs leading-relaxed text-(--af-grey-light) sm:px-0"
           style={{ opacity: 0.75 }}
         >
           {t('hero.footnote')}
