@@ -5,8 +5,16 @@ import { motion, useInView } from 'motion/react'
 import { useI18n } from '@/lib/i18n'
 import { TegakiText } from '@/components/tegaki-text'
 import { TextEffect } from '@/components/motion/text-effect'
+import { InView } from '@/components/motion/in-view'
 
-const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
+const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ闇光影夢二元'
+
+/* ─── DUAL Images ─── */
+const DUAL_IMAGES = {
+  cover: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_25_37%20AM-fhMW4mJmUIV5lL44XH2ghKMLfnv77m.png',
+  panel1: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_31_02%20AM-FtXiIchT5dcQd6pGEvQcY1f0jpfzUU.png',
+  panel2: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_30_56%20AM-ID0ZkdpVYmqsnzqJnx6s11LL8i4YBj.png',
+}
 
 function scramble(el: HTMLElement, final: string) {
   let frame = 0
@@ -116,14 +124,14 @@ export function HeroSection() {
       className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 pt-14 sm:px-6"
       aria-label="Hero"
     >
-      {/* ── Cinematic Battle Background ── */}
+      {/* ── Cinematic DUAL Background ── */}
       <div className="pointer-events-none absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5d47160a-6b1b-46e3-b4d4-73eece0f9bd5-aP54HFYy97hSyAwi01hC4C5mvAgjl5.png"
+          src={DUAL_IMAGES.panel2}
           alt=""
           className="h-full w-full object-cover object-center"
-          style={{ filter: 'brightness(0.32) saturate(1.1)' }}
+          style={{ filter: 'brightness(0.35) saturate(1.05) contrast(1.02)' }}
         />
         {/* Radial vignette */}
         <div
@@ -143,8 +151,8 @@ export function HeroSection() {
           className="absolute inset-x-0 top-0 h-32"
           style={{ background: 'linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)' }}
         />
-        {/* Subtle red tint overlay */}
-        <div className="absolute inset-0" style={{ background: 'rgba(196,30,30,0.04)' }} />
+        {/* Subtle gold tint overlay */}
+        <div className="absolute inset-0" style={{ background: 'rgba(212,160,23,0.03)' }} />
       </div>
 
       {/* ── Ember Canvas ── */}
@@ -154,31 +162,31 @@ export function HeroSection() {
         aria-hidden="true"
       />
 
-      {/* ── Hana silhouette panel — desktop only ── */}
+      {/* ── DUAL silhouette panel — desktop only ── */}
       <div
         className="pointer-events-none absolute bottom-0 right-0 z-[2] hidden lg:block"
-        style={{ height: '90%', width: '38%' }}
+        style={{ height: '88%', width: '36%' }}
         aria-hidden="true"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2ac394a7-27d0-4d7b-ad58-0a0232d83168-xjZaGgeN2SVNi451pGipd6BnB6OYJ5.png"
+          src={DUAL_IMAGES.cover}
           alt=""
           className="h-full w-full object-contain object-bottom"
           style={{
-            filter: 'brightness(0.75) drop-shadow(-6px 0 32px rgba(196,30,30,0.35))',
-            maskImage: 'linear-gradient(to left, rgba(0,0,0,0.85) 55%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.85) 55%, transparent 100%)',
-            opacity: 0.65,
+            filter: 'brightness(0.7) drop-shadow(-8px 0 40px rgba(212,160,23,0.3))',
+            maskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 50%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 50%, transparent 100%)',
+            opacity: 0.6,
           }}
         />
       </div>
 
       {/* ── Vertical line accents ── */}
-      <div className="pointer-events-none absolute inset-y-0 left-12 hidden w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent sm:block" />
-      <div className="pointer-events-none absolute inset-y-0 right-12 hidden w-px bg-linear-to-b from-transparent via-(--af-red)/10 to-transparent sm:block" />
+      <div className="pointer-events-none absolute inset-y-0 left-12 hidden w-px bg-linear-to-b from-transparent via-(--af-gold)/10 to-transparent sm:block" />
+      <div className="pointer-events-none absolute inset-y-0 right-12 hidden w-px bg-linear-to-b from-transparent via-(--af-gold)/10 to-transparent sm:block" />
 
-      {/* ── Kanji accent top-left ── */}
+      {/* ── Kanji accent top-left — 二 (DUAL) ── */}
       <div
         className="pointer-events-none absolute left-5 top-20 z-[2] hidden sm:block"
         aria-hidden="true"
@@ -187,39 +195,47 @@ export function HeroSection() {
           style={{
             fontFamily: 'serif',
             fontSize: 'clamp(48px, 6vw, 80px)',
-            color: 'rgba(196,30,30,0.18)',
+            color: 'rgba(212,160,23,0.18)',
             fontWeight: 900,
             lineHeight: 1,
             display: 'block',
           }}
         >
-          花
+          二
         </span>
       </div>
 
-      {/* ── Main Content ── */}
-      <div className="relative z-10 w-full max-w-3xl text-center">
+      {/* ── Main Content — fully centered ── */}
+      <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
 
-        {/* ── Affirmations label (top) ── */}
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
+        {/* ── Affirmations label (top) — centered tegaki ── */}
+        <InView
+          variants={{
+            hidden: { opacity: 0, y: -16 },
+            visible: { opacity: 1, y: 0 },
+          }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          once
           className="mb-1 flex justify-center"
         >
-          <span
-            className="text-[10px] font-semibold tracking-[0.5em] uppercase"
-            style={{ color: 'var(--af-gold)' }}
+          <TegakiText
+            font="tangerine"
+            size={18}
+            color="var(--af-gold)"
+            className="tracking-[0.5em] uppercase"
           >
             Affirmations
-          </span>
-        </motion.div>
+          </TegakiText>
+        </InView>
 
-        {/* ── Anime Community — slides in from left as eyebrow ── */}
-        <motion.div
-          initial={{ opacity: 0, x: -48 }}
-          animate={{ opacity: 1, x: 0 }}
+        {/* ── Anime Community — tegaki slides in centered ── */}
+        <InView
+          variants={{
+            hidden: { opacity: 0, x: -48 },
+            visible: { opacity: 1, x: 0 },
+          }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+          once
           className="mb-5 flex justify-center"
         >
           <TegakiText
@@ -230,7 +246,7 @@ export function HeroSection() {
           >
             {t('hero.eyebrow')}
           </TegakiText>
-        </motion.div>
+        </InView>
 
         {/* Primary headline */}
         <h1
@@ -241,13 +257,13 @@ export function HeroSection() {
           {t('hero.title')}
         </h1>
 
-        {/* "Where Worlds Collide, Stories Ignite" — 20% bigger, scroll-in */}
-        <div ref={taglineRef} className="mt-6">
+        {/* "Where Worlds Collide, Stories Ignite" — 20% bigger, centered, scroll-in */}
+        <div ref={taglineRef} className="mt-6 flex justify-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={taglineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="mx-auto max-w-2xl text-center font-semibold leading-[1.2] text-(--af-cream)"
+            className="max-w-2xl text-center font-semibold leading-[1.2] text-(--af-cream)"
             style={{
               fontFamily: 'Sora, sans-serif',
               fontSize: 'clamp(1.32rem, 4.2vw, 3rem)',
@@ -258,12 +274,12 @@ export function HeroSection() {
           </motion.h2>
         </div>
 
-        {/* Description */}
+        {/* Description — centered */}
         <TextEffect
           as="p"
           per="word"
           preset="fade-in-blur"
-          delay={0.3}
+          delay={0.35}
           className="mx-auto mt-5 max-w-lg px-2 text-center text-sm leading-relaxed text-(--af-grey-light) sm:px-0"
         >
           {t('hero.description')}
@@ -273,12 +289,12 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="mt-8 flex flex-col items-center justify-center gap-3 px-4 sm:flex-row sm:px-0"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.55 }}
+          className="mt-8 flex flex-col items-center justify-center gap-3 px-4 sm:flex-row sm:gap-4 sm:px-0"
         >
           <a
             href="#blog"
-            className="af-btn-primary inline-flex h-11 w-full items-center justify-center rounded-full px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[200px]"
+            className="af-btn-primary inline-flex h-12 w-full items-center justify-center rounded-full px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
             aria-label={t('hero.cta.trends')}
           >
             {t('hero.cta.trends')}
@@ -287,53 +303,54 @@ export function HeroSection() {
             href="https://discord.gg/afromations"
             target="_blank"
             rel="noopener noreferrer"
-            className="af-btn-secondary inline-flex h-11 w-full items-center justify-center rounded-full border px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[200px]"
+            className="af-btn-secondary inline-flex h-12 w-full items-center justify-center rounded-full border px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
             aria-label="Join the AFROMATIONS Discord community"
           >
             {t('hero.cta.discord')}
           </a>
         </motion.div>
 
-        {/* "Featuring Agent Hana" — right-aligned with buttons, centered block */}
+        {/* "Powered by Agent Hana" — centered below buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-4 flex justify-center"
+          transition={{ duration: 0.6, delay: 0.85 }}
+          className="mt-5 flex justify-center"
         >
           <p
-            className="text-center text-[10px] tracking-[0.3em] uppercase"
+            className="text-center text-[10px] tracking-[0.35em] uppercase"
             style={{ color: 'var(--af-grey-light)', opacity: 0.7 }}
           >
-            Featuring Agent{' '}
+            Powered by Agent{' '}
             <span style={{ color: 'var(--af-red)' }}>Hana</span>
             {' '}花
           </p>
         </motion.div>
 
-        {/* Hand-drawn tagline */}
+        {/* Hand-drawn tagline — centered tegaki */}
         <div className="mt-5 flex justify-center">
           <TegakiText
             font="italianno"
-            size={24}
+            size={26}
             color="var(--af-cream)"
-            style={{ opacity: 0.7 }}
+            style={{ opacity: 0.75 }}
+            triggerOnView
           >
             {t('hero.tagline')}
           </TegakiText>
         </div>
 
-        {/* Footnote */}
+        {/* Footnote — centered */}
         <p
-          className="mx-auto mt-3 max-w-sm px-2 text-center text-xs leading-relaxed text-(--af-grey-light) sm:px-0"
-          style={{ opacity: 0.75 }}
+          className="mx-auto mt-3 max-w-md px-2 text-center text-xs leading-relaxed text-(--af-grey-light) sm:px-0"
+          style={{ opacity: 0.7 }}
         >
           {t('hero.footnote')}
         </p>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator — centered */}
         <div className="mt-12 flex flex-col items-center gap-2 text-(--af-grey-light)">
-          <span className="text-[10px] tracking-[0.3em] uppercase">{t('hero.scroll')}</span>
+          <span className="text-[10px] tracking-[0.35em] uppercase">{t('hero.scroll')}</span>
           <div className="h-8 w-px bg-linear-to-b from-(--af-grey-light) to-transparent" />
         </div>
       </div>

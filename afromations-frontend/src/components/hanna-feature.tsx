@@ -1,9 +1,13 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useI18n } from '@/lib/i18n'
 import { InView } from '@/components/motion/in-view'
-import { TextEffect } from '@/components/motion/text-effect'
+import { TegakiText } from '@/components/tegaki-text'
+
+/* ─── Hana Character Sheet Image ─── */
+const HANA_IMAGE = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2ac394a7-27d0-4d7b-ad58-0a0232d83168-2WjrPIws90jJnGxDC6ec9Kwt5lk08j.png'
 
 export function HannaFeature() {
   const { t } = useI18n()
@@ -40,13 +44,16 @@ export function HannaFeature() {
             }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             once
+            className="flex justify-center"
           >
-            <p
-              className="mb-1 text-[10px] font-semibold tracking-[0.5em] uppercase"
-              style={{ color: 'var(--af-gold)' }}
+            <TegakiText
+              font="tangerine"
+              size={18}
+              color="var(--af-gold)"
+              className="mb-1 tracking-[0.5em] uppercase"
             >
               Affirmations
-            </p>
+            </TegakiText>
           </InView>
 
           <InView
@@ -56,10 +63,16 @@ export function HannaFeature() {
             }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             once
+            className="flex justify-center"
           >
-            <p className="text-[10px] font-medium tracking-[0.4em] text-(--af-red) uppercase">
+            <TegakiText
+              font="tangerine"
+              size={20}
+              color="var(--af-red)"
+              className="tracking-[0.4em] uppercase"
+            >
               {t('hanna.eyebrow')}
-            </p>
+            </TegakiText>
           </InView>
         </div>
 
@@ -77,7 +90,7 @@ export function HannaFeature() {
           >
             <div className="relative h-56 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) sm:h-90 md:h-120">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2ac394a7-27d0-4d7b-ad58-0a0232d83168-2WjrPIws90jJnGxDC6ec9Kwt5lk08j.png"
+                src={HANA_IMAGE}
                 alt="Hana — Onna-Bugeisha, Warrior Princess of the Aizu Clan. AI Agent character sheet showing full body armor and portrait."
                 fill
                 className="object-cover object-top"
@@ -143,23 +156,33 @@ export function HannaFeature() {
               </ul>
             </div>
 
-            {/* "Featuring Agent Hana" — aligned right within the right column, centered to it */}
-            <div className="mt-8 flex items-center justify-end gap-3 border-t border-white/5 pt-5">
+            {/* "Powered by Agent Hana" — right-aligned, centered to column */}
+            <div className="mt-8 flex flex-col items-end gap-3 border-t border-white/5 pt-5 sm:flex-row sm:items-center sm:justify-end">
               <div className="text-right">
                 <p className="text-[9px] tracking-[0.35em] text-(--af-grey-light) uppercase">
-                  Featuring Agent
+                  Powered by
                 </p>
                 <p
                   className="mt-0.5 text-sm font-bold tracking-widest"
                   style={{ fontFamily: 'Sora, sans-serif', color: 'var(--af-red)' }}
                 >
-                  HANA 花
+                  AGENT HANA 花
                 </p>
               </div>
-              <div className="h-8 w-px bg-white/10" aria-hidden="true" />
-              <p className="max-w-[160px] text-[10px] leading-relaxed text-(--af-grey-light)">
-                Think of Hana as the friend who understands BOTH anime craft and community.
+              <div className="hidden h-8 w-px bg-white/10 sm:block" aria-hidden="true" />
+              <p className="max-w-[200px] text-right text-[10px] leading-relaxed text-(--af-grey-light) sm:text-left">
+                The AI engine under the hood. Hana powers all creation tools, education paths, and community features.
               </p>
+            </div>
+
+            {/* Learn More CTA */}
+            <div className="mt-6 flex justify-end">
+              <Link
+                href="/hana"
+                className="af-btn-secondary inline-flex h-10 items-center rounded-full border px-6 text-[11px] font-semibold tracking-wider"
+              >
+                Learn About Hana
+              </Link>
             </div>
           </InView>
         </div>
