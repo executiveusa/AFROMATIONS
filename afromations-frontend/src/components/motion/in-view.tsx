@@ -18,7 +18,6 @@ interface InViewProps {
   }
   transition?: Transition
   viewOptions?: UseInViewOptions
-  as?: React.ElementType
   once?: boolean
   className?: string
 }
@@ -33,16 +32,14 @@ export function InView({
   variants = defaultVariants,
   transition,
   viewOptions,
-  as = 'div',
   once = false,
   className,
 }: InViewProps) {
   const ref = useRef(null)
   const inView = useInView(ref, { once, ...viewOptions })
-  const MotionTag = motion.create(as as keyof HTMLElementTagNameMap)
 
   return (
-    <MotionTag
+    <motion.div
       ref={ref}
       initial="hidden"
       animate={inView ? 'visible' : 'hidden'}
@@ -51,6 +48,6 @@ export function InView({
       className={className}
     >
       {children}
-    </MotionTag>
+    </motion.div>
   )
 }

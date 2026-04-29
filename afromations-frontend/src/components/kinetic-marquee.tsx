@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { prepareWithSegments, measureNaturalWidth } from '@chenglou/pretext'
 
 interface KineticMarqueeProps {
   items: string[]
@@ -15,9 +14,8 @@ interface KineticMarqueeProps {
 const ITEM_SPACING_MOBILE = 104
 const ITEM_SPACING_SM = 168
 
-// Measure the total natural width of one copy of all items using pretext.
+// Measure the total natural width of one copy of all items using canvas.
 // Called once after fonts load and again whenever the viewport breakpoint changes.
-// prepareWithSegments uses canvas measureText (no DOM layout read).
 async function computeHalfWidth(items: string[], isSm: boolean, isMd: boolean): Promise<number> {
   await document.fonts.ready
 
@@ -26,10 +24,17 @@ async function computeHalfWidth(items: string[], isSm: boolean, isMd: boolean): 
   const letterSpacing = -0.025 * fontSize        // tracking-tight = -0.025em
   const spacing = isSm ? ITEM_SPACING_SM : ITEM_SPACING_MOBILE
 
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return 0
+
+  ctx.font = font
+  ctx.letterSpacing = letterSpacing
+
   let total = 0
   for (const item of items) {
-    const prepared = prepareWithSegments(item, font, { letterSpacing })
-    total += measureNaturalWidth(prepared) + spacing
+    const metrics = ctx.measureText(item)
+    total += metrics.width + spacing
   }
   return total
 }
