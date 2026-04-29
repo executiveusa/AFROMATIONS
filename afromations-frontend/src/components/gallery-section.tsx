@@ -7,7 +7,7 @@ import { TegakiText } from '@/components/tegaki-text'
 
 const ARTWORKS = [
   {
-    src: '/gallery/dual.png',
+    src: '/gallery/duo.png',
     title: 'DUAL',
     tag: 'Character Art',
     aspect: 'aspect-square',
