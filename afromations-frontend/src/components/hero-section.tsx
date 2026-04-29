@@ -150,19 +150,25 @@ export function HeroSection() {
       aria-label="Hero"
     >
       {/* ── Cinematic DUAL Background — Rotating Manga Panels ── */}
-      <div className="pointer-events-none absolute inset-0">
+      <motion.div
+        key={currentPanel}
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <motion.img
-          key={currentPanel}
+        <img
           src={currentPanel}
           alt="DUAL manga panel"
           className="h-full w-full object-cover object-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
           style={{ filter: 'brightness(0.65) saturate(1.1) contrast(1.05)' }}
         />
+      </motion.div>
+
+      {/* ── Vignettes & Scrims ── */}
+      <div className="pointer-events-none absolute inset-0">
         {/* Radial vignette */}
         <div
           className="absolute inset-0"
@@ -183,6 +189,7 @@ export function HeroSection() {
         />
         {/* Subtle gold tint overlay */}
         <div className="absolute inset-0" style={{ background: 'rgba(212,160,23,0.03)' }} />
+      </div>
       </div>
 
       {/* ── Ember Canvas ── */}
