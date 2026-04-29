@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'motion/react'
 import { useI18n } from '@/lib/i18n'
 import { TegakiText } from '@/components/tegaki-text'
@@ -9,11 +9,20 @@ import { InView } from '@/components/motion/in-view'
 
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ闇光影夢二元'
 
-/* ─── DUAL Images ─── */
+/* ─── DUAL Manga Panel Images (Comic Sequence Order) ─── */
+const DUAL_MANGA_PANELS = [
+  // Chapter 1: Knock at the Door
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_31_02%20AM-B7vy71gu07vkvWHBDYmJZ39yBrHnIu.png', // Panel 1
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_30_02%20A_1-ADk1XqYmRuiBsn6QtnbP8AcQoTgyuk.png', // Panel 2 (Seattle hero)
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_27_46%20AM-H8m7lCZtS92OytMbr5b8jdE3LvEoXj.png', // Panel 3 (Dark, dialogue)
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_26_37%20AM-rvx18sjPqy1iO9QqtNtGiDZbxkjx3h.png', // Panel 4 (Knock at door)
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_26_28%20AM-ZcIl2H6KfYW59e67jUQHZKrs0Wmy3j.png', // Panel 5 (Encounter)
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_29_58%20AM-rnQmozAc0Tefgw4c0JMOcV8keZCt39.png', // Panel 6 (They used you)
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_27_40%20AM-fkdfJoLyhKO8uU7QLBw1KyJ113c1R6.png', // Panel 7 (Escape)
+]
+
 const DUAL_IMAGES = {
   cover: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_25_37%20AM-fhMW4mJmUIV5lL44XH2ghKMLfnv77m.png',
-  panel1: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_31_02%20AM-FtXiIchT5dcQd6pGEvQcY1f0jpfzUU.png',
-  panel2: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_30_02%20A_1-ADk1XqYmRuiBsn6QtnbP8AcQoTgyuk.png',
 }
 
 function scramble(el: HTMLElement, final: string) {
@@ -33,6 +42,21 @@ function scramble(el: HTMLElement, final: string) {
       clearInterval(interval)
     }
   }, 38)
+}
+
+/* ─── Image carousel rotation hook ─── */
+function useMangaPanelCycle() {
+  const [currentPanelIndex, setCurrentPanelIndex] = useState(1) // Start with panel 2 (Seattle)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPanelIndex((prev) => (prev + 1) % DUAL_MANGA_PANELS.length)
+    }, 5000) // Change image every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return { currentPanelIndex, currentPanel: DUAL_MANGA_PANELS[currentPanelIndex] }
 }
 
 /* ─── Subtle floating ember effect on hero ─── */
@@ -108,6 +132,7 @@ export function HeroSection() {
   const taglineRef = useRef<HTMLDivElement>(null)
   const taglineInView = useInView(taglineRef, { once: true })
   const { t } = useI18n()
+  const { currentPanel } = useMangaPanelCycle()
 
   useEmberCanvas(canvasRef)
 
@@ -124,15 +149,26 @@ export function HeroSection() {
       className="relative flex min-h-svh items-center justify-center overflow-hidden px-4 pt-14 sm:px-6 md:px-8"
       aria-label="Hero"
     >
-      {/* ── Cinematic DUAL Background ── */}
-      <div className="pointer-events-none absolute inset-0">
+      {/* ── Cinematic DUAL Background — Rotating Manga Panels ── */}
+      <motion.div
+        key={currentPanel}
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={DUAL_IMAGES.panel2}
-          alt=""
+          src={currentPanel}
+          alt="DUAL manga panel"
           className="h-full w-full object-cover object-center"
           style={{ filter: 'brightness(0.65) saturate(1.1) contrast(1.05)' }}
         />
+      </motion.div>
+
+      {/* ── Vignettes & Scrims ── */}
+      <div className="pointer-events-none absolute inset-0">
         {/* Radial vignette */}
         <div
           className="absolute inset-0"
@@ -153,6 +189,7 @@ export function HeroSection() {
         />
         {/* Subtle gold tint overlay */}
         <div className="absolute inset-0" style={{ background: 'rgba(212,160,23,0.03)' }} />
+      </div>
       </div>
 
       {/* ── Ember Canvas ── */}
