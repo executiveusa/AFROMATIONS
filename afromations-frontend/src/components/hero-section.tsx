@@ -44,9 +44,33 @@ function scramble(el: HTMLElement, final: string) {
   }, 38)
 }
 
-/* ─── Image carousel rotation hook ─── */
+/* ─── Image carousel rotation hook with canvas-based sizing ─── */
 function useMangaPanelCycle() {
   const [currentPanelIndex, setCurrentPanelIndex] = useState(1) // Start with panel 2 (Seattle)
+  const [imageDimensions, setImageDimensions] = useState({ width: 1920, height: 1080 })
+
+  // Use canvas to calculate optimal image display dimensions (pretext-style approach)
+  useEffect(() => {
+    const calculateImageDimensions = async () => {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      
+      // Load first image to get its natural aspect ratio
+      const img = new Image()
+      img.onload = () => {
+        const aspectRatio = img.naturalWidth / img.naturalHeight
+        // Calculate height based on viewport and maintain aspect ratio
+        const height = Math.min(window.innerHeight * 0.95, 1080)
+        const width = Math.round(height * aspectRatio)
+        setImageDimensions({ width, height })
+      }
+      img.src = DUAL_MANGA_PANELS[1]
+    }
+
+    calculateImageDimensions()
+    window.addEventListener('resize', calculateImageDimensions)
+    return () => window.removeEventListener('resize', calculateImageDimensions)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,7 +80,7 @@ function useMangaPanelCycle() {
     return () => clearInterval(interval)
   }, [])
 
-  return { currentPanelIndex, currentPanel: DUAL_MANGA_PANELS[currentPanelIndex] }
+  return { currentPanelIndex, currentPanel: DUAL_MANGA_PANELS[currentPanelIndex], imageDimensions }
 }
 
 /* ─── Subtle floating ember effect on hero ─── */
@@ -132,7 +156,7 @@ export function HeroSection() {
   const taglineRef = useRef<HTMLDivElement>(null)
   const taglineInView = useInView(taglineRef, { once: true })
   const { t } = useI18n()
-  const { currentPanel } = useMangaPanelCycle()
+  const { currentPanel, imageDimensions } = useMangaPanelCycle()
 
   useEmberCanvas(canvasRef)
 
@@ -157,13 +181,25 @@ export function HeroSection() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.8 }}
+        style={{ 
+          width: '100%', 
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={currentPanel}
           alt="DUAL manga panel"
-          className="h-full w-full object-cover object-center"
-          style={{ filter: 'brightness(0.65) saturate(1.1) contrast(1.05)' }}
+          className="object-cover"
+          style={{ 
+            width: '100%',
+            height: '100%',
+            filter: 'brightness(0.65) saturate(1.1) contrast(1.05)',
+            objectFit: 'cover',
+          }}
         />
       </motion.div>
 
@@ -243,26 +279,6 @@ export function HeroSection() {
 
       {/* ── Main Content — fully centered ── */}
       <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
-
-        {/* ── Affirmations label (top) — centered tegaki ── */}
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: -16 },
-            visible: { opacity: 1, y: 0 },
-          }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          once
-          className="mb-1 flex justify-center"
-        >
-          <TegakiText
-            font="tangerine"
-            size={18}
-            color="var(--af-gold)"
-            className="tracking-[0.5em] uppercase"
-          >
-            Affirmations
-          </TegakiText>
-        </InView>
 
         {/* ── Anime Community — tegaki slides in centered ── */}
         <InView
