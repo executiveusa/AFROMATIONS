@@ -190,7 +190,6 @@ export function HeroSection() {
         {/* Subtle gold tint overlay */}
         <div className="absolute inset-0" style={{ background: 'rgba(212,160,23,0.03)' }} />
       </div>
-      </div>
 
       {/* ── Ember Canvas ── */}
       <canvas
