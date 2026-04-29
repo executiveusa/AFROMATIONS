@@ -7,14 +7,14 @@ import { TegakiText } from '@/components/tegaki-text'
 
 const ARTWORKS = [
   {
-    src: '/gallery/duo.png',
-    title: 'DUO',
+    src: '/gallery/dual.png',
+    title: 'DUAL',
     tag: 'Character Art',
     aspect: 'aspect-square',
   },
   {
     src: '/gallery/night-city.png',
-    title: "Night City — Duel's Inner Struggle",
+    title: "Night City — Dual's Inner Struggle",
     tag: 'Scene',
     aspect: 'aspect-video',
   },
@@ -26,7 +26,7 @@ const ARTWORKS = [
   },
   {
     src: '/gallery/rain-reflection.png',
-    title: "Duel's Fractured Reflection",
+    title: "Dual's Fractured Reflection",
     tag: 'Cinematic',
     aspect: 'aspect-video',
   },

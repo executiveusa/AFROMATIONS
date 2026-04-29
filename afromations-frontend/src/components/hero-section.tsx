@@ -121,7 +121,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative flex min-h-svh items-center justify-center overflow-hidden px-5 pt-14 sm:px-6"
+      className="relative flex min-h-svh items-center justify-center overflow-hidden px-4 pt-14 sm:px-6 md:px-8"
       aria-label="Hero"
     >
       {/* ── Cinematic DUAL Background ── */}
@@ -131,14 +131,14 @@ export function HeroSection() {
           src={DUAL_IMAGES.panel2}
           alt=""
           className="h-full w-full object-cover object-center"
-          style={{ filter: 'brightness(0.35) saturate(1.05) contrast(1.02)' }}
+          style={{ filter: 'brightness(0.65) saturate(1.1) contrast(1.05)' }}
         />
         {/* Radial vignette */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 15%, rgba(10,10,10,0.6) 55%, rgba(10,10,10,0.95) 100%)',
+              'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 25%, rgba(10,10,10,0.35) 60%, rgba(10,10,10,0.7) 100%)',
           }}
         />
         {/* Bottom scrim */}

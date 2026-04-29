@@ -15,7 +15,7 @@ export const en: Record<string, string> = {
   'hero.subtitle': 'Where Worlds Collide, Stories Ignite',
   'hero.description':
     'Real conversations about the shows you love. Real voices from fans, not algorithms. Real learning about how anime gets made.',
-  'hero.cta.trends': 'Discover This Week\'s Trends',
+  'hero.cta.trends': 'Trending Now',
   'hero.cta.discord': 'Join Discord',
   'hero.cta.hanna': 'Meet Agent Hana',
   'hero.cta.gallery': 'View Gallery',

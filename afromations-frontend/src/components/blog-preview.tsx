@@ -63,7 +63,7 @@ export function BlogPreview() {
   return (
     <section
       id="blog"
-      className="border-t border-white/5 px-5 py-20 sm:px-6 sm:py-32"
+      className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-32 md:px-8"
       aria-labelledby="blog-heading"
     >
       <div className="mx-auto max-w-6xl">

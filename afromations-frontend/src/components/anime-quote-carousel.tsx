@@ -3,7 +3,7 @@
 /**
  * AnimeQuoteCarousel
  *
- * Rotating handwritten quotes from the DUO universe.
+ * Rotating handwritten quotes from the DUAL universe.
  * Each quote draws itself stroke by stroke using Tegaki (use-case #15).
  * Season label drawn with Tangerine (use-case #16).
  */
@@ -12,22 +12,22 @@ import { useEffect, useState } from 'react'
 import { TegakiText, TegakiQuote } from '@/components/tegaki-text'
 import { useI18n } from '@/lib/i18n'
 
-const DUO_QUOTES = [
+const DUAL_QUOTES = [
   {
     quote: "The fracture isn't weakness — it's where the light enters.",
     speaker: 'I\'RAH, Episode 1',
   },
   {
     quote: "Two souls forged from the same silence. One chose fire, one chose water.",
-    speaker: 'Narrator, DUO Prologue',
+    speaker: 'Narrator, DUAL Prologue',
   },
   {
     quote: "Your ancestors didn't survive so you could shrink.",
-    speaker: 'DUEL, Episode 3',
+    speaker: 'DUAL, Episode 3',
   },
   {
     quote: "Spirit doesn't speak in words. It speaks in wounds that heal wrong.",
-    speaker: "The Elder, DUO Universe Lore",
+    speaker: "The Elder, DUAL Universe Lore",
   },
   {
     quote: "Every brushstroke is a decision to continue.",
@@ -50,15 +50,15 @@ export function AnimeQuoteCarousel() {
     return () => clearInterval(interval)
   }, [])
 
-  const current = DUO_QUOTES[index]
+  const current = DUAL_QUOTES[index]
 
   return (
-    <section className="border-t border-white/5 px-5 py-20 sm:px-6 sm:py-28">
+    <section className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-28 md:px-8">
       <div className="mx-auto max-w-4xl text-center">
         {/* Season label — hand-drawn (use-case #16) */}
         <div className="mb-10 flex justify-center">
           <TegakiText font="tangerine" size={20} color="var(--af-red)" triggerOnView>
-            DUO — Season 1 · 2026
+            DUAL — Season 1 · 2026
           </TegakiText>
         </div>
 
@@ -75,7 +75,7 @@ export function AnimeQuoteCarousel() {
 
         {/* Dot indicators */}
         <div className="mt-8 flex justify-center gap-2">
-          {DUO_QUOTES.map((_, i) => (
+          {DUAL_QUOTES.map((_, i) => (
             <button
               key={i}
               onClick={() => { setIndex(i); setKey(k => k + 1) }}

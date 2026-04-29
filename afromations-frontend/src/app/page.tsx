@@ -14,7 +14,7 @@ import { KineticMarquee } from '@/components/kinetic-marquee'
 
 const MARQUEE_WORDS = [
   'AFROMATIONS',
-  'DUO',
+  'DUAL',
   'Anime',
   'Culture',
   'Create',
