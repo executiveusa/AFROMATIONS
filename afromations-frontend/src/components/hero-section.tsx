@@ -47,29 +47,26 @@ function scramble(el: HTMLElement, final: string) {
 /* ─── Image carousel rotation hook with canvas-based sizing ─── */
 function useMangaPanelCycle() {
   const [currentPanelIndex, setCurrentPanelIndex] = useState(1) // Start with panel 2 (Seattle)
-  const [imageDimensions, setImageDimensions] = useState({ width: 1920, height: 1080 })
 
   // Use canvas to calculate optimal image display dimensions (pretext-style approach)
   useEffect(() => {
-    const calculateImageDimensions = async () => {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-      
+    const calculateImageDimensions = () => {
       // Load first image to get its natural aspect ratio
       const img = new Image()
+      img.crossOrigin = 'anonymous'
+      
       img.onload = () => {
-        const aspectRatio = img.naturalWidth / img.naturalHeight
-        // Calculate height based on viewport and maintain aspect ratio
-        const height = Math.min(window.innerHeight * 0.95, 1080)
-        const width = Math.round(height * aspectRatio)
-        setImageDimensions({ width, height })
+        console.log('[v0] Image loaded successfully:', img.naturalWidth, 'x', img.naturalHeight)
       }
+      
+      img.onerror = () => {
+        console.log('[v0] Image failed to load')
+      }
+      
       img.src = DUAL_MANGA_PANELS[1]
     }
 
     calculateImageDimensions()
-    window.addEventListener('resize', calculateImageDimensions)
-    return () => window.removeEventListener('resize', calculateImageDimensions)
   }, [])
 
   useEffect(() => {
@@ -80,7 +77,7 @@ function useMangaPanelCycle() {
     return () => clearInterval(interval)
   }, [])
 
-  return { currentPanelIndex, currentPanel: DUAL_MANGA_PANELS[currentPanelIndex], imageDimensions }
+  return { currentPanelIndex, currentPanel: DUAL_MANGA_PANELS[currentPanelIndex] }
 }
 
 /* ─── Subtle floating ember effect on hero ─── */
