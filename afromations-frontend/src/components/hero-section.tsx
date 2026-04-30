@@ -170,7 +170,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative flex min-h-svh items-center justify-center overflow-hidden px-4 pt-14 sm:px-6 md:px-8"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-12 sm:pt-16 md:pt-20 sm:px-6 md:px-8 md:min-h-svh"
       aria-label="Hero"
     >
       {/* ── Cinematic DUAL Background — Rotating Manga Panels ── */}
@@ -304,13 +304,13 @@ export function HeroSection() {
         <h1
           ref={headingRef}
           className="font-bold leading-[0.95] tracking-tight text-(--af-cream)"
-          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(2.25rem, 10vw, 6.5rem)' }}
+          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(1.75rem, 8.5vw, 6.5rem)' }}
         >
           {t('hero.title')}
         </h1>
 
         {/* "Where Worlds Collide, Stories Ignite" — 20% bigger, centered, scroll-in */}
-        <div ref={taglineRef} className="mt-6 flex justify-center">
+        <div ref={taglineRef} className="mt-4 sm:mt-6 flex justify-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={taglineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -318,7 +318,7 @@ export function HeroSection() {
             className="max-w-2xl text-center font-semibold leading-[1.2] text-(--af-cream)"
             style={{
               fontFamily: 'Sora, sans-serif',
-              fontSize: 'clamp(1.32rem, 4.2vw, 3rem)',
+              fontSize: 'clamp(1rem, 3.5vw, 3rem)',
               textWrap: 'balance',
             } as React.CSSProperties}
           >
@@ -332,7 +332,7 @@ export function HeroSection() {
           per="word"
           preset="fade-in-blur"
           delay={0.35}
-          className="mx-auto mt-5 max-w-lg px-2 text-center text-sm leading-relaxed text-(--af-grey-light) sm:px-0"
+          className="mx-auto mt-3 sm:mt-5 max-w-lg px-2 text-center text-xs sm:text-sm leading-relaxed text-(--af-grey-light) sm:px-0"
         >
           {t('hero.description')}
         </TextEffect>
@@ -342,11 +342,11 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.55 }}
-          className="mt-8 flex flex-col items-center justify-center gap-3 px-4 sm:flex-row sm:gap-4 sm:px-0"
+          className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2 sm:gap-3 px-4 sm:flex-row sm:gap-4 sm:px-0"
         >
           <a
             href="#blog"
-            className="af-btn-primary inline-flex h-12 w-full items-center justify-center rounded-full px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
+            className="af-btn-primary inline-flex h-10 sm:h-12 w-full items-center justify-center rounded-full px-6 sm:px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
             aria-label={t('hero.cta.trends')}
           >
             {t('hero.cta.trends')}
@@ -355,7 +355,7 @@ export function HeroSection() {
             href="https://discord.gg/afromations"
             target="_blank"
             rel="noopener noreferrer"
-            className="af-btn-secondary inline-flex h-12 w-full items-center justify-center rounded-full border px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
+            className="af-btn-secondary inline-flex h-10 sm:h-12 w-full items-center justify-center rounded-full border px-6 sm:px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
             aria-label="Join the AFROMATIONS Discord community"
           >
             {t('hero.cta.discord')}
@@ -367,10 +367,10 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.85 }}
-          className="mt-5 flex justify-center"
+          className="mt-3 sm:mt-5 flex justify-center"
         >
           <p
-            className="text-center text-[10px] tracking-[0.35em] uppercase"
+            className="text-center text-[9px] sm:text-[10px] tracking-[0.35em] uppercase"
             style={{ color: 'var(--af-grey-light)', opacity: 0.7 }}
           >
             Powered by Agent{' '}
@@ -380,10 +380,10 @@ export function HeroSection() {
         </motion.div>
 
         {/* Hand-drawn tagline — centered tegaki */}
-        <div className="mt-5 flex justify-center">
+        <div className="mt-3 sm:mt-5 flex justify-center">
           <TegakiText
             font="italianno"
-            size={26}
+            size={20}
             color="var(--af-cream)"
             style={{ opacity: 0.75 }}
             triggerOnView
@@ -394,14 +394,14 @@ export function HeroSection() {
 
         {/* Footnote — centered */}
         <p
-          className="mx-auto mt-3 max-w-md px-2 text-center text-xs leading-relaxed text-(--af-grey-light) sm:px-0"
+          className="mx-auto mt-2 sm:mt-3 max-w-md px-2 text-center text-xs leading-relaxed text-(--af-grey-light) sm:px-0"
           style={{ opacity: 0.7 }}
         >
           {t('hero.footnote')}
         </p>
 
         {/* Scroll indicator — centered */}
-        <div className="mt-12 flex flex-col items-center gap-2 text-(--af-grey-light)">
+        <div className="mt-8 sm:mt-12 flex flex-col items-center gap-2 text-(--af-grey-light)">
           <span className="text-[10px] tracking-[0.35em] uppercase">{t('hero.scroll')}</span>
           <div className="h-8 w-px bg-linear-to-b from-(--af-grey-light) to-transparent" />
         </div>

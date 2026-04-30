@@ -35,33 +35,14 @@ export function HannaFeature() {
     >
       <div className="mx-auto max-w-6xl">
 
-        {/* ── Section header — centered, Affirmations on top, Anime Community below ── */}
+        {/* ── Section header — centered ── */}
         <div className="mb-10 text-center">
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: -14 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            once
-            className="flex justify-center"
-          >
-            <TegakiText
-              font="tangerine"
-              size={18}
-              color="var(--af-gold)"
-              className="mb-1 tracking-[0.5em] uppercase"
-            >
-              Affirmations
-            </TegakiText>
-          </InView>
-
           <InView
             variants={{
               hidden: { opacity: 0, x: -48 },
               visible: { opacity: 1, x: 0 },
             }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             once
             className="flex justify-center"
           >
