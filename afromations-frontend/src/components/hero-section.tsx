@@ -300,7 +300,7 @@ export function HeroSection() {
         {/* Primary headline */}
         <h1
           ref={headingRef}
-          className="font-bold leading-[0.95] tracking-tight text-(--af-cream)"
+          className="text-center font-bold leading-[0.95] tracking-tight text-(--af-cream)"
           style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(1.75rem, 8.5vw, 6.5rem)' }}
         >
           {t('hero.title')}
