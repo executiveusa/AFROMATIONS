@@ -69,13 +69,13 @@ export function HannaFeature() {
             once
             className="relative flex items-center justify-center"
           >
-            <div className="relative h-56 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) sm:h-90 md:h-120">
+            <div className="relative h-56 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) sm:h-80 md:h-96">
               <Image
                 src={HANA_IMAGE}
                 alt="Hana — Onna-Bugeisha, Warrior Princess of the Aizu Clan. AI Agent character sheet showing full body armor and portrait."
                 fill
                 className="object-cover object-top"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, 50vw"
                 priority
               />
               {/* Red corner accent */}

@@ -46,18 +46,34 @@ export function BlogPreview() {
   const { t } = useI18n()
 
   useEffect(() => {
-    fetch(`${API_URL}/trends`)
-      .then((r) => r.json())
+    // Use static trends by default to avoid API dependency
+    setTrends(STATIC_TRENDS)
+    
+    // Optionally try to fetch fresh trends from API with timeout
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 3000)
+    
+    fetch(`${API_URL}/trends`, { signal: controller.signal })
+      .then((r) => {
+        if (!r.ok) throw new Error(`API returned ${r.status}`)
+        return r.json()
+      })
       .then((d) => {
         const apiTrends: TrendTopic[] = d.trends ?? []
-        setTrends(
-          apiTrends.map((tr) => ({
-            ...tr,
-            summary: STATIC_TRENDS.find((s) => s.topic === tr.topic)?.summary,
-          }))
-        )
+        if (apiTrends.length > 0) {
+          setTrends(
+            apiTrends.map((tr) => ({
+              ...tr,
+              summary: STATIC_TRENDS.find((s) => s.topic === tr.topic)?.summary,
+            }))
+          )
+        }
       })
-      .catch(() => setTrends(STATIC_TRENDS))
+      .catch((err) => {
+        console.log('[v0] Trends API unavailable, using static data:', err.message)
+        // Keep using static trends
+      })
+      .finally(() => clearTimeout(timeoutId))
   }, [])
 
   return (
