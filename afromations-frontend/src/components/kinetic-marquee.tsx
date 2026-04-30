@@ -29,12 +29,13 @@ async function computeHalfWidth(items: string[], isSm: boolean, isMd: boolean): 
   if (!ctx) return 0
 
   ctx.font = font
-  ctx.letterSpacing = letterSpacing
 
   let total = 0
   for (const item of items) {
     const metrics = ctx.measureText(item)
-    total += metrics.width + spacing
+    // Apply letter spacing adjustment (canvas doesn't support letterSpacing directly)
+    const adjustedWidth = metrics.width + (item.length - 1) * letterSpacing
+    total += adjustedWidth + spacing
   }
   return total
 }
