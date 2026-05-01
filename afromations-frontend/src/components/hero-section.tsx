@@ -182,6 +182,7 @@ export function HeroSection() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          overflow: 'hidden',
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -192,9 +193,11 @@ export function HeroSection() {
           style={{ 
             width: '100%',
             height: '100%',
-            filter: 'brightness(0.65) saturate(1.1) contrast(1.05)',
+            filter: 'brightness(0.85) saturate(1.1) contrast(1.05)',
             objectFit: 'cover',
+            objectPosition: 'center',
           }}
+          loading="eager"
         />
       </motion.div>
 
@@ -299,7 +302,7 @@ export function HeroSection() {
         <h1
           ref={headingRef}
           className="text-center font-bold leading-[0.95] tracking-tight text-(--af-cream)"
-          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(1.75rem, 8.5vw, 6.5rem)' }}
+          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(2.5rem, 12vw, 8rem)' }}
         >
           {t('hero.title')}
         </h1>
@@ -313,7 +316,7 @@ export function HeroSection() {
             className="max-w-2xl text-center font-semibold leading-[1.2] text-(--af-cream)"
             style={{
               fontFamily: 'Sora, sans-serif',
-              fontSize: 'clamp(1rem, 3.5vw, 3rem)',
+              fontSize: 'clamp(1.2rem, 5vw, 3.5rem)',
               textWrap: 'balance',
             } as React.CSSProperties}
           >
@@ -327,7 +330,7 @@ export function HeroSection() {
           per="word"
           preset="fade-in-blur"
           delay={0.35}
-          className="mx-auto mt-3 sm:mt-5 max-w-lg px-2 text-center text-xs sm:text-sm leading-relaxed text-(--af-grey-light) sm:px-0"
+          className="mx-auto mt-3 sm:mt-5 max-w-2xl px-2 text-center text-sm sm:text-lg md:text-xl leading-relaxed text-(--af-grey-light) sm:px-0"
         >
           {t('hero.description')}
         </TextEffect>
@@ -365,8 +368,8 @@ export function HeroSection() {
           className="mt-3 sm:mt-5 flex justify-center"
         >
           <p
-            className="text-center text-[9px] sm:text-[10px] tracking-[0.35em] uppercase"
-            style={{ color: 'var(--af-grey-light)', opacity: 0.7 }}
+            className="text-center text-[10px] sm:text-[12px] md:text-[14px] tracking-[0.35em] uppercase"
+            style={{ color: 'var(--af-grey-light)', opacity: 0.8 }}
           >
             Powered by Agent{' '}
             <span style={{ color: 'var(--af-red)' }}>Hana</span>
@@ -375,12 +378,12 @@ export function HeroSection() {
         </motion.div>
 
         {/* Hand-drawn tagline — centered tegaki */}
-        <div className="mt-3 sm:mt-5 flex justify-center">
+        <div className="mt-4 sm:mt-6 flex justify-center">
           <TegakiText
             font="italianno"
-            size={20}
+            size={28}
             color="var(--af-cream)"
-            style={{ opacity: 0.75 }}
+            style={{ opacity: 0.85 }}
             triggerOnView
           >
             {t('hero.tagline')}
@@ -389,8 +392,8 @@ export function HeroSection() {
 
         {/* Footnote — centered */}
         <p
-          className="mx-auto mt-2 sm:mt-3 max-w-md px-2 text-center text-xs leading-relaxed text-(--af-grey-light) sm:px-0"
-          style={{ opacity: 0.7 }}
+          className="mx-auto mt-3 sm:mt-4 max-w-lg px-2 text-center text-sm sm:text-base leading-relaxed text-(--af-grey-light) sm:px-0"
+          style={{ opacity: 0.8 }}
         >
           {t('hero.footnote')}
         </p>

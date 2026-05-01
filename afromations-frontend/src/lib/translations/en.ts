@@ -24,11 +24,11 @@ export const en: Record<string, string> = {
   'hero.scroll': 'Scroll',
 
   // Hanna Feature
-  'hanna.eyebrow': 'Meet the AI',
-  'hanna.title': 'Agent Hana',
-  'hanna.subtitle': '花 — The Engine Under the Hood',
+  'hanna.eyebrow': 'Meet Hana',
+  'hanna.title': 'Agent Hana 花',
+  'hanna.subtitle': 'Your AI Guide Through Anime',
   'hanna.description':
-    'Hana is the AI backbone of AFROMATIONS. She powers the creation tools, teaches the academy, moderates the community, and keeps everything running. Think of her as the friend who understands both anime craft and community.',
+    'Hana is your personal AI education agent for anime culture and production. She teaches the academy (how anime gets made), powers creation tools (3D character pipeline), analyzes trends (what\'s happening now), and moderates the community (keeping conversations real). Hana speaks Japanese, understands anime craft, and is built to help you learn, create, and connect.',
   'hanna.placeholder': 'Agent Hana — 3D render loading',
   'hanna.character': 'Japanese anime guide · 花 · Your host',
   'hanna.stat.resolution': 'Render Resolution',
