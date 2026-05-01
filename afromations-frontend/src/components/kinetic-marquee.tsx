@@ -92,7 +92,7 @@ export function KineticMarquee({ items, speed = 30, reverse = false, className }
 
       // Pretext measurement lands asynchronously; fall back to scrollWidth until it arrives
       const halfWidth = halfWidthRef.current || track.scrollWidth / 2
-      if (Math.abs(posRef.current) >= halfWidth) {
+      if (halfWidth > 0 && Math.abs(posRef.current) >= halfWidth) {
         posRef.current = posRef.current % halfWidth
       }
       track.style.transform = `translate3d(${posRef.current}px, 0, 0)`
