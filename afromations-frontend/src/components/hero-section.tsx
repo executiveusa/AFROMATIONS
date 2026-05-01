@@ -56,11 +56,9 @@ function useMangaPanelCycle() {
       img.crossOrigin = 'anonymous'
       
       img.onload = () => {
-        console.log('[v0] Image loaded successfully:', img.naturalWidth, 'x', img.naturalHeight)
       }
       
       img.onerror = () => {
-        console.log('[v0] Image failed to load')
       }
       
       img.src = DUAL_MANGA_PANELS[1]
@@ -144,7 +142,7 @@ function useEmberCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
       cancelAnimationFrame(raf)
       ro.disconnect()
     }
-  }, [canvasRef])
+  }, [])
 }
 
 export function HeroSection() {
