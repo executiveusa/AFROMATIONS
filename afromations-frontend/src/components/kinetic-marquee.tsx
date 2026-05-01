@@ -16,28 +16,31 @@ const ITEM_SPACING_SM = 168
 
 // Measure the total natural width of one copy of all items using canvas.
 // Called once after fonts load and again whenever the viewport breakpoint changes.
-async function computeHalfWidth(items: string[], isSm: boolean, isMd: boolean): Promise<number> {
-  await document.fonts.ready
+function computeHalfWidth(items: string[], isSm: boolean, isMd: boolean): number {
+  try {
+    const fontSize = isMd ? 72 : isSm ? 60 : 36  // md:text-7xl / sm:text-6xl / text-4xl
+    const font = `700 ${fontSize}px Sora`
+    const letterSpacing = -0.025 * fontSize        // tracking-tight = -0.025em
+    const spacing = isSm ? ITEM_SPACING_SM : ITEM_SPACING_MOBILE
 
-  const fontSize = isMd ? 72 : isSm ? 60 : 36  // md:text-7xl / sm:text-6xl / text-4xl
-  const font = `700 ${fontSize}px Sora`
-  const letterSpacing = -0.025 * fontSize        // tracking-tight = -0.025em
-  const spacing = isSm ? ITEM_SPACING_SM : ITEM_SPACING_MOBILE
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return 0
 
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-  if (!ctx) return 0
+    ctx.font = font
 
-  ctx.font = font
-
-  let total = 0
-  for (const item of items) {
-    const metrics = ctx.measureText(item)
-    // Apply letter spacing adjustment (canvas doesn't support letterSpacing directly)
-    const adjustedWidth = metrics.width + (item.length - 1) * letterSpacing
-    total += adjustedWidth + spacing
+    let total = 0
+    for (const item of items) {
+      const metrics = ctx.measureText(item)
+      // Apply letter spacing adjustment (canvas doesn't support letterSpacing directly)
+      const adjustedWidth = metrics.width + (item.length - 1) * letterSpacing
+      total += adjustedWidth + spacing
+    }
+    return total
+  } catch (err) {
+    console.log('[v0] Canvas measurement failed, falling back to scrollWidth')
+    return 0
   }
-  return total
 }
 
 export function KineticMarquee({ items, speed = 30, reverse = false, className }: KineticMarqueeProps) {
@@ -49,14 +52,11 @@ export function KineticMarquee({ items, speed = 30, reverse = false, className }
 
   // Measure once on mount; re-measure when viewport crosses sm/md breakpoints
   useEffect(() => {
-    let cancelled = false
-
     function measure() {
       const isSm = window.matchMedia('(min-width: 640px)').matches
       const isMd = window.matchMedia('(min-width: 768px)').matches
-      computeHalfWidth(items, isSm, isMd).then((w) => {
-        if (!cancelled) halfWidthRef.current = w
-      })
+      const w = computeHalfWidth(items, isSm, isMd)
+      halfWidthRef.current = w
     }
 
     measure()
@@ -68,7 +68,6 @@ export function KineticMarquee({ items, speed = 30, reverse = false, className }
     mdQuery.addEventListener('change', measure)
 
     return () => {
-      cancelled = true
       smQuery.removeEventListener('change', measure)
       mdQuery.removeEventListener('change', measure)
     }
