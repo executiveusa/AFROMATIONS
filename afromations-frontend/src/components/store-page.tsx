@@ -1,16 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { InView } from './motion/in-view'
+import { StoreProductGrid } from './store-product-grid'
 
 interface Product {
   id: string
   name: string
   category: string
   price: number
-  image_url: string
+  images: string[]
   description: string
 }
 
@@ -24,6 +25,7 @@ const CATEGORIES = [
   { id: 'hats', name: 'Hats' },
   { id: 'stickers', name: 'Stickers' },
   { id: 'digital', name: 'Digital' },
+  { id: 'bundles', name: 'Bundles' },
 ]
 
 export function StorePage() {
@@ -38,7 +40,7 @@ export function StorePage() {
         const data = await response.json()
         setProducts(data)
       } catch (error) {
-        console.error('[v0] Failed to fetch products:', error)
+        console.log('[v0] Failed to fetch products:', error)
       } finally {
         setLoading(false)
       }
@@ -62,14 +64,33 @@ export function StorePage() {
         }}
         transition={{ duration: 0.6 }}
         once
-        className="mb-16 text-center"
+        className="mb-16 text-center px-4 max-w-4xl mx-auto"
       >
-        <h1 className="text-5xl md:text-7xl font-bold text-(--af-cream) mb-4">
+        <div className="text-(--af-red) text-sm uppercase tracking-widest font-bold mb-4">
+          O.W.P.I.L Universe Merchandise
+        </div>
+        <h1 className="text-5xl md:text-7xl font-black text-(--af-cream) mb-4">
           DUAL Store
         </h1>
-        <p className="text-lg md:text-xl text-(--af-grey-light) max-w-2xl mx-auto">
-          Premium merchandise from the DUAL universe. Limited editions. Built to last.
+        <p className="text-lg md:text-xl text-(--af-grey-light) max-w-2xl mx-auto leading-relaxed mb-8">
+          Premium collector items from the O.W.P.I.L universe. Limited drops, museum-quality materials, profit-sharing with creators. Every purchase supports our mission to teach anime production and build community.
         </p>
+        
+        {/* Value Propositions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <div className="border-l-2 border-(--af-red) pl-4 text-left">
+            <div className="font-bold text-(--af-cream)">Premium Quality</div>
+            <div className="text-(--af-grey-light) text-sm">Museum-grade materials, archival inks</div>
+          </div>
+          <div className="border-l-2 border-(--af-red) pl-4 text-left">
+            <div className="font-bold text-(--af-cream)">Zero Inventory Waste</div>
+            <div className="text-(--af-grey-light) text-sm">Print-on-demand only via Printify & Printful</div>
+          </div>
+          <div className="border-l-2 border-(--af-red) pl-4 text-left">
+            <div className="font-bold text-(--af-cream)">Mission-Aligned</div>
+            <div className="text-(--af-grey-light) text-sm">30% of profit to youth programs</div>
+          </div>
+        </div>
       </InView>
 
       {/* Category Filter */}
@@ -80,14 +101,14 @@ export function StorePage() {
         }}
         transition={{ duration: 0.6, delay: 0.1 }}
         once
-        className="mb-16"
+        className="mb-16 border-t border-(--af-red) border-opacity-30 pt-8"
       >
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 px-4">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3 px-4">
           {CATEGORIES.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 md:px-6 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all ${
+              className={`px-4 py-2 text-sm font-semibold transition-all rounded ${
                 selectedCategory === cat.id
                   ? 'bg-(--af-red) text-(--af-cream)'
                   : 'border border-(--af-red) text-(--af-red) hover:bg-(--af-red) hover:text-(--af-cream)'
@@ -100,92 +121,25 @@ export function StorePage() {
       </InView>
 
       {/* Products Grid */}
-      {loading ? (
-        <div className="text-center text-(--af-grey-light) py-20">
-          Loading merchandise...
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 max-w-7xl mx-auto">
-          {filteredProducts.map((product, i) => (
-            <InView
-              key={product.id}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.1,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              once
-              className="group"
+      <div className="px-4 max-w-7xl mx-auto mb-20">
+        <StoreProductGrid products={filteredProducts} isLoading={loading} />
+        
+        {!loading && filteredProducts.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-(--af-grey-light) text-lg mb-4">
+              No products in this category yet.
+            </p>
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className="text-(--af-red) hover:underline font-semibold"
             >
-              <div className="bg-(--af-grey) rounded-lg overflow-hidden border border-(--af-red) border-opacity-30 hover:border-opacity-100 transition-all cursor-pointer">
-                {/* Product Image */}
-                <div className="relative h-64 md:h-72 overflow-hidden bg-(--af-grey) flex items-center justify-center">
-                  {product.image_url ? (
-                    <Image
-                      src={product.image_url}
-                      alt={product.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-(--af-grey) to-(--af-grey-light) flex items-center justify-center">
-                      <span className="text-(--af-grey-light)">No image</span>
-                    </div>
-                  )}
-                </div>
+              View all items
+            </button>
+          </div>
+        )}
+      </div>
 
-                {/* Product Info */}
-                <div className="p-6">
-                  <p className="text-(--af-red) text-sm font-bold uppercase mb-2">
-                    {product.category}
-                  </p>
-                  <h3 className="text-xl font-bold text-(--af-cream) mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-(--af-grey-light) text-sm mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-
-                  {/* Price & CTA */}
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-(--af-red)">
-                      ${product.price.toFixed(2)}
-                    </span>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="af-btn-primary px-4 py-2 text-sm font-semibold"
-                    >
-                      Add to Cart
-                    </motion.button>
-                  </div>
-                </div>
-              </div>
-            </InView>
-          ))}
-        </div>
-      )}
-
-      {/* Empty State */}
-      {!loading && filteredProducts.length === 0 && (
-        <div className="text-center py-20">
-          <p className="text-(--af-grey-light) text-lg mb-4">
-            No products in this category yet.
-          </p>
-          <button
-            onClick={() => setSelectedCategory('all')}
-            className="text-(--af-red) hover:underline font-semibold"
-          >
-            View all items
-          </button>
-        </div>
-      )}
-
-      {/* Trust Badges */}
+      {/* Community CTA */}
       <InView
         variants={{
           hidden: { opacity: 0, y: 20 },
@@ -193,9 +147,39 @@ export function StorePage() {
         }}
         transition={{ duration: 0.6, delay: 0.2 }}
         once
-        className="mt-20 pt-20 border-t border-(--af-red) border-opacity-30"
+        className="bg-(--af-grey) border border-(--af-red) border-opacity-50 rounded-lg p-8 md:p-12 text-center max-w-2xl mx-auto mb-20 px-4"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto px-4 text-center">
+        <div className="text-(--af-red) text-sm uppercase tracking-widest font-bold mb-2">
+          Join the Community
+        </div>
+        <h2 className="text-3xl font-bold text-(--af-cream) mb-4">
+          Token Holders Get 10% Off
+        </h2>
+        <p className="text-(--af-grey-light) mb-6 max-w-md mx-auto">
+          Hold DUAL community tokens for exclusive discounts, early access to limited drops, and voting rights on future merchandise and initiatives.
+        </p>
+        <Link href="#community">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="af-btn-primary px-8 py-3 font-semibold"
+          >
+            Learn About DUAL Tokens
+          </motion.button>
+        </Link>
+      </InView>
+
+      {/* Trust Badges */}
+      <InView
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0 },
+        }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        once
+        className="pt-12 border-t border-(--af-red) border-opacity-30"
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto px-4 text-center">
           <div>
             <p className="text-(--af-red) font-bold mb-2">Print on Demand</p>
             <p className="text-(--af-grey-light) text-sm">
@@ -205,7 +189,7 @@ export function StorePage() {
           <div>
             <p className="text-(--af-red) font-bold mb-2">Worldwide Shipping</p>
             <p className="text-(--af-grey-light) text-sm">
-              Fast, tracked delivery to your door
+              Fast, tracked delivery worldwide
             </p>
           </div>
           <div>
@@ -215,9 +199,9 @@ export function StorePage() {
             </p>
           </div>
           <div>
-            <p className="text-(--af-red) font-bold mb-2">Limited Editions</p>
+            <p className="text-(--af-red) font-bold mb-2">Sustainable</p>
             <p className="text-(--af-grey-light) text-sm">
-              Exclusive drops. Once it&apos;s gone, it&apos;s gone
+              Zero inventory waste, mission-driven
             </p>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import { useI18n, LOCALES } from '@/lib/i18n'
+import { CartBadge } from './cart-badge'
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
@@ -85,6 +86,9 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
+
+            {/* Cart Badge */}
+            <CartBadge />
 
             {/* Language toggle */}
             <div className="relative">
