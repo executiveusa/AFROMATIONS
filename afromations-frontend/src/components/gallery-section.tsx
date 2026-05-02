@@ -1,47 +1,17 @@
 'use client'
 
 import { useRef, useEffect, useState } from 'react'
-import Image from 'next/image'
 import { useI18n } from '@/lib/i18n'
 import { TegakiText } from '@/components/tegaki-text'
 
-const ARTWORKS = [
-  {
-    src: '/gallery/duo.png',
-    title: 'DUAL',
-    tag: 'Character Art',
-    aspect: 'aspect-square',
-  },
-  {
-    src: '/gallery/night-city.png',
-    title: "Night City — Dual's Inner Struggle",
-    tag: 'Scene',
-    aspect: 'aspect-video',
-  },
-  {
-    src: '/gallery/main-character.jpg',
-    title: 'Main Character',
-    tag: 'Character Design',
-    aspect: 'aspect-[3/4]',
-  },
-  {
-    src: '/gallery/rain-reflection.png',
-    title: "Dual's Fractured Reflection",
-    tag: 'Cinematic',
-    aspect: 'aspect-video',
-  },
-  {
-    src: '/gallery/bird-spirit.jpg',
-    title: 'Bird Spirit',
-    tag: 'Spirit Art',
-    aspect: 'aspect-square',
-  },
-  {
-    src: '/gallery/koi-spirit.jpg',
-    title: 'Koi Spirit',
-    tag: 'Spirit Art',
-    aspect: 'aspect-square',
-  },
+// Placeholder categories for upcoming AI-generated gallery
+const GALLERY_CATEGORIES = [
+  { title: 'Character Art', description: 'DUAL universe characters rendered in cinematic anime style' },
+  { title: 'Scene Design', description: 'Seattle 2056 environments and atmospheric landscapes' },
+  { title: 'Spirit Art', description: 'O.W.P.I.L spirit entities and symbolic imagery' },
+  { title: 'Cinematic', description: 'Key frames and storyboard moments from DUAL' },
+  { title: 'Concept Art', description: 'Early designs and visual development' },
+  { title: 'Community', description: 'Art created by the AFROMATIONS community' },
 ]
 
 export function GallerySection() {
@@ -69,7 +39,7 @@ export function GallerySection() {
       className="border-t border-white/5 px-5 py-20 sm:px-6 sm:py-32"
     >
       <div className="mx-auto max-w-6xl">
-        {/* Eyebrow — drawn when section scrolls into view (use-case #5) */}
+        {/* Eyebrow */}
         <div className="mb-3">
           <TegakiText
             font="tangerine"
@@ -82,7 +52,7 @@ export function GallerySection() {
           </TegakiText>
         </div>
 
-        {/* Section title — Italianno hand-drawn on scroll (use-case #5) */}
+        {/* Section title */}
         <TegakiText
           font="italianno"
           size={48}
@@ -96,38 +66,44 @@ export function GallerySection() {
           {t('gallery.description')}
         </p>
 
-        {/* Grid */}
+        {/* Coming Soon Grid */}
         <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {ARTWORKS.map((art, i) => (
+          {GALLERY_CATEGORIES.map((cat, i) => (
             <figure
-              key={art.src}
+              key={cat.title}
               className={`
-                group relative overflow-hidden rounded-sm border border-white/5
-                transition-all duration-500
+                group relative overflow-hidden rounded-sm border border-white/10 bg-(--af-grey)
+                transition-all duration-500 aspect-video flex items-center justify-center
                 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
-                ${art.aspect}
               `}
               style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <Image
-                src={art.src}
-                alt={art.title}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              {/* Overlay — artwork title drawn on hover (use-case #6) */}
-              <figcaption className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/80 via-black/20 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <span className="mb-1 text-[9px] font-medium tracking-[0.35em] text-(--af-red) uppercase">
-                  {art.tag}
+              <div className="text-center p-6">
+                <span className="mb-2 block text-[10px] font-medium tracking-[0.35em] text-(--af-red) uppercase">
+                  {cat.title}
                 </span>
-                <TegakiText font="caveat" size={18} color="var(--af-cream)">
-                  {art.title}
-                </TegakiText>
-              </figcaption>
+                <p className="text-sm text-(--af-grey-light)">
+                  {cat.description}
+                </p>
+                <span className="mt-4 inline-block text-xs text-(--af-grey-light) opacity-60">
+                  Coming Soon
+                </span>
+              </div>
             </figure>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-12 text-center">
+          <p className="text-sm text-(--af-grey-light) mb-4">
+            Gallery artwork will be generated using DUAL Studio AI tools.
+          </p>
+          <a
+            href="/studio"
+            className="inline-flex h-10 items-center rounded-sm border border-(--af-red) px-6 text-sm font-semibold tracking-wider text-(--af-red) transition-colors hover:bg-(--af-red) hover:text-(--af-cream)"
+          >
+            Open DUAL Studio
+          </a>
         </div>
       </div>
     </section>

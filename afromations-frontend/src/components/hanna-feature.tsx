@@ -35,47 +35,6 @@ export function HannaFeature() {
     >
       <div className="mx-auto max-w-6xl">
 
-        {/* ── Section header — centered, Affirmations on top, Anime Community below ── */}
-        <div className="mb-10 text-center">
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: -14 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            once
-            className="flex justify-center"
-          >
-            <TegakiText
-              font="tangerine"
-              size={18}
-              color="var(--af-gold)"
-              className="mb-1 tracking-[0.5em] uppercase"
-            >
-              Affirmations
-            </TegakiText>
-          </InView>
-
-          <InView
-            variants={{
-              hidden: { opacity: 0, x: -48 },
-              visible: { opacity: 1, x: 0 },
-            }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            once
-            className="flex justify-center"
-          >
-            <TegakiText
-              font="tangerine"
-              size={20}
-              color="var(--af-red)"
-              className="tracking-[0.4em] uppercase"
-            >
-              {t('hanna.eyebrow')}
-            </TegakiText>
-          </InView>
-        </div>
-
         <div className="grid gap-10 md:gap-16 md:grid-cols-2">
 
           {/* Left — Hana character image */}
@@ -88,13 +47,13 @@ export function HannaFeature() {
             once
             className="relative flex items-center justify-center"
           >
-            <div className="relative h-56 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) sm:h-90 md:h-120">
+            <div className="relative h-56 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) sm:h-80 md:h-96">
               <Image
                 src={HANA_IMAGE}
                 alt="Hana — Onna-Bugeisha, Warrior Princess of the Aizu Clan. AI Agent character sheet showing full body armor and portrait."
                 fill
                 className="object-cover object-top"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, 50vw"
                 priority
               />
               {/* Red corner accent */}
@@ -156,27 +115,8 @@ export function HannaFeature() {
               </ul>
             </div>
 
-            {/* "Powered by Agent Hana" — right-aligned, centered to column */}
-            <div className="mt-8 flex flex-col items-end gap-3 border-t border-white/5 pt-5 sm:flex-row sm:items-center sm:justify-end">
-              <div className="text-right">
-                <p className="text-[9px] tracking-[0.35em] text-(--af-grey-light) uppercase">
-                  Powered by
-                </p>
-                <p
-                  className="mt-0.5 text-sm font-bold tracking-widest"
-                  style={{ fontFamily: 'Sora, sans-serif', color: 'var(--af-red)' }}
-                >
-                  AGENT HANA 花
-                </p>
-              </div>
-              <div className="hidden h-8 w-px bg-white/10 sm:block" aria-hidden="true" />
-              <p className="max-w-[200px] text-right text-[10px] leading-relaxed text-(--af-grey-light) sm:text-left">
-                The AI engine under the hood. Hana powers all creation tools, education paths, and community features.
-              </p>
-            </div>
-
             {/* Learn More CTA */}
-            <div className="mt-6 flex justify-end">
+            <div className="mt-8 flex justify-end">
               <Link
                 href="/hana"
                 className="af-btn-secondary inline-flex h-10 items-center rounded-full border px-6 text-[11px] font-semibold tracking-wider"

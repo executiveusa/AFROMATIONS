@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import { useI18n, LOCALES } from '@/lib/i18n'
+import { CartBadge } from './cart-badge'
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
@@ -11,11 +12,12 @@ export function Navbar() {
   const { locale, setLocale, t } = useI18n()
 
   const links = [
-    { label: t('nav.studio'), href: '#studio' },
-    { label: t('nav.hanna'), href: '#hanna' },
-    { label: t('nav.academy'), href: '#education' },
+    { label: 'Studio', href: '/studio' },
+    { label: t('nav.hanna'), href: '/hana' },
+    { label: 'DUAL', href: '/dual' },
+    { label: 'Academy', href: '/learn' },
     { label: t('nav.gallery'), href: '#gallery' },
-    { label: t('nav.blog'), href: '#blog' },
+    { label: 'Store', href: '/store' },
     { label: t('nav.community'), href: '#community' },
   ]
 
@@ -84,6 +86,9 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
+
+            {/* Cart Badge */}
+            <CartBadge />
 
             {/* Language toggle */}
             <div className="relative">

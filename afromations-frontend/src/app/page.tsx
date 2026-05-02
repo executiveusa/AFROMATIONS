@@ -1,8 +1,8 @@
 import { HeroSection } from '@/components/hero-section'
 import { HannaFeature } from '@/components/hanna-feature'
+import { DualFeature } from '@/components/dual-feature'
 import { StudioShowcase } from '@/components/studio-showcase'
 import { GallerySection } from '@/components/gallery-section'
-import { AnimeQuoteCarousel } from '@/components/anime-quote-carousel'
 import { EducationSection } from '@/components/education-section'
 import { BlogPreview } from '@/components/blog-preview'
 import { CommunitySection } from '@/components/community-section'
@@ -31,10 +31,11 @@ export default function Home() {
       <HeroSection />
       <KineticMarquee items={MARQUEE_WORDS} speed={75} className="border-t border-white/5 py-10" />
       <HannaFeature />
+      <DualFeature />
       <StudioShowcase />
       <KineticMarquee items={MARQUEE_WORDS} speed={60} reverse className="border-t border-white/5 py-8" />
       <GallerySection />
-      <AnimeQuoteCarousel />
+      {/* <AnimeQuoteCarousel /> */}
       <EducationSection />
       <BlogPreview />
       <CommunitySection />

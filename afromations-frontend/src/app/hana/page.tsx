@@ -25,7 +25,7 @@ export default function HanaPage() {
                   花
                 </p>
                 <p className="text-(--af-grey-light) text-xs tracking-wider uppercase">
-                  Agent Hana — Warrior Scholar
+                  Agent Hana
                 </p>
               </div>
             </div>
@@ -54,25 +54,29 @@ export default function HanaPage() {
               </p>
 
               <div data-reveal data-delay="2" className="space-y-2">
-                <h3 className="text-sm font-semibold text-(--af-cream)">
-                  What Does Hana Teach?
-                </h3>
+                <p className="text-(--af-grey-light) text-sm leading-relaxed mb-4">
+                  She teaches Japanese through anime culture, creative AI workflows, community art planning, and practical business skills for creators.
+                </p>
                 <ul className="text-(--af-grey-light) text-sm space-y-1.5">
                   <li className="flex items-start gap-2">
                     <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Japanese language (JLPT N5–N1 + beyond)
+                    Japanese by Anime (JLPT N5–N1 + beyond)
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Grammar, particles, and sentence structure
+                    Grammar, particles, cultural context, and respect
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Culture, folklore, mythology, and kami
+                    AI for Artists and Creative Tools
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Oral production, listening, and comprehension
+                    Mural Planning & Community Art Practice
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
+                    Memory-based learning with progress tracking
                   </li>
                 </ul>
               </div>
@@ -181,13 +185,13 @@ export default function HanaPage() {
         {/* CTA */}
         <section data-reveal className="px-6 sm:px-12 max-w-5xl mx-auto text-center pb-8">
           <p className="text-(--af-grey-light) mb-6 max-w-xl mx-auto text-sm">
-            Ready to start learning? Begin with the fundamentals and progress at your own pace.
+            Join Hana Academy to learn Japanese through anime, master creative AI tools, and join a community of artists and learners building together.
           </p>
           <a
             href="/learn"
             className="inline-flex h-11 items-center rounded-sm bg-(--af-red) px-8 text-sm font-semibold tracking-wider text-(--af-cream) transition-colors hover:bg-(--af-red-dark)"
           >
-            Begin Learning
+            Explore Hana Academy
           </a>
         </section>
       </main>
