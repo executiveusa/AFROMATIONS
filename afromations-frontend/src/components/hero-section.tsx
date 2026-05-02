@@ -370,14 +370,6 @@ export function HeroSection() {
           </TegakiText>
         </div>
 
-        {/* Footnote — centered */}
-        <p
-          className="mx-auto mt-3 sm:mt-4 max-w-lg px-2 text-center text-sm sm:text-base leading-relaxed text-(--af-grey-light) sm:px-0"
-          style={{ opacity: 0.8 }}
-        >
-          {t('hero.footnote')}
-        </p>
-
         {/* Scroll indicator — centered */}
         <div className="mt-8 sm:mt-12 flex flex-col items-center gap-2 text-(--af-grey-light)">
           <span className="text-[10px] tracking-[0.35em] uppercase">{t('hero.scroll')}</span>
