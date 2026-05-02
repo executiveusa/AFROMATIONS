@@ -14,9 +14,9 @@ export function Navbar() {
   const links = [
     { label: t('nav.studio'), href: '#studio' },
     { label: t('nav.hanna'), href: '/hana' },
+    { label: 'DUAL', href: '/dual' },
     { label: 'Academy', href: '/learn' },
     { label: t('nav.gallery'), href: '#gallery' },
-    { label: t('nav.blog'), href: '#blog' },
     { label: 'Store', href: '/store' },
     { label: t('nav.community'), href: '#community' },
   ]
