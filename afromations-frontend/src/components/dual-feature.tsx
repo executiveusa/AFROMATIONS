@@ -5,9 +5,6 @@ import { InView } from '@/components/motion/in-view'
 import { TegakiText } from '@/components/tegaki-text'
 import { DualAvatar } from '@/components/dual-avatar'
 
-/* ─── Seattle 2056 Background ─── */
-const SEATTLE_2056_BG = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2030%2C%202026%2C%2011_28_30%20AM-8H8mCUYBudu0SiaGSEOd1ek64hHZOd.png'
-
 export function DualFeature() {
   const stats = [
     { label: 'Architecture', value: 'Space Agent Core' },
@@ -31,18 +28,15 @@ export function DualFeature() {
       className="relative border-t border-white/5 px-5 py-20 sm:px-6 sm:py-32 overflow-hidden"
       aria-labelledby="dual-heading"
     >
-      {/* Seattle 2056 Background */}
+      {/* Seattle 2056-inspired gradient background */}
       <div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-30"
         style={{
-          backgroundImage: `url(${SEATTLE_2056_BG})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'blur(2px)',
+          background: 'linear-gradient(135deg, rgba(212,160,23,0.1) 0%, rgba(212,160,23,0.05) 50%, transparent 100%)',
         }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-(--af-black) via-(--af-black)/80 to-(--af-black)/60" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-t from-(--af-black) via-(--af-black)/90 to-(--af-black)/70" aria-hidden="true" />
       
       <div className="relative mx-auto max-w-6xl">
 
@@ -82,13 +76,11 @@ export function DualFeature() {
           >
             <div className="relative h-80 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) sm:h-96 flex items-center justify-center"
               style={{
-                backgroundImage: `url(${SEATTLE_2056_BG})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                background: 'linear-gradient(135deg, #1a1a1a 0%, #151515 100%)',
               }}
             >
               {/* Dark overlay */}
-              <div className="absolute inset-0 bg-(--af-black)/60" />
+              <div className="absolute inset-0 bg-(--af-black)/40" />
               
               {/* Avatar */}
               <div className="relative z-10">
