@@ -25,7 +25,7 @@ export default function HanaPage() {
                   花
                 </p>
                 <p className="text-(--af-grey-light) text-xs tracking-wider uppercase">
-                  Agent Hana — Warrior Scholar
+                  Agent Hana
                 </p>
               </div>
             </div>
@@ -54,9 +54,6 @@ export default function HanaPage() {
               </p>
 
               <div data-reveal data-delay="2" className="space-y-2">
-                <h3 className="text-sm font-semibold text-(--af-cream)">
-                  Hana is the Warrior Scholar
-                </h3>
                 <p className="text-(--af-grey-light) text-sm leading-relaxed mb-4">
                   She teaches Japanese through anime culture, creative AI workflows, community art planning, and practical business skills for creators.
                 </p>
