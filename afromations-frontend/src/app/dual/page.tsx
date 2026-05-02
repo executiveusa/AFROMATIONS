@@ -52,7 +52,7 @@ export default function DualPage() {
                   className="text-4xl sm:text-5xl font-bold text-(--af-cream) mb-2"
                   style={{ fontFamily: 'Sora, sans-serif' }}
                 >
-                  DUAL Agent
+                  Agent Dual
                 </h1>
                 <p className="text-(--af-grey-light) text-sm">
                   The Agent That Reshapes the Space

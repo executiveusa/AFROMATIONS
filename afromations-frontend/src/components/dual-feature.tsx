@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { InView } from '@/components/motion/in-view'
 import { TegakiText } from '@/components/tegaki-text'
-import { DualAvatar } from '@/components/dual-avatar'
 
 export function DualFeature() {
   const stats = [
@@ -76,29 +75,13 @@ export function DualFeature() {
           >
             <div className="relative h-80 w-full overflow-hidden rounded-sm border border-white/5 bg-(--af-grey) sm:h-96 flex items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, #1a1a1a 0%, #151515 100%)',
+                backgroundImage: 'url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_30_02%20A_1-d3aw0CmKkWaQT7IIcC0EbeIn6rHI1N.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
               }}
             >
               {/* Dark overlay */}
-              <div className="absolute inset-0 bg-(--af-black)/40" />
-              
-              {/* Avatar */}
-              <div className="relative z-10">
-                <DualAvatar size={200} />
-              </div>
-              
-              {/* Red corner accent */}
-              <div className="absolute right-0 top-0 h-16 w-px bg-(--af-red)" />
-              <div className="absolute right-0 top-0 h-px w-16 bg-(--af-red)" />
-              
-              {/* Japanese text overlay */}
-              <div className="absolute bottom-4 left-4 z-10">
-                <p className="text-[10px] tracking-wider text-(--af-red) uppercase">Seattle 2056</p>
-                <p className="text-lg font-bold text-(--af-cream)" style={{ fontFamily: 'Sora, sans-serif' }}>
-                  目的なき者は滅びる
-                </p>
-                <p className="text-[10px] text-(--af-grey-light)">One Without Purpose Is Lost</p>
-              </div>
+              <div className="absolute inset-0 bg-(--af-black)/30" />
             </div>
           </InView>
 
@@ -117,7 +100,7 @@ export function DualFeature() {
               className="text-2xl font-bold tracking-tight text-(--af-cream) sm:text-3xl md:text-4xl"
               style={{ fontFamily: 'Sora, sans-serif' }}
             >
-              DUAL Agent
+              Agent Dual
             </h2>
             <p className="mt-1 text-sm text-(--af-red)">
               The Agent That Reshapes the Space
@@ -159,32 +142,13 @@ export function DualFeature() {
               </ul>
             </div>
 
-            {/* "Powered by" section */}
-            <div className="mt-8 flex flex-col items-end gap-3 border-t border-white/5 pt-5 sm:flex-row sm:items-center sm:justify-end">
-              <div className="text-right">
-                <p className="text-[9px] tracking-[0.35em] text-(--af-grey-light) uppercase">
-                  Powered by
-                </p>
-                <p
-                  className="mt-0.5 text-sm font-bold tracking-widest"
-                  style={{ fontFamily: 'Sora, sans-serif', color: 'var(--af-red)' }}
-                >
-                  O.W.P.I.L
-                </p>
-              </div>
-              <div className="hidden h-8 w-px bg-white/10 sm:block" aria-hidden="true" />
-              <p className="max-w-[200px] text-right text-[10px] leading-relaxed text-(--af-grey-light) sm:text-left">
-                One Without Purpose Is Lost. DUAL embodies the mission of finding and fulfilling purpose through creation.
-              </p>
-            </div>
-
             {/* Learn More CTA */}
             <div className="mt-6 flex justify-end">
               <Link
                 href="/dual"
                 className="af-btn-secondary inline-flex h-10 items-center rounded-full border px-6 text-[11px] font-semibold tracking-wider"
               >
-                Meet DUAL Agent
+                Meet Agent Dual
               </Link>
             </div>
           </InView>
