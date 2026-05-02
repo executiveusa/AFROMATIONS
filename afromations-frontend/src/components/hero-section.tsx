@@ -278,26 +278,6 @@ export function HeroSection() {
       {/* ── Main Content — fully centered ── */}
       <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
 
-        {/* ── Anime Community — tegaki slides in centered ── */}
-        <InView
-          variants={{
-            hidden: { opacity: 0, x: -48 },
-            visible: { opacity: 1, x: 0 },
-          }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-          once
-          className="mb-5 flex justify-center"
-        >
-          <TegakiText
-            font="tangerine"
-            size={20}
-            color="var(--af-red)"
-            className="tracking-[0.4em] uppercase"
-          >
-            {t('hero.eyebrow')}
-          </TegakiText>
-        </InView>
-
         {/* Primary headline */}
         <h1
           ref={headingRef}
