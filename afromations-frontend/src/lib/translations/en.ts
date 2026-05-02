@@ -20,7 +20,6 @@ export const en: Record<string, string> = {
   'hero.cta.hanna': 'Meet Agent Hana',
   'hero.cta.gallery': 'View Gallery',
   'hero.tagline': 'Create. Learn. Build worlds together.',
-  'hero.footnote': 'Powered by Agent Hana 花 — Your AI guide through anime culture, production, and community.',
   'hero.scroll': 'Scroll',
 
   // Hanna Feature

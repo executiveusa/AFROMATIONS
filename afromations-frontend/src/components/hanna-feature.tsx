@@ -137,27 +137,8 @@ export function HannaFeature() {
               </ul>
             </div>
 
-            {/* "Powered by Agent Hana" — right-aligned, centered to column */}
-            <div className="mt-8 flex flex-col items-end gap-3 border-t border-white/5 pt-5 sm:flex-row sm:items-center sm:justify-end">
-              <div className="text-right">
-                <p className="text-[9px] tracking-[0.35em] text-(--af-grey-light) uppercase">
-                  Powered by
-                </p>
-                <p
-                  className="mt-0.5 text-sm font-bold tracking-widest"
-                  style={{ fontFamily: 'Sora, sans-serif', color: 'var(--af-red)' }}
-                >
-                  AGENT HANA 花
-                </p>
-              </div>
-              <div className="hidden h-8 w-px bg-white/10 sm:block" aria-hidden="true" />
-              <p className="max-w-[200px] text-right text-[10px] leading-relaxed text-(--af-grey-light) sm:text-left">
-                The AI engine under the hood. Hana powers all creation tools, education paths, and community features.
-              </p>
-            </div>
-
             {/* Learn More CTA */}
-            <div className="mt-6 flex justify-end">
+            <div className="mt-8 flex justify-end">
               <Link
                 href="/hana"
                 className="af-btn-secondary inline-flex h-10 items-center rounded-full border px-6 text-[11px] font-semibold tracking-wider"
