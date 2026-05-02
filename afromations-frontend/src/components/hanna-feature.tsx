@@ -35,28 +35,6 @@ export function HannaFeature() {
     >
       <div className="mx-auto max-w-6xl">
 
-        {/* ── Section header — centered ── */}
-        <div className="mb-10 text-center">
-          <InView
-            variants={{
-              hidden: { opacity: 0, x: -48 },
-              visible: { opacity: 1, x: 0 },
-            }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            once
-            className="flex justify-center"
-          >
-            <TegakiText
-              font="tangerine"
-              size={20}
-              color="var(--af-red)"
-              className="tracking-[0.4em] uppercase"
-            >
-              {t('hanna.eyebrow')}
-            </TegakiText>
-          </InView>
-        </div>
-
         <div className="grid gap-10 md:gap-16 md:grid-cols-2">
 
           {/* Left — Hana character image */}
