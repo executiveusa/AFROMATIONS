@@ -91,7 +91,25 @@ export function Footer() {
             </p>
           </div>
 
-          <nav aria-label="Footer links" className="flex items-center gap-6">
+          <nav aria-label="Footer links" className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+            <a
+              href="/social-purpose"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Social Purpose
+            </a>
+            <a
+              href="/learn"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Hana Academy
+            </a>
+            <a
+              href="/store"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Store
+            </a>
             <a
               href="https://github.com/executiveusa/AFROMATIONS"
               target="_blank"
@@ -109,15 +127,6 @@ export function Footer() {
               aria-label="Join AFROMATIONS on Discord"
             >
               {t('footer.discord')}
-            </a>
-            <a
-              href="https://twitter.com/afromations"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
-              aria-label="Follow AFROMATIONS on Twitter"
-            >
-              Twitter
             </a>
           </nav>
         </div>
