@@ -96,6 +96,38 @@ DUAL is integrated into the AFROMATIONS platform as:
 - **Colors**: Red (#C41E3A), cream, dark grays
 - **Symbol**: O.W.P.I.L flower/rose emblem
 
+## DUAL Studio (AI Creative Suite)
+
+DUAL powers the AI Studio at `/studio`, providing access to 200+ AI models for creative production. Built on [Open-Generative-AI](https://github.com/Anil-matcha/Open-Generative-AI).
+
+### Studio Modes
+
+| Mode | Models | Description |
+|------|--------|-------------|
+| **Image Studio** | 50+ | Text-to-image and image-to-image (Flux, Nano Banana 2, Midjourney, GPT-4o) |
+| **Video Studio** | 60+ | Text-to-video and image-to-video (Kling, Sora, Veo, Runway) |
+| **Lip Sync Studio** | 9 | Audio-driven portrait animation (Infinite Talk, Wan 2.2 Speech) |
+| **Cinema Studio** | Pro | Cinematic camera controls (lenses, apertures, film stocks) |
+| **Blender Control** | AI | 3D modeling with local + cloud control |
+| **Workflow Studio** | Chain | Multi-step AI pipeline builder |
+
+### Blender Integration
+
+DUAL can control Blender locally or in the cloud:
+
+- **Local Control:** Connect to Blender on localhost:5000 for real-time AI-assisted modeling
+- **Cloud GPU:** Offload to RunPod, Vast.ai, or AWS for heavy renders
+- **AI Assist:** Generate 3D models, apply anime shaders, auto-rig characters via prompts
+
+### Capabilities
+
+- Generate images from text or transform existing images
+- Create cinematic videos from text or static frames
+- Animate portraits with audio-driven lip sync
+- Control virtual cameras with pro settings
+- Build automated multi-step creative pipelines
+- Control Blender for 3D character and scene creation
+
 ## Future Development
 
 - [ ] Interactive DUAL workspace demo
@@ -103,3 +135,5 @@ DUAL is integrated into the AFROMATIONS platform as:
 - [ ] Live interface building playground
 - [ ] Integration with Space Agent backend
 - [ ] Multi-user workspace support
+- [ ] Full Blender Python API bridge
+- [ ] Real-time collaboration in Studio

@@ -11,6 +11,8 @@
 |-------|-----------|---------|
 | `/` | `app/page.tsx` | Homepage |
 | `/hana` | `app/hana/page.tsx` | Agent Hana introduction |
+| `/dual` | `app/dual/page.tsx` | DUAL Agent introduction |
+| `/studio` | `app/studio/page.tsx` | DUAL AI Studio (200+ models) |
 
 ### Education Routes
 | Route | Component | Purpose |
@@ -90,6 +92,12 @@ These are section anchors on the homepage:
 - `/hana`
 - `/learn/*`
 - All education API routes
+
+### DUAL Agent Owns:
+- `/dual`
+- `/studio`
+- Blender integration
+- AI model orchestration
 
 ### Store System Owns:
 - `/store/*`

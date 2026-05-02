@@ -12,7 +12,7 @@ export function Navbar() {
   const { locale, setLocale, t } = useI18n()
 
   const links = [
-    { label: t('nav.studio'), href: '#studio' },
+    { label: 'Studio', href: '/studio' },
     { label: t('nav.hanna'), href: '/hana' },
     { label: 'DUAL', href: '/dual' },
     { label: 'Academy', href: '/learn' },
