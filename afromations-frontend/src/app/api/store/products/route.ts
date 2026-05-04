@@ -1,25 +1,18 @@
-import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+// Mock products data for now - will integrate with Stripe/Supabase later
+const MOCK_PRODUCTS = [
+  { id: 1, name: 'Limited Edition Anime Print #1', price: 29, category: 'prints', image: 'print-1' },
+  { id: 2, name: 'Collector\'s Character Sheet Set', price: 49, category: 'art', image: 'sheets' },
+  { id: 3, name: 'AFROMATIONS Studio Hoodie', price: 59, category: 'apparel', image: 'hoodie' },
+  { id: 4, name: 'Hana & DUAL Enamel Pin Set', price: 19, category: 'accessories', image: 'pins' },
+  { id: 5, name: 'Anime Scene Storyboard Pack', price: 39, category: 'digital', image: 'storyboards' },
+  { id: 6, name: 'Creator Starter Bundle', price: 99, category: 'bundles', image: 'bundle' },
+]
 
 export async function GET() {
   try {
-    const { data: products, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('is_active', true)
-      .order('category', { ascending: true })
-
-    if (error) {
-      console.error('[v0] Products fetch error:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-
-    return NextResponse.json(products || [])
+    return NextResponse.json(MOCK_PRODUCTS)
   } catch (error) {
     console.error('[v0] Products API error:', error)
     return NextResponse.json(

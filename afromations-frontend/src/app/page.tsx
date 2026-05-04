@@ -4,6 +4,8 @@ import { DualFeature } from '@/components/dual-feature'
 import { StudioShowcase } from '@/components/studio-showcase'
 import { GallerySection } from '@/components/gallery-section'
 import { EducationSection } from '@/components/education-section'
+import { SocialPurposeSection } from '@/components/social-purpose-section'
+import { StoreSection } from '@/components/store-section'
 import { BlogPreview } from '@/components/blog-preview'
 import { CommunitySection } from '@/components/community-section'
 import { Footer } from '@/components/footer'
@@ -34,8 +36,9 @@ export default function Home() {
       <DualFeature />
       <StudioShowcase />
       <KineticMarquee items={MARQUEE_WORDS} speed={60} reverse className="border-t border-white/5 py-8" />
+      <SocialPurposeSection />
+      <StoreSection />
       <GallerySection />
-      {/* <AnimeQuoteCarousel /> */}
       <EducationSection />
       <BlogPreview />
       <CommunitySection />

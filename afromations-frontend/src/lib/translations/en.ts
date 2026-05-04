@@ -10,16 +10,16 @@ export const en: Record<string, string> = {
   'nav.brand.sub': 'Studios',
 
   // Hero
-  'hero.eyebrow': 'Anime Community',
+  'hero.eyebrow': 'Social Purpose Company & Anime Community',
   'hero.title': 'AFROMATIONS',
-  'hero.subtitle': 'Learn Japanese. Create Anime Characters. Join the Community.',
+  'hero.subtitle': 'Learn Japanese. Create Anime Characters. Build with Purpose.',
   'hero.description':
-    'Meet Agent Hana, who teaches you Japanese through your favorite anime. Meet Agent DUAL, who creates anime characters and runs the studio for you. Made by anime lovers, for anime lovers.',
-  'hero.cta.trends': 'Start Learning',
+    'We&apos;re a social purpose company using anime and AI to teach, create, and build community. Meet Agent Hana, your AI teacher for Japanese and anime. Meet Agent DUAL, your AI for generating anime characters, animations, and everything creative. Made by anime lovers, for anime lovers and creators.',
+  'hero.cta.trends': 'Explore Studio',
   'hero.cta.discord': 'Join Discord',
-  'hero.cta.hanna': 'Meet Agent Hana',
-  'hero.cta.gallery': 'View Gallery',
-  'hero.tagline': 'Create. Learn. Build worlds together.',
+  'hero.cta.hanna': 'Start Learning',
+  'hero.cta.gallery': 'View Creations',
+  'hero.tagline': 'Learn. Create. Impact.',
   'hero.scroll': 'Scroll',
 
   // Hanna Feature
@@ -45,13 +45,24 @@ export const en: Record<string, string> = {
   'hanna.ability.community': 'Learn with other anime fans',
   'hanna.ability.digest': 'Progress tracking and achievements',
 
-  // Studio Showcase
+  // DUAL Feature
+  'dual.title': 'Agent DUAL',
+  'dual.subtitle': 'Your AI for Creating Anime Characters & Everything Creative',
+  'dual.description': 'Generate anime characters from text. Design scenes. Create animations. Build storyboards. DUAL does all the heavy lifting so you can focus on your ideas.',
+  'dual.capability.characters': 'Generate Anime Characters – Text to photorealistic 3D anime characters',
+  'dual.capability.scenes': 'Design Scenes – Background art, environments, cinematography',
+  'dual.capability.animation': 'Create Animations – Lip sync, movement, character animation',
+  'dual.capability.storyboard': 'Build Storyboards – Multi-panel sequences and comic creation',
+  'dual.capability.blender': 'Blender Control – Full 3D asset generation and manipulation',
+  'dual.capability.export': 'Professional Export – 4K images, MP4 videos, 3D models (GLB/FBX)',
+
+  // Studio
   'studio.eyebrow': 'DUAL Studio',
-  'studio.title': 'Create Anime Characters',
-  'studio.subtitle': 'DUAL is your AI that creates anime characters and runs the whole studio for you',
+  'studio.title': 'Create Anime Characters Like Higgsfield',
+  'studio.subtitle': 'Full creative studio powered by 200+ AI models',
   'studio.description':
-    'Generate anime characters, design scenes, create storyboards, and bring your ideas to life. DUAL uses the latest AI tech to do the heavy lifting—just tell it what you want and it creates it. Like Higgsfield, but open-source and run by us.',
-  'studio.cta': 'Try DUAL Studio',
+    'Generate anime characters, design scenes, create animations, and bring your ideas to life. Just describe what you want and DUAL creates it. Export as professional 4K images, videos, or 3D models.',
+  'studio.cta': 'Open Studio Now',
   'studio.trends.tag': 'Discover',
   'studio.trends.title': 'Discover Anime News & Trends',
   'studio.trends.description':
@@ -73,6 +84,24 @@ export const en: Record<string, string> = {
     'Anime fans building together. Weekly creator spotlights. Real discussions. No gatekeeping. Just people who love anime, talking about anime.',
   'studio.community.cta.discord': 'Join Discord',
   'studio.community.cta.discuss': 'See Latest Discussion',
+
+  // Social Purpose Company Section
+  'spc.eyebrow': 'Social Purpose Company',
+  'spc.heading': 'Everything We Do Has a Purpose',
+  'spc.description': 'We&apos;re more than a platform. We&apos;re a movement. Every feature we build, every character we create, every lesson we teach—it&apos;s designed to empower anime creators and learners to find their purpose and build meaningful projects.',
+  'spc.impact.title': 'Our Impact',
+  'spc.impact1': 'Teach 10,000+ people Japanese through anime by 2026',
+  'spc.impact2': 'Support 5,000+ anime creators with free AI tools',
+  'spc.impact3': 'Build a community where anime fans own their creative future',
+  'spc.cta': 'Learn Our Mission',
+
+  // Store Section
+  'store.eyebrow': 'AFROMATIONS Store',
+  'store.heading': 'Buy Anime Merch. Support Creators.',
+  'store.description': 'All proceeds support the AFROMATIONS mission and our creator community. Limited edition anime art, prints, and collectibles made in partnership with creators.',
+  'store.featured': 'Featured Items',
+  'store.cta': 'Shop Now',
+
   // legacy keys (kept for other locales that may still use them)
   'studio.pipeline.tag': 'Pipeline',
   'studio.pipeline.title': '3D Character Pipeline',
