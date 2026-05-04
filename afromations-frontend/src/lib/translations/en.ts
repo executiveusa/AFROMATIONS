@@ -12,10 +12,10 @@ export const en: Record<string, string> = {
   // Hero
   'hero.eyebrow': 'Anime Community',
   'hero.title': 'AFROMATIONS',
-  'hero.subtitle': 'Where Worlds Collide, Stories Ignite',
+  'hero.subtitle': 'Learn Japanese. Create Anime Characters. Join the Community.',
   'hero.description':
-    'Where worlds collide and stories ignite.',
-  'hero.cta.trends': 'Trending Now',
+    'Meet Agent Hana, who teaches you Japanese through your favorite anime. Meet Agent DUAL, who creates anime characters and runs the studio for you. Made by anime lovers, for anime lovers.',
+  'hero.cta.trends': 'Start Learning',
   'hero.cta.discord': 'Join Discord',
   'hero.cta.hanna': 'Meet Agent Hana',
   'hero.cta.gallery': 'View Gallery',
@@ -23,11 +23,11 @@ export const en: Record<string, string> = {
   'hero.scroll': 'Scroll',
 
   // Hanna Feature
-  'hanna.eyebrow': 'Meet Hana',
+  'hanna.eyebrow': 'Agent Hana',
   'hanna.title': 'Agent Hana 花',
-  'hanna.subtitle': 'Your AI Guide Through Anime',
+  'hanna.subtitle': 'Your Japanese & Anime Teacher',
   'hanna.description':
-    'Hana is your personal AI education agent for anime culture and production. She teaches the academy (how anime gets made), powers creation tools (3D character pipeline), analyzes trends (what\'s happening now), and moderates the community (keeping conversations real). Hana speaks Japanese, understands anime craft, and is built to help you learn, create, and connect.',
+    'Hana is your personal AI teacher who teaches Japanese through anime. Learn real Japanese from your favorite shows, understand the culture behind anime, and progress at your own pace. No boring textbooks—just you, anime, and an AI that actually gets it.',
   'hanna.placeholder': 'Agent Hana — 3D render loading',
   'hanna.character': 'Japanese anime guide · 花 · Your host',
   'hanna.stat.resolution': 'Render Resolution',
@@ -38,16 +38,20 @@ export const en: Record<string, string> = {
   'hanna.stat.version.value': '花 v3.0',
   'hanna.stat.pipeline': 'Pipeline',
   'hanna.stat.pipeline.value': 'OpenHarness',
-  'hanna.capabilities': 'What Hana Powers',
-  'hanna.ability.trends': 'Generates trending anime analysis (what\'s happening right now)',
-  'hanna.ability.pipeline': 'Runs the 3D pipeline (how anime characters get made)',
-  'hanna.ability.academy': 'Powers Formation Studio (all creation tools)',
-  'hanna.ability.community': 'Moderates community (keeps conversations real)',
-  'hanna.ability.digest': 'Monitors what fans are talking about (weekly digests)',
+  'hanna.capabilities': 'What You Learn',
+  'hanna.ability.trends': 'Japanese language (beginner to advanced)',
+  'hanna.ability.pipeline': 'Real anime dialogue and scenes',
+  'hanna.ability.academy': 'Asian culture and history',
+  'hanna.ability.community': 'Learn with other anime fans',
+  'hanna.ability.digest': 'Progress tracking and achievements',
 
   // Studio Showcase
-  'studio.eyebrow': 'Formation Studio',
-  'studio.title': 'Formation Studio',
+  'studio.eyebrow': 'DUAL Studio',
+  'studio.title': 'Create Anime Characters',
+  'studio.subtitle': 'DUAL is your AI that creates anime characters and runs the whole studio for you',
+  'studio.description':
+    'Generate anime characters, design scenes, create storyboards, and bring your ideas to life. DUAL uses the latest AI tech to do the heavy lifting—just tell it what you want and it creates it. Like Higgsfield, but open-source and run by us.',
+  'studio.cta': 'Try DUAL Studio',
   'studio.trends.tag': 'Discover',
   'studio.trends.title': 'Discover Anime News & Trends',
   'studio.trends.description':
