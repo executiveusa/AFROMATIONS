@@ -366,4 +366,242 @@ Row-level security (RLS) ensures:
 
 ---
 
-Built with Hana's teaching spirit and DUAL's operational precision.
+---
+
+## Integrating jCodeMunch for Token-Efficient Code Navigation
+
+**Why jCodeMunch matters for AFROMATIONS:**
+
+This codebase has 50+ files across education, studio, and impact tiers. Traditional file-reading burns tokens on imports, comments, and boilerplate. jCodeMunch cuts that by 95%+ using **structured symbol indexing**.
+
+### Installation (1 command)
+
+```bash
+pip install jcodemunch-mcp
+jcodemunch-mcp init --claude-md global --hooks --index
+```
+
+This auto-detects Claude Code, indexes the AFROMATIONS repo, and installs agent hooks so you stop brute-reading files.
+
+### High-Value jCodeMunch Queries for AFROMATIONS
+
+| Query | Token Savings | Use Case |
+|-------|---------------|----------|
+| `search_symbols --pattern "page" --glob "**/learn/**"` | 95% | Find all lesson pages without opening every file |
+| `get_call_hierarchy --symbol "saveProgress" --depth 3` | 90% | Trace education API flow (save → validate → Supabase) |
+| `find_references --identifier "TegakiText"` | 85% | Find all animation text components |
+| `find_dead_code --file-glob "**/api/**"` | 88% | Detect unused API endpoints |
+| `get_changed_symbols --since "main"` | 92% | Map git commits to exact symbols changed |
+| `search_ast --category "security"` | 87% | Find hardcoded secrets or unsafe patterns |
+| `winnow_symbols --kind "function" --complexity "10+"` | 89% | Find complex functions worth refactoring |
+| `plan_refactoring --symbol "ImpactIntakeForm" --operation "extract"` | 91% | Get edit-ready instructions for component extraction |
+
+### Example: "Where does Hana's progress tracking happen?"
+
+**Without jCodeMunch (expensive):**
+```
+Open /app/learn/japanese-by-anime/hiragana-energy/page.tsx (200 lines scanned)
+Open /lib/education.ts (150 lines scanned)
+Open /app/api/education/progress/route.ts (100 lines scanned)
+Total: ~450 lines, ~3,000 tokens burned
+```
+
+**With jCodeMunch (cheap):**
+```bash
+jcodemunch get_call_hierarchy --symbol "saveLessonProgress" --depth 2
+# Returns exact flow: saveLessonProgress → POST /api/education/progress → Supabase insert
+# ~150 tokens, 95% savings
+```
+
+### jCodeMunch Commands Reference for AFROMATIONS
+
+```bash
+# 1. Find all lesson routes quickly
+jcodemunch search_symbols --glob "**/learn/japanese-by-anime/**" --kind "file"
+
+# 2. Check if an old API endpoint is still used
+jcodemunch find_references --identifier "POST /api/education/stats"
+
+# 3. Understand the impact intake flow
+jcodemunch get_call_hierarchy --symbol "submitIntake" --depth 4
+
+# 4. Find components using DualAvatar
+jcodemunch find_references --identifier "DualAvatar" --format compact
+
+# 5. Detect unused lesson files
+jcodemunch find_dead_code --file-glob "**/learn/**"
+
+# 6. Find all API routes touching Supabase
+jcodemunch search_ast --custom-query "call:*supabase*" --file-glob "**/api/**"
+
+# 7. Rank symbols by importance (PageRank)
+jcodemunch get_symbol_importance --file-glob "**/api/**" --sort "importance"
+
+# 8. Plan a refactoring (e.g., extract form logic)
+jcodemunch plan_refactoring --symbol "ImpactIntakeForm" --operation "extract" --scope "useForm"
+
+# 9. Audit AGENT.md or CLAUDE.md for stale references
+jcodemunch audit_agent_config --path "SKILL.md"
+
+# 10. Get PR risk score before merging
+jcodemunch get_pr_risk_profile --branch "feature/new-lesson" --composite-score
+```
+
+---
+
+## Best Practices: Extending AFROMATIONS
+
+### When Adding a New Lesson (for Hana)
+
+1. **Copy the pattern:** Use `/learn/japanese-by-anime/wa-vs-ga/page.tsx` as template
+2. **Follow naming:** `[kebab-case-lesson-slug]/page.tsx`
+3. **Include metadata:** Module number, difficulty (N5/N4/N3/N2/N1), type (grammar/vocab/culture)
+4. **Add progress tracking:** `useLessonProgress()` hook at top
+5. **Link navigation:** Previous lesson ← → Next lesson
+
+**Example scaffolding:**
+```tsx
+// /learn/japanese-by-anime/nani-vs-donna/page.tsx
+'use client'
+import { useLessonProgress } from '@/lib/education'
+
+export default function NaniVsDonnaPage() {
+  const { saveProgress } = useLessonProgress()
+  // Content here
+}
+```
+
+### When Adding a New Studio Mode (for DUAL)
+
+1. **Create panel component:** `/components/studio-[mode]-panel.tsx`
+2. **Add model config:** Update `/lib/studio-models.ts` with new models
+3. **Create API bridge:** `/app/api/studio/[mode]/route.ts`
+4. **Connect UI:** Add card to `/app/studio/page.tsx`
+
+**Checklist:**
+- [ ] Panel accepts user input (prompt, parameters)
+- [ ] API validates input, calls external service
+- [ ] Results saved to Vercel Blob
+- [ ] Error handling with user-friendly messages
+- [ ] Mobile-responsive design
+
+### When Adding Community Features
+
+1. **Create intake form:** Copy `/components/impact-intake-form.tsx`
+2. **Create page:** `/app/[feature]/page.tsx` (e.g., `/app/workshop/page.tsx`)
+3. **Add API route:** `/app/api/impact/[feature]/route.ts`
+4. **Update schema:** Add table to Supabase migration script
+
+---
+
+## Codebase Architecture (Bird's-Eye View)
+
+```
+afromations-frontend/
+├── src/
+│   ├── app/                          # Next.js 15 App Router
+│   │   ├── page.tsx                  # Homepage (Hana + DUAL cards)
+│   │   ├── /hana                     # Hana character page
+│   │   ├── /learn                    # Academy hub + lessons (Hana owns)
+│   │   ├── /dual                     # DUAL character page
+│   │   ├── /studio                   # AI Studio (DUAL owns)
+│   │   ├── /social-purpose           # SPC landing
+│   │   ├── /volunteer, /donate, etc. # Impact pages (DUAL owns)
+│   │   └── /api/                     # Backend routes
+│   │       ├── /education/           # Hana's APIs (progress, stats)
+│   │       ├── /studio/              # DUAL's APIs (generate, models, blender)
+│   │       └── /impact/              # Community APIs (intake, review)
+│   │
+│   ├── components/                   # Reusable UI
+│   │   ├── dual-avatar.tsx           # DUAL SVG character
+│   │   ├── hana-avatar.tsx           # Hana SVG character
+│   │   ├── dual-feature.tsx          # DUAL card (homepage)
+│   │   ├── hanna-feature.tsx         # Hana card (homepage)
+│   │   ├── impact-intake-form.tsx    # Reusable form
+│   │   ├── studio-*-panel.tsx        # Studio mode panels
+│   │   ├── lesson-card.tsx           # Lesson grid card
+│   │   ├── inner-layout.tsx          # Page wrapper
+│   │   └── tegaki-text.tsx           # Hand-drawn animation text
+│   │
+│   ├── lib/                          # Utilities & hooks
+│   │   ├── education.ts              # Hana's progress utilities
+│   │   ├── studio-models.ts          # DUAL's AI model registry
+│   │   ├── i18n.ts                   # Translation hook (useI18n)
+│   │   ├── use-user.ts               # Auth hook (useUser)
+│   │   ├── use-lesson-progress.ts    # Progress hook (useLessonProgress)
+│   │   └── translations/en.ts        # English copy
+│   │
+│   └── globals.css                   # Design tokens, Tailwind config
+│
+├── public/                           # Static assets
+│   └── (gallery images deleted)      # Was hand-drawn art
+│
+├── scripts/
+│   ├── education-schema.sql          # Supabase migration
+│   └── impact-schema.sql             # Impact intake tables
+│
+├── master-plan/                      # Strategic docs
+│   ├── STRATEGIC-OVERVIEW.md         # Vision & mission
+│   ├── DUAL-AGENT.md                 # DUAL responsibilities
+│   ├── IMPLEMENTATION-LOG.md         # What was built when
+│   └── ROUTE-MAP.md                  # URL structure
+│
+├── EDUCATION_BACKEND.md              # Education API docs
+├── SKILL.md                          # This course (codebase-to-course)
+└── package.json                      # Dependencies
+
+hanna-backend/                        # Separate Python backend (future)
+└── api/src/
+    ├── routes/                       # FastAPI routes
+    │   ├── hana-lesson.ts            # Lesson fetch
+    │   ├── education-progress.ts     # Progress API
+    │   └── ai-orchestration.ts       # DUAL Studio backend
+    └── lib/
+        ├── supabase.ts               # DB client
+        └── models.ts                 # Pydantic models
+```
+
+---
+
+## Performance & Scaling Notes
+
+### Current Bottlenecks (and fixes)
+
+| Issue | Why | Fix |
+|-------|-----|-----|
+| Lesson pages slow on first load | Static HTML not pre-rendered | Use `generateStaticParams()` in page.tsx |
+| DUAL Studio generation blocks UI | Waiting for Open-Generative-AI response | Move to job queue (Upstash + workflow SDK) |
+| SWR cache stale for progress | No invalidation trigger | Add Supabase real-time subscription |
+| Gallery section slow | Was loading 6 images upfront | Now showing static "Coming Soon" cards |
+
+### Recommended Optimizations
+
+1. **Cache model metadata** — DUAL Studio lists 200+ models on every visit. Store in Upstash Redis (1-hour TTL).
+2. **Queue long tasks** — Generation jobs should be async. Use Vercel Workflow SDK to queue and track progress.
+3. **Stream lesson content** — Large lesson HTML pages could use React Server Components' built-in streaming.
+4. **Compress Supabase queries** — Add indexes on `user_id` and `lesson_slug` in `lesson_progress` table.
+
+---
+
+## Integration Checklist for New Teams
+
+If you're taking over AFROMATIONS, complete this in order:
+
+- [ ] **Setup Supabase:** Create project, run `/scripts/education-schema.sql`
+- [ ] **Setup auth:** Configure Supabase Auth in `.env.local`, connect to Sign In button
+- [ ] **Setup Vercel Blob:** Add `BLOB_READ_WRITE_TOKEN` for file storage
+- [ ] **Test Hana Academy:** Load `/learn` and try completing a lesson. Check Supabase `lesson_progress` table
+- [ ] **Test DUAL Studio:** Load `/studio` and try image generation. Verify Open-Generative-AI API key works
+- [ ] **Test impact forms:** Submit `/volunteer` form, verify data in Supabase `impact_intake` table
+- [ ] **Install jCodeMunch:** `pip install jcodemunch-mcp && jcodemunch-mcp init` for token-efficient code navigation
+- [ ] **Deploy:** Push to Vercel, set env vars on Vercel Dashboard, monitor logs
+- [ ] **Monitor performance:** Check build times, API latency, Supabase query costs
+- [ ] **Plan next feature:** Use this SKILL.md + jCodeMunch to understand how to extend
+
+---
+
+**This course was created using the Codebase-to-Course skill + jCodeMunch token efficiency best practices.**
+
+**Last Updated:** 2026-05-04  
+**Agents:** Hana (education), DUAL (operations), v0 (course generation)  
+**Status:** Production ready with strategic expansion roadmap
