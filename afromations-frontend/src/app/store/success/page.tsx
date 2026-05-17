@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
   const [orderDetails, setOrderDetails] = useState<any>(null)
@@ -12,23 +12,22 @@ export default function SuccessPage() {
 
   useEffect(() => {
     if (sessionId) {
-      // Fetch order details from your backend
       fetch(`/api/store/order/${sessionId}`)
         .then(res => res.json())
         .then(data => {
           setOrderDetails(data)
-          // Clear cart on successful purchase
           localStorage.removeItem('dual_cart')
         })
         .catch(err => console.log('[v0] Failed to fetch order:', err))
         .finally(() => setLoading(false))
+    } else {
+      setLoading(false)
     }
   }, [sessionId])
 
   return (
     <main className="min-h-screen bg-background pt-20 pb-20 flex items-center justify-center px-4">
       <div className="max-w-md text-center">
-        {/* Success Icon */}
         <div className="mb-6 flex justify-center">
           <div className="w-16 h-16 bg-(--af-red) rounded-full flex items-center justify-center">
             <svg className="w-8 h-8 text-(--af-cream)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +69,7 @@ export default function SuccessPage() {
           <p className="text-(--af-grey-light) text-sm">
             Check your email for order confirmation and tracking details
           </p>
-          
+
           <Link href="/store">
             <button className="w-full af-btn-primary py-3 rounded-lg font-semibold">
               Continue Shopping
@@ -84,7 +83,6 @@ export default function SuccessPage() {
           </Link>
         </div>
 
-        {/* Next Steps */}
         <div className="mt-8 pt-8 border-t border-(--af-red) border-opacity-30">
           <h3 className="text-(--af-cream) font-bold mb-4">What&apos;s Next?</h3>
           <ul className="space-y-2 text-(--af-grey-light) text-sm text-left">
@@ -108,5 +106,17 @@ export default function SuccessPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-background pt-20 pb-20 flex items-center justify-center px-4">
+        <div className="text-(--af-grey-light)">Loading...</div>
+      </main>
+    }>
+      <SuccessContent />
+    </Suspense>
   )
 }
