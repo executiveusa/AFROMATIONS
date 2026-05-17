@@ -1,21 +1,22 @@
 import { StoreProductDetail } from '@/components/store-product-detail'
 import { createClient } from '@/lib/supabase/server'
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const supabase = createClient()
 
   // Fetch product
   const { data: product, error: productError } = await supabase
     .from('products')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   // Fetch variants
-  const { data: variants = [] } = await supabase
+  const { data: variantsRaw = [] } = await supabase
     .from('product_variants')
     .select('*')
-    .eq('product_id', params.id)
+    .eq('product_id', id)
 
   if (productError || !product) {
     return (
@@ -41,7 +42,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
           <span className="text-(--af-red)">{product.name}</span>
         </div>
 
-        <StoreProductDetail product={product} variants={variants} />
+        <StoreProductDetail product={product} variants={variantsRaw ?? []} />
       </div>
     </main>
   )

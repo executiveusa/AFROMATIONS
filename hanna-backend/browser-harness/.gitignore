@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.browser-profile/
+screenshots/
+audit-logs/
+*.png
+*.log
+.env
+.env.local

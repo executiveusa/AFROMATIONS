@@ -1,3 +1,4 @@
 packages:
   - "afromations-frontend"
   - "hanna-backend/api"
+  - "hanna-backend/browser-harness"

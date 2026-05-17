@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  if (!url) return null
+  return createClient(url, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '')
 }
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export interface User {
   id: string
@@ -22,7 +19,14 @@ export function useUser() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    const supabase = getSupabase()
+    if (!supabase) {
+      setLoading(false)
+      return
+    }
+
     async function getUser() {
+      if (!supabase) return
       try {
         setLoading(true)
         const {
@@ -56,7 +60,6 @@ export function useUser() {
 
     getUser()
 
-    // Set up auth state listener
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
