@@ -114,6 +114,44 @@
         "check_video_status",
         "generate_explainer"
       ]
+    },
+    "hana-browser": {
+      "command": "npx",
+      "args": ["tsx", "browser-harness/src/mcp/server.ts"],
+      "description": "Hana browser-control harness — production CDP/Playwright automation with policy enforcement, audit logging, and operator approval gate",
+      "timeout": 60000,
+      "env": {
+        "BROWSER_HEADLESS": "${BROWSER_HEADLESS:-true}",
+        "BROWSER_DEBUG_PORT": "${BROWSER_DEBUG_PORT:-9222}",
+        "BROWSER_PROFILE_DIR": "${BROWSER_PROFILE_DIR:-.browser-profile}",
+        "BROWSER_ALLOWED_ORIGINS": "${BROWSER_ALLOWED_ORIGINS}",
+        "BROWSER_BLOCKED_ORIGINS": "${BROWSER_BLOCKED_ORIGINS}",
+        "BROWSER_REQUIRE_APPROVAL": "${BROWSER_REQUIRE_APPROVAL:-true}",
+        "BROWSER_CAPTURE_SCREENSHOTS": "${BROWSER_CAPTURE_SCREENSHOTS:-true}",
+        "BROWSER_CAPTURE_NETWORK": "${BROWSER_CAPTURE_NETWORK:-true}",
+        "BROWSER_RATE_LIMIT_RPM": "${BROWSER_RATE_LIMIT_RPM:-60}",
+        "BROWSER_SESSION_TIMEOUT_MS": "${BROWSER_SESSION_TIMEOUT_MS:-300000}",
+        "BROWSER_MAX_SESSIONS": "${BROWSER_MAX_SESSIONS:-3}",
+        "OPERATOR_API_KEY": "${OPERATOR_API_KEY}",
+        "NODE_ENV": "${NODE_ENV:-production}"
+      },
+      "tools": [
+        "browser_open",
+        "browser_goto",
+        "browser_click",
+        "browser_type",
+        "browser_press",
+        "browser_screenshot",
+        "browser_get_dom",
+        "browser_get_text",
+        "browser_get_console_logs",
+        "browser_get_network_logs",
+        "browser_wait_for",
+        "browser_evaluate_sandboxed",
+        "browser_close",
+        "browser_reset_session",
+        "browser_list_sessions"
+      ]
     }
   }
 }
