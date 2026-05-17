@@ -151,7 +151,7 @@ export function HeroSection() {
   const taglineRef = useRef<HTMLDivElement>(null)
   const taglineInView = useInView(taglineRef, { once: true })
   const { t } = useI18n()
-  const { currentPanel, imageDimensions } = useMangaPanelCycle()
+  const { currentPanel } = useMangaPanelCycle()
 
   useEmberCanvas(canvasRef)
 

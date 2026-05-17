@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { loadStripe } from '@stripe/js'
+import { loadStripe } from '@stripe/stripe-js'
 
 export interface CartItem {
   id: string

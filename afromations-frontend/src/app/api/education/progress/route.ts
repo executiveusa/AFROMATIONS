@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-if (!supabaseUrl || !supabaseServiceKey) {
-  throw new Error('Missing Supabase credentials')
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) {
+    throw new Error('Missing Supabase credentials')
+  }
+  return createClient(url, key)
 }
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,6 +18,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Missing userId parameter' }, { status: 400 })
     }
 
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from('lesson_progress')
       .select('*')
@@ -50,7 +51,6 @@ export async function POST(request: NextRequest) {
       timeSpentSeconds,
     } = body
 
-    // Validate required fields
     if (!userId || !lessonSlug || !lessonTitle) {
       return NextResponse.json(
         { error: 'Missing required fields: userId, lessonSlug, lessonTitle' },
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Upsert progress record (update if exists, insert if not)
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from('lesson_progress')
       .upsert(

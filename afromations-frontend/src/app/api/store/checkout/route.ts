@@ -3,16 +3,12 @@ import { createClient } from '@supabase/supabase-js'
 import Stripe from 'stripe'
 import { NextRequest, NextResponse } from 'next/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-04-10',
-})
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-06-20' })
+}
 
 export async function POST(request: NextRequest) {
+  const stripe = getStripe()
   try {
     const {
       cartItems,

@@ -42,7 +42,7 @@ export function AnimeQuoteCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex(i => {
-        const next = (i + 1) % DUO_QUOTES.length
+        const next = (i + 1) % DUAL_QUOTES.length
         setKey(k => k + 1)
         return next
       })

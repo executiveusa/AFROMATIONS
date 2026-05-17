@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       timeline: body.timeline || null,
       message: body.message.trim(),
       consent: body.consent || false,
-      source_route: request.headers.get('referer') || null,
+      source_route: request.headers.get('referer') ?? undefined,
       status: 'new',
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),

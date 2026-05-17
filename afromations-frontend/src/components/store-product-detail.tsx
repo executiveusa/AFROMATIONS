@@ -43,6 +43,7 @@ export function StoreProductDetail({ product, variants }: ProductDetailProps) {
     try {
       await addToCart({
         product_id: product.id,
+        product_name: product.name,
         variant_id: selectedVariant?.id,
         quantity,
         price: product.price,

@@ -114,7 +114,7 @@ function DualAgentPanel({ activeModeId }: { activeModeId: StudioModeId }) {
     >
       {/* Agent header */}
       <div className="mb-4 flex items-center gap-3">
-        <DualAvatar size={32} glowing />
+        <DualAvatar size={32} />
         <div>
           <p className="text-xs font-semibold text-(--af-cream)">DUAL Agent</p>
           <p className="text-[10px] text-(--af-grey-light)">AI Studio Controller</p>
@@ -231,7 +231,7 @@ export default function StudioPage() {
         {/* Header */}
         <section className="px-6 sm:px-12 max-w-7xl mx-auto mb-12">
           <div className="flex items-center gap-4 mb-4">
-            <DualAvatar size={48} glowing />
+            <DualAvatar size={48} />
             <div>
               <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-gold) mb-1">
                 AI-Powered Creative Suite

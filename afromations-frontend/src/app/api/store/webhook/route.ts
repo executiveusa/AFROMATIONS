@@ -3,19 +3,20 @@ import { createClient } from '@supabase/supabase-js'
 import Stripe from 'stripe'
 import { NextRequest, NextResponse } from 'next/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-04-10',
-})
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
+function getClients() {
+  return {
+    supabase: createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
+      process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
+    ),
+    stripe: new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-06-20' }),
+    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
+  }
+}
 
 // Handle Stripe webhook events
 export async function POST(request: NextRequest) {
+  const { supabase, stripe, webhookSecret } = getClients()
   try {
     const body = await request.text()
     const sig = request.headers.get('stripe-signature')!

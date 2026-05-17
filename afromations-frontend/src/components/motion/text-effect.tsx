@@ -105,7 +105,8 @@ export function TextEffect({
 
   const segments = splitSegments(children, per)
   const Tag = as
-  const MotionTag = motion.create(Tag as keyof HTMLElementTagNameMap)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const MotionTag = motion.create(Tag as keyof HTMLElementTagNameMap) as any
 
   return (
     <MotionTag

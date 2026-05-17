@@ -2,15 +2,16 @@ import Stripe from 'stripe'
 import { NextRequest, NextResponse } from 'next/server'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-04-10',
+  apiVersion: '2024-06-20',
 })
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { sessionId: string } }
+  { params }: { params: Promise<{ sessionId: string }> }
 ) {
   try {
-    const session = await stripe.checkout.sessions.retrieve(params.sessionId)
+    const { sessionId } = await params
+    const session = await stripe.checkout.sessions.retrieve(sessionId)
 
     if (!session) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 })
