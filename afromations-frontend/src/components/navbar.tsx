@@ -13,12 +13,9 @@ export function Navbar() {
 
   const links = [
     { label: 'Studio', href: '/studio' },
-    { label: t('nav.hanna'), href: '/hana' },
-    { label: 'DUAL', href: '/dual' },
     { label: 'Academy', href: '/learn' },
-    { label: t('nav.gallery'), href: '#gallery' },
     { label: 'Store', href: '/store' },
-    { label: t('nav.community'), href: '#community' },
+    { label: 'Mission', href: '/social-purpose' },
   ]
 
   const currentLocale = LOCALES.find((l) => l.code === locale)
