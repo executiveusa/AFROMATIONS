@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'motion/react'
 import { useI18n } from '@/lib/i18n'
-import { TegakiText } from '@/components/tegaki-text'
 import { TextEffect } from '@/components/motion/text-effect'
 import { InView } from '@/components/motion/in-view'
 
@@ -315,60 +314,29 @@ export function HeroSection() {
           {t('hero.description')}
         </TextEffect>
 
-        {/* CTA row — equal size buttons, fully centered */}
+        {/* Primary CTA — single clear path */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.55 }}
-          className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2 sm:gap-3 px-4 sm:flex-row sm:gap-4 sm:px-0"
+          className="mt-6 sm:mt-8 flex flex-col items-center gap-4"
         >
           <a
-            href="#blog"
-            className="af-btn-primary inline-flex h-10 sm:h-12 w-full items-center justify-center rounded-full px-6 sm:px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
-            aria-label={t('hero.cta.trends')}
+            href="/studio"
+            className="af-btn-primary inline-flex h-12 items-center justify-center rounded-full px-10 text-sm font-semibold tracking-wider"
+            aria-label="Open Hana Studio and start creating"
           >
-            {t('hero.cta.trends')}
+            Start Creating
           </a>
-          <a
-            href="https://discord.gg/afromations"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="af-btn-secondary inline-flex h-10 sm:h-12 w-full items-center justify-center rounded-full border px-6 sm:px-8 text-xs font-semibold tracking-wider sm:w-auto sm:min-w-[220px]"
-            aria-label="Join the AFROMATIONS Discord community"
-          >
-            {t('hero.cta.discord')}
-          </a>
-        </motion.div>
-
-        {/* "Powered by Agent Hana" — centered below buttons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.85 }}
-          className="mt-3 sm:mt-5 flex justify-center"
-        >
           <p
-            className="text-center text-[10px] sm:text-[12px] md:text-[14px] tracking-[0.35em] uppercase"
-            style={{ color: 'var(--af-grey-light)', opacity: 0.8 }}
+            className="text-center text-[11px] tracking-[0.25em] uppercase"
+            style={{ color: 'var(--af-grey-light)', opacity: 0.7 }}
           >
             Powered by Agent{' '}
             <span style={{ color: 'var(--af-red)' }}>Hana</span>
             {' '}花
           </p>
         </motion.div>
-
-        {/* Hand-drawn tagline — centered tegaki */}
-        <div className="mt-4 sm:mt-6 flex justify-center">
-          <TegakiText
-            font="italianno"
-            size={28}
-            color="var(--af-cream)"
-            style={{ opacity: 0.85 }}
-            triggerOnView
-          >
-            {t('hero.tagline')}
-          </TegakiText>
-        </div>
 
         {/* Scroll indicator — centered */}
         <div className="mt-8 sm:mt-12 flex flex-col items-center gap-2 text-(--af-grey-light)">
