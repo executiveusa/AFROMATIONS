@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'motion/react'
 import { InnerLayout } from '@/components/inner-layout'
 import { DualAvatar } from '@/components/dual-avatar'
+import { HtmlInCanvasBeta } from '@/components/studio/html-in-canvas-beta'
 import Link from 'next/link'
 
 /* ─── Studio Modes ─── */
@@ -283,6 +284,9 @@ export default function StudioPage() {
             </div>
           </div>
         </section>
+
+        {/* HTML-in-Canvas Beta Feature */}
+        <HtmlInCanvasBeta />
       </main>
     </InnerLayout>
   )
