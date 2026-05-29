@@ -29,8 +29,8 @@ function generateToken(userId: string, expiresIn: number = 86400000) {
   const payload = `${userId}.${timestamp}.${expires}`
   // In production, sign this with a secret key
   return {
-    accessToken: btoa(payload),
-    refreshToken: btoa(`${userId}.${timestamp}`),
+    accessToken: Buffer.from(payload).toString('base64'),
+    refreshToken: Buffer.from(`${userId}.${timestamp}`).toString('base64'),
     expiresIn,
     expiresAt: new Date(expires).toISOString(),
   }
@@ -55,7 +55,7 @@ authRoutes.post('/register', zValidator('json', registerSchema), async (c) => {
     }
 
     // Hash password (in production, use bcrypt)
-    const passwordHash = btoa(body.password)
+    const passwordHash = Buffer.from(body.password).toString('base64')
 
     // Create user
     const result = await supabaseInsert(c, 'hana_users', {
@@ -119,7 +119,7 @@ authRoutes.post('/login', zValidator('json', loginSchema), async (c) => {
     const user = users[0]
 
     // Verify password (in production, use bcrypt.compare)
-    const passwordHash = btoa(body.password)
+    const passwordHash = Buffer.from(body.password).toString('base64')
     if (user.password_hash !== passwordHash) {
       return c.json({ error: 'Invalid email or password' }, 401)
     }
@@ -161,7 +161,7 @@ authRoutes.post('/refresh', zValidator('json', refreshSchema), async (c) => {
     const body = c.req.valid('json')
 
     // Decode refresh token (in production, verify signature)
-    const decoded = atob(body.refreshToken)
+    const decoded = Buffer.from(body.refreshToken, 'base64').toString('utf-8')
     const [userId] = decoded.split('.')
 
     if (!userId) {

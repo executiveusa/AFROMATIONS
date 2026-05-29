@@ -35,16 +35,16 @@ function extractUserId(c: any) {
 
   try {
     const token = auth.replace('Bearer ', '')
-    const decoded = atob(token)
+    const decoded = Buffer.from(token, 'base64').toString('utf-8')
     return decoded.split('.')[0]
   } catch {
     return null
   }
 }
 
-// ============================================================
+// 
 // GET /api/affirmations — List user's affirmations
-// ============================================================
+// 
 affirmationsRoutes.get('/', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -79,9 +79,9 @@ affirmationsRoutes.get('/', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // GET /api/affirmations/:id — Get single affirmation
-// ============================================================
+// 
 affirmationsRoutes.get('/:id', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -91,7 +91,11 @@ affirmationsRoutes.get('/:id', async (c) => {
 
     const affirmations = await supabaseQuery(c, 'hana_affirmations', {
       select: '*',
+
       eq: { id: c.req.param('id'), user_id: userId },
+=======
+      eq: { id: c.param('id'), user_id: userId },
+
       limit: 1,
     })
 
@@ -107,9 +111,9 @@ affirmationsRoutes.get('/:id', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations — Create affirmation
-// ============================================================
+// 
 affirmationsRoutes.post('/', zValidator('json', createAffirmationSchema), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -139,9 +143,9 @@ affirmationsRoutes.post('/', zValidator('json', createAffirmationSchema), async 
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations/generate — Generate affirmations with NIM
-// ============================================================
+// 
 affirmationsRoutes.post('/generate', zValidator('json', generateAffirmationSchema), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -194,9 +198,9 @@ affirmationsRoutes.post('/generate', zValidator('json', generateAffirmationSchem
   }
 })
 
-// ============================================================
+// 
 // PATCH /api/affirmations/:id — Update affirmation
-// ============================================================
+// 
 affirmationsRoutes.patch('/:id', zValidator('json', createAffirmationSchema.partial()), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -213,7 +217,11 @@ affirmationsRoutes.patch('/:id', zValidator('json', createAffirmationSchema.part
         content: body.content,
         category: body.category,
       },
+
       { id: c.req.param('id'), user_id: userId }
+=======
+      { id: c.param('id'), user_id: userId }
+
     )
 
     if (!Array.isArray(result) || result.length === 0) {
@@ -228,9 +236,9 @@ affirmationsRoutes.patch('/:id', zValidator('json', createAffirmationSchema.part
   }
 })
 
-// ============================================================
+// 
 // DELETE /api/affirmations/:id — Delete affirmation
-// ============================================================
+// 
 affirmationsRoutes.delete('/:id', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -239,7 +247,11 @@ affirmationsRoutes.delete('/:id', async (c) => {
     }
 
     await supabaseDelete(c, 'hana_affirmations', {
+
       id: c.req.param('id'),
+=======
+      id: c.param('id'),
+
       user_id: userId,
     })
 
@@ -251,12 +263,16 @@ affirmationsRoutes.delete('/:id', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // GET /api/affirmations/:id/likes — Get like count
-// ============================================================
+// 
 affirmationsRoutes.get('/:id/likes', async (c) => {
   try {
+
     const affirmationId = c.req.param('id')
+=======
+    const affirmationId = c.param('id')
+
 
     const likes = await supabaseQuery(c, 'hana_affirmation_likes', {
       select: 'count(*)',
@@ -273,9 +289,9 @@ affirmationsRoutes.get('/:id/likes', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations/:id/like — Like affirmation
-// ============================================================
+// 
 affirmationsRoutes.post('/:id/like', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -283,7 +299,11 @@ affirmationsRoutes.post('/:id/like', async (c) => {
       return c.json({ error: 'Unauthorized' }, 401)
     }
 
+
     const affirmationId = c.req.param('id')
+=======
+    const affirmationId = c.param('id')
+
 
     // Check if already liked
     const existing = await supabaseQuery(c, 'hana_affirmation_likes', {
@@ -310,9 +330,9 @@ affirmationsRoutes.post('/:id/like', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations/sessions — Create affirmation session
-// ============================================================
+// 
 affirmationsRoutes.post('/sessions', zValidator('json', createSessionSchema), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -342,9 +362,9 @@ affirmationsRoutes.post('/sessions', zValidator('json', createSessionSchema), as
   }
 })
 
-// ============================================================
+// 
 // GET /api/affirmations/sessions — List user's sessions
-// ============================================================
+// 
 affirmationsRoutes.get('/sessions', async (c) => {
   try {
     const userId = extractUserId(c)
