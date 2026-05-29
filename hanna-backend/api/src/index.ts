@@ -14,6 +14,8 @@ import { trendsRoutes } from './routes/trends'
 import { galleryRoutes } from './routes/gallery'
 import { handleScheduled } from './scheduled'
 import { hanaScrapeRoutes } from './routes/hana-scrape'
+import { authRoutes } from './routes/auth'
+import { affirmationsRoutes } from './routes/affirmations'
 
 type Bindings = {
   SUPABASE_URL: string
@@ -23,6 +25,10 @@ type Bindings = {
   FIRECRAWL_API_KEY: string
   STUDIO_NAME: string
   AGENT_NAME: string
+  NIM_BASE_URL?: string
+  NIM_MODEL?: string
+  NIM_API_KEY?: string
+  NIM_RATE_LIMIT?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -73,6 +79,10 @@ app.route('/api/hana', hanaScrapeRoutes)
 app.route('/api/blog', blogRoutes)
 app.route('/api/trends', trendsRoutes)
 app.route('/api/gallery', galleryRoutes)
+
+// Routes — Authentication and Affirmations (HANA Dashboard)
+app.route('/api/auth', authRoutes)
+app.route('/api/affirmations', affirmationsRoutes)
 
 // Dashboard — Admin control panel
 app.route('/dashboard', dashboardRoutes)

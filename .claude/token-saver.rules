@@ -1,0 +1,236 @@
+# TOKEN SAVER PROTOCOL v1.0 — AFROMATIONS Repo
+# Mandatory cost control for all Claude Code sessions
+# Auto-loaded by Claude Code on session start
+
+---
+
+## ACTIVATION (READ THIS FIRST)
+
+Before executing ANY tools in this repo:
+
+1. **Check jcodemunch availability:**
+   ```bash
+   which jcodemunch && echo "✓ Available" || echo "✗ Install: npm install -g @jgravelle/jcodemunch-mcp"
+   ```
+
+2. **Check RTK availability:**
+   ```bash
+   which rtk && echo "✓ Available" || echo "✗ Install: cargo install rtk"
+   ```
+
+3. **Load cost guards from .env.token-saver:**
+   ```bash
+   source ops/.env.token-saver
+   echo "Token budget (daily): \$$TOKEN_BUDGET_DAILY"
+   echo "Token budget (task): \$$TOKEN_BUDGET_TASK"
+   ```
+
+4. **Initialize RTK session tracking:**
+   ```bash
+   rtk gain --reset
+   ```
+
+If any check fails, **STOP.** Do not proceed until all dependencies are available.
+
+---
+
+## MANDATORY COMPRESSION RULES
+
+### Rule 1: Codebase Exploration
+NEVER use: `grep -r`, `find . -type f`, `cat <largefile>`
+ALWAYS use: `jcodemunch search_symbols <pattern>`
+
+Example:
+```bash
+# ✗ BAD (costs tokens)
+grep -r "NIM_CLIENT" .
+
+# ✓ GOOD (95% compression)
+jcodemunch search_symbols "NIM_CLIENT"
+```
+
+### Rule 2: CLI Output
+ALL bash commands automatically route through RTK.
+RTK compresses output by 60-90%.
+
+Examples:
+```bash
+# RTK automatically compresses these:
+- git diff (2000 lines → 200 lines)
+- npm list (500 lines → 50 lines)
+- cargo test (200 lines → 15 lines)
+- find . (5000 files → 50 groups)
+```
+
+### Rule 3: File Loading
+Load only what you need. Use jcodemunch for surgical extraction:
+
+```bash
+# ✗ BAD (entire file in context)
+cat src/components/dashboard/page.tsx
+
+# ✓ GOOD (just the function)
+jcodemunch get_symbol_source "page.tsx:DashboardPage"
+```
+
+### Rule 4: Context Assembly
+When analyzing a codebase:
+1. Use `jcodemunch get_repo_map` for architecture (single call, compressed)
+2. Use `jcodemunch search_symbols <keyword>` for symbol locations
+3. Use `jcodemunch get_symbol_source <file:symbol>` for individual functions
+4. Never concatenate full files; index them instead
+
+---
+
+## COST GUARD THRESHOLDS
+
+| Guard | Limit | Action | Override |
+|-------|-------|--------|----------|
+| Per-task | $10 | Halt and request approval | Explicit user consent |
+| Per-day | $50 | Halt all work until reset | Wait for calendar day change |
+| Compression floor | 65% | Return error + re-plan | Rewrite query |
+
+**Circuit Breaker:** If daily spend > $50, work stops. No exceptions.
+
+---
+
+## SESSION COST TRACKING
+
+Every session auto-logs to: `ops/reports/session-[session-id].json`
+
+Example:
+```json
+{
+  "session_id": "cse_01GjArz2sTk5Pj582uTtcT4M",
+  "date": "2026-05-25",
+  "task": "Integrate NVIDIA NIM backend",
+  "model_used": "claude-opus",
+  "input_tokens": 12500,
+  "output_tokens": 3200,
+  "jcodemunch_hits": 4,
+  "rtk_commands": 7,
+  "rtk_compression_pct": 78.4,
+  "cost_usd": 0.185,
+  "cost_guard_triggered": false,
+  "duration_seconds": 145
+}
+```
+
+**Report at session end** — cost will be logged automatically.
+
+---
+
+## MODEL ROUTING CASCADE
+
+Before using ANY model, classify the task:
+
+| Task Type | Model | Cost/M | Decision Logic |
+|-----------|-------|--------|---|
+| Pattern matching, refactoring | GPT-4o | $1.50 | "Does this have existing precedent in the codebase?" → YES |
+| Novel architecture, system design | GPT-5.5 | $5.00 | "Is there no existing codebase solution?" → YES |
+| Simple questions, docs | Claude Haiku | $0.08 | "Can I answer this in <500 tokens?" → YES |
+| Batch operations, async | GPT-5.5 Batch | $2.50 | "Can this wait 12-24 hours?" → YES (50% discount) |
+
+**Default:** Use Haiku or GPT-4o. Only use GPT-5.5 if the task genuinely requires frontier reasoning.
+
+---
+
+## OUTPUT CONSTRAINTS (HARD LIMITS)
+
+After every response:
+- Max prose: 1200 words
+- Max code blocks: 4096 lines
+- Max structured output (JSON): 100KB
+- If response exceeds limits: CHUNK IT and return error
+
+---
+
+## SESSION CHECKLIST
+
+Copy this and paste at the start of EVERY session:
+
+```
+TOKEN SAVER PROTOCOL — SESSION START
+
+[ ] jcodemunch installed and responding (run: jcodemunch --version)
+[ ] RTK installed and responding (run: rtk --version)
+[ ] Daily budget set to $50 (checked ops/.env.token-saver)
+[ ] Task budget set to $10 (checked ops/.env.token-saver)
+[ ] RTK session tracking started (run: rtk gain --reset)
+[ ] ops/reports/ directory exists (for cost logs)
+[ ] Compression floor set to 65% (minimum acceptable)
+
+PROTOCOL ACTIVE: Yes ☑
+Cost tracking enabled: Yes ☑
+Ready to code: Yes ☑
+```
+
+If any box is unchecked, **STOP AND FIX IT** before proceeding.
+
+---
+
+## REFERENCE: jcodemunch Commands
+
+```bash
+# Get repo architecture overview (1 call, compressed)
+jcodemunch get_repo_map
+
+# Search for symbols by name or pattern
+jcodemunch search_symbols "NimClient"
+
+# Get source of a specific symbol
+jcodemunch get_symbol_source "lib/nim-client.ts:NimClient"
+
+# Find unused code
+jcodemunch find_dead_code
+
+# Get changed symbols (faster than full diff)
+jcodemunch get_changed_symbols --since main
+
+# Search in files (grep replacement, compressed output)
+jcodemunch search_in_files "TODO\|FIXME" --limit 50
+```
+
+---
+
+## REFERENCE: RTK Commands
+
+```bash
+# Reset session tracking
+rtk gain --reset
+
+# View current session stats
+rtk gain
+
+# Compress CLI output
+command | rtk compress
+
+# View daily summary
+rtk report --date 2026-05-25
+```
+
+---
+
+## VIOLATIONS (WHAT NOT TO DO)
+
+❌ Run `git diff` without RTK (outputs all 2000 lines uncompressed)
+❌ Cat a 10KB file without checking its size first
+❌ Use `grep -r` instead of jcodemunch for symbol search
+❌ Assume GPT-5.5 is needed without proving frontier reasoning
+❌ Exceed $10 per task without explicit approval
+❌ Exceed $50 daily without stopping work
+
+---
+
+## QUESTIONS?
+
+Refer to: `ops/CLAUDE-TOKEN-SAVER.md` for detailed guide
+Logs: `ops/reports/` for historical cost tracking
+Help: Read IMPLEMENTATION_PLAN.md for full context
+
+---
+
+**Protocol Version:** 1.0
+**Last Updated:** 2026-05-25
+**Mandatory:** YES
+**Override:** NO
