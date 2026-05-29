@@ -66,7 +66,7 @@ hanaWikiRoutes.get('/wiki/:id', async (c) => {
 
     // Fetch related entries if available
     const relatedIds = entry.related_ids || []
-    let relatedEntries = []
+    let relatedEntries: unknown[] = []
 
     if (relatedIds.length > 0) {
       // In production: fetch entries where id IN (relatedIds)

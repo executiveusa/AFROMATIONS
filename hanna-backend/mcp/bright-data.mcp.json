@@ -1,0 +1,49 @@
+{
+  "name": "bright-data",
+  "description": "Bright Data MCP — public web scraping for research. Used by Hana to crawl YouTube channel pages, public metadata, and educational content. Falls back to Firecrawl if unconfigured.",
+  "transport": "http",
+  "endpoint": "${BRIGHT_DATA_MCP_URL}",
+  "auth": {
+    "type": "bearer",
+    "token": "${BRIGHT_DATA_API_KEY}"
+  },
+  "tools": [
+    {
+      "name": "scrape",
+      "description": "Scrape a public URL and return markdown content",
+      "inputs": {
+        "url": "string",
+        "timeout": "number?"
+      }
+    },
+    {
+      "name": "search",
+      "description": "Search the web and return structured results",
+      "inputs": {
+        "query": "string",
+        "limit": "number?"
+      }
+    },
+    {
+      "name": "youtube_channel",
+      "description": "Scrape a YouTube channel page for video metadata",
+      "inputs": {
+        "channel_url": "string",
+        "limit": "number?"
+      }
+    }
+  ],
+  "fallback": "firecrawl",
+  "policy": {
+    "respectRobotsTxt": true,
+    "onlyPublicContent": true,
+    "noCopyrightedVideoDownload": true,
+    "metadataOnly": false
+  },
+  "notes": [
+    "Only scrape publicly accessible pages.",
+    "Do not download video content or audio streams.",
+    "Use for metadata, descriptions, and public educational research only.",
+    "Copyright-protected transcripts require provider authorization."
+  ]
+}

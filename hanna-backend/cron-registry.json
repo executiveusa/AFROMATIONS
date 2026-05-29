@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "crons": [
     {
       "id": "keepalive",
@@ -35,6 +35,62 @@
       "enabled": true,
       "description": "Friday community digest — weekly roundup of studio activity",
       "action": "Generate and post weekly community digest"
+    },
+    {
+      "id": "hana.noblegoose.initial_crawl",
+      "schedule": "manual",
+      "enabled": true,
+      "description": "Initial crawl of Noble Goose Anime channel — latest 25 videos",
+      "action": "POST /api/hana/research/noblegoose/latest with limit=25",
+      "route": "POST /api/hana/cron/run/hana.noblegoose.initial_crawl"
+    },
+    {
+      "id": "hana.noblegoose.daily_check",
+      "schedule": "0 8 * * *",
+      "enabled": true,
+      "description": "Daily: check Noble Goose Anime for new videos, store metadata, extract concepts",
+      "action": "POST /api/hana/research/noblegoose/latest with limit=5, then extract concepts",
+      "route": "POST /api/hana/cron/run/hana.noblegoose.daily_check"
+    },
+    {
+      "id": "hana.content.weekly_blog_batch",
+      "schedule": "0 10 * * 1",
+      "enabled": true,
+      "description": "Weekly: generate 3 draft blog posts from best extracted concepts",
+      "action": "Query top concepts → generate blog outlines → store as drafts",
+      "route": "POST /api/hana/cron/run/hana.content.weekly_blog_batch"
+    },
+    {
+      "id": "hana.social.daily_queue",
+      "schedule": "0 11 * * *",
+      "enabled": true,
+      "description": "Daily: generate draft social posts from approved content",
+      "action": "POST /api/hana/publishing/social-queue/publish-approved",
+      "route": "POST /api/hana/cron/run/hana.social.daily_queue"
+    },
+    {
+      "id": "hana.analytics.weekly_learning",
+      "schedule": "0 9 * * 5",
+      "enabled": true,
+      "description": "Weekly: review performance metrics, recommend content direction",
+      "action": "Analyze published content performance, update knowledge graph",
+      "route": "POST /api/hana/cron/run/hana.analytics.weekly_learning"
+    },
+    {
+      "id": "hana.tools.monthly_ai_model_map",
+      "schedule": "0 10 1 * *",
+      "enabled": true,
+      "description": "Monthly: update AI tools and model capability documentation",
+      "action": "Research latest AI anime tools, update docs/HANA_ANIME_HARNESS.md",
+      "route": "POST /api/hana/cron/run/hana.tools.monthly_ai_model_map"
+    },
+    {
+      "id": "hana.music.weekly_live_concept",
+      "schedule": "0 14 * * 3",
+      "enabled": true,
+      "description": "Weekly: generate anime music live stream concept, setlist theme, visual direction",
+      "action": "Generate music concept card and store as content brief",
+      "route": "POST /api/hana/cron/run/hana.music.weekly_live_concept"
     }
   ]
 }

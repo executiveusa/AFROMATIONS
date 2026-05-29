@@ -123,7 +123,7 @@ hanaLessonRoutes.get('/lesson/next/:learnerId', async (c) => {
     // Fetch completed lessons
     const progressResult = await supabaseQuery(c, 'hana_progress', {
       select: 'lesson_id,mastered',
-      eq: { learner_id: learnerId, mastered: true },
+      eq: { learner_id: learnerId, mastered: 'true' },
     })
 
     if (!Array.isArray(progressResult)) {

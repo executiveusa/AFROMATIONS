@@ -539,6 +539,10 @@ export function generateMasteryDashboard(input: {
             ),
         }
       : undefined,
-    recentAssessments: input.recentAssessments.slice(-10),
+    recentAssessments: input.recentAssessments.slice(-10).map((a) => ({
+      domain: a.domain,
+      score: a.score,
+      timestamp: a.date,
+    })),
   }
 }

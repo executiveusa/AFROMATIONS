@@ -1,0 +1,48 @@
+{
+  "name": "file-crawl",
+  "description": "File Crawl MCP — local document and content ingestion for Hana's knowledge base.",
+  "transport": "http",
+  "endpoint": "${FILE_CRAWL_MCP_URL}",
+  "auth": {
+    "type": "bearer",
+    "token": "${FILE_CRAWL_API_KEY}"
+  },
+  "tools": [
+    {
+      "name": "read",
+      "description": "Read a local file and return its content",
+      "inputs": {
+        "path": "string"
+      }
+    },
+    {
+      "name": "list",
+      "description": "List files in a directory",
+      "inputs": {
+        "path": "string",
+        "pattern": "string?"
+      }
+    },
+    {
+      "name": "search",
+      "description": "Search file content by keyword",
+      "inputs": {
+        "query": "string",
+        "path": "string?"
+      }
+    }
+  ],
+  "allowedPaths": [
+    "docs/",
+    "hanna-backend/skills/",
+    "hanna-backend/harnesses/",
+    "content/",
+    ".claude/skills/"
+  ],
+  "notes": [
+    "Only reads from allowed paths.",
+    "Cannot write files.",
+    "Cannot access secrets or .env files.",
+    "Used for ingesting AFROMATIONS internal docs into Hana's knowledge base."
+  ]
+}

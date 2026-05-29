@@ -14,6 +14,14 @@ import { trendsRoutes } from './routes/trends'
 import { galleryRoutes } from './routes/gallery'
 import { handleScheduled } from './scheduled'
 import { hanaScrapeRoutes } from './routes/hana-scrape'
+// Hana Anime Harness routes
+import { hanaResearchRoutes } from './routes/hana-research'
+import { hanaContentRoutes } from './routes/hana-content'
+import { hanaPublishingRoutes } from './routes/hana-publishing'
+import { hanaCronRoutes } from './routes/hana-cron'
+import { hanaMailRoutes } from './routes/hana-mail'
+import { hanaWalletRoutes } from './routes/hana-wallet'
+import { hanaHarnessHealthRoutes } from './routes/hana-harness-health'
 
 type Bindings = {
   SUPABASE_URL: string
@@ -23,6 +31,25 @@ type Bindings = {
   FIRECRAWL_API_KEY: string
   STUDIO_NAME: string
   AGENT_NAME: string
+  // Hana Anime Harness
+  BRIGHT_DATA_MCP_URL: string
+  BRIGHT_DATA_API_KEY: string
+  FILE_CRAWL_MCP_URL: string
+  FILE_CRAWL_API_KEY: string
+  YOUTUBE_DATA_API_KEY: string
+  TRANSCRIPT_PROVIDER_API_KEY: string
+  HUGGINGFACE_API_KEY: string
+  POSTIZ_API_URL: string
+  POSTIZ_API_KEY: string
+  AGENTMAIL_API_URL: string
+  AGENTMAIL_API_KEY: string
+  HANA_PUBLISHING_APPROVAL_MODE: string
+  HANA_DRY_RUN_PUBLISHING: string
+  HANA_AUTOPUBLISH_ENABLED: string
+  HANA_TEXT_MODEL: string
+  HANA_IMAGE_MODEL: string
+  HANA_AUDIO_MODEL: string
+  HANA_VIDEO_MODEL: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -73,6 +100,15 @@ app.route('/api/hana', hanaScrapeRoutes)
 app.route('/api/blog', blogRoutes)
 app.route('/api/trends', trendsRoutes)
 app.route('/api/gallery', galleryRoutes)
+
+// Routes — Hana Anime Harness
+app.route('/api/hana', hanaResearchRoutes)
+app.route('/api/hana', hanaContentRoutes)
+app.route('/api/hana', hanaPublishingRoutes)
+app.route('/api/hana', hanaCronRoutes)
+app.route('/api/hana', hanaMailRoutes)
+app.route('/api/hana', hanaWalletRoutes)
+app.route('/api/hana', hanaHarnessHealthRoutes)
 
 // Dashboard — Admin control panel
 app.route('/dashboard', dashboardRoutes)
