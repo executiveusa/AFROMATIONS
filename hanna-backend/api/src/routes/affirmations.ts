@@ -35,16 +35,16 @@ function extractUserId(c: any) {
 
   try {
     const token = auth.replace('Bearer ', '')
-    const decoded = atob(token)
+    const decoded = Buffer.from(token, 'base64').toString('utf-8')
     return decoded.split('.')[0]
   } catch {
     return null
   }
 }
 
-// ============================================================
+// 
 // GET /api/affirmations — List user's affirmations
-// ============================================================
+// 
 affirmationsRoutes.get('/', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -79,9 +79,9 @@ affirmationsRoutes.get('/', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // GET /api/affirmations/:id — Get single affirmation
-// ============================================================
+// 
 affirmationsRoutes.get('/:id', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -107,9 +107,9 @@ affirmationsRoutes.get('/:id', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations — Create affirmation
-// ============================================================
+// 
 affirmationsRoutes.post('/', zValidator('json', createAffirmationSchema), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -139,9 +139,9 @@ affirmationsRoutes.post('/', zValidator('json', createAffirmationSchema), async 
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations/generate — Generate affirmations with NIM
-// ============================================================
+// 
 affirmationsRoutes.post('/generate', zValidator('json', generateAffirmationSchema), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -180,7 +180,7 @@ affirmationsRoutes.post('/generate', zValidator('json', generateAffirmationSchem
       )
     )
 
-    const results = saved.filter((r) => Array.isArray(r) && r.length > 0).map((r) => r[0])
+    const results = saved.filter((r): r is any[] => Array.isArray(r) && r.length > 0).map((r) => r[0])
 
     return c.json({
       affirmations: results,
@@ -194,9 +194,9 @@ affirmationsRoutes.post('/generate', zValidator('json', generateAffirmationSchem
   }
 })
 
-// ============================================================
+// 
 // PATCH /api/affirmations/:id — Update affirmation
-// ============================================================
+// 
 affirmationsRoutes.patch('/:id', zValidator('json', createAffirmationSchema.partial()), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -228,9 +228,9 @@ affirmationsRoutes.patch('/:id', zValidator('json', createAffirmationSchema.part
   }
 })
 
-// ============================================================
+// 
 // DELETE /api/affirmations/:id — Delete affirmation
-// ============================================================
+// 
 affirmationsRoutes.delete('/:id', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -251,9 +251,9 @@ affirmationsRoutes.delete('/:id', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // GET /api/affirmations/:id/likes — Get like count
-// ============================================================
+// 
 affirmationsRoutes.get('/:id/likes', async (c) => {
   try {
     const affirmationId = c.req.param('id')
@@ -273,9 +273,9 @@ affirmationsRoutes.get('/:id/likes', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations/:id/like — Like affirmation
-// ============================================================
+// 
 affirmationsRoutes.post('/:id/like', async (c) => {
   try {
     const userId = extractUserId(c)
@@ -310,9 +310,9 @@ affirmationsRoutes.post('/:id/like', async (c) => {
   }
 })
 
-// ============================================================
+// 
 // POST /api/affirmations/sessions — Create affirmation session
-// ============================================================
+// 
 affirmationsRoutes.post('/sessions', zValidator('json', createSessionSchema), async (c) => {
   try {
     const userId = extractUserId(c)
@@ -342,9 +342,9 @@ affirmationsRoutes.post('/sessions', zValidator('json', createSessionSchema), as
   }
 })
 
-// ============================================================
+// 
 // GET /api/affirmations/sessions — List user's sessions
-// ============================================================
+// 
 affirmationsRoutes.get('/sessions', async (c) => {
   try {
     const userId = extractUserId(c)

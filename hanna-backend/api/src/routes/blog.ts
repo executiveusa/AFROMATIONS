@@ -48,12 +48,12 @@ blogRoutes.post('/generate', zValidator('json', generateSchema), async (c) => {
 // List blog posts from Supabase
 blogRoutes.get('/posts', async (c) => {
   try {
-    const posts = await supabaseQuery(c, 'afromations_content', {
+    const posts = (await supabaseQuery(c, 'afromations_content', {
       select: 'id,title,metadata,status,created_at',
       limit: 20,
       order: 'created_at.desc',
       eq: { content_type: 'blog' },
-    })
+    })) as any[]
     return c.json({ posts, total: posts.length })
   } catch {
     return c.json({ posts: [], total: 0, message: 'Connect Supabase to load posts' })
@@ -64,10 +64,10 @@ blogRoutes.get('/posts', async (c) => {
 blogRoutes.get('/posts/:slug', async (c) => {
   const slug = c.req.param('slug')
   try {
-    const posts = await supabaseQuery(c, 'afromations_content', {
+    const posts = (await supabaseQuery(c, 'afromations_content', {
       eq: { id: slug },
       limit: 1,
-    })
+    })) as any[]
     if (!posts.length) return c.json({ error: 'Post not found' }, 404)
     return c.json(posts[0])
   } catch {

@@ -478,7 +478,7 @@ export interface MasteryDashboard {
   recentAssessments: Array<{
     domain: string
     score: number
-    timestamp: string
+    date: string
   }>
 }
 

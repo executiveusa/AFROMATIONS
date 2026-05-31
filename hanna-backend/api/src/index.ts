@@ -25,6 +25,10 @@ import { hanaMailRoutes } from './routes/hana-mail'
 import { hanaWalletRoutes } from './routes/hana-wallet'
 import { hanaHarnessHealthRoutes } from './routes/hana-harness-health'
 import { artistApplicationRoutes } from './routes/artist-application'
+// Phase 3: Dashboard Stats, Notifications, HANA Chat
+import { statsRoutes } from './routes/stats'
+import { notificationsRoutes } from './routes/notifications'
+import { hanaChatRoutes } from './routes/hana-chat'
 
 type Bindings = {
   SUPABASE_URL: string
@@ -124,6 +128,11 @@ app.route('/api/hana', hanaHarnessHealthRoutes)
 
 // Routes — Artist Partner Platform
 app.route('/api', artistApplicationRoutes)
+
+// Routes — Dashboard Stats, Notifications, HANA Chat
+app.route('/api/dashboard', statsRoutes)
+app.route('/api/notifications', notificationsRoutes)
+app.route('/api/hana-chat', hanaChatRoutes)
 
 // Dashboard — Admin control panel
 app.route('/dashboard', dashboardRoutes)

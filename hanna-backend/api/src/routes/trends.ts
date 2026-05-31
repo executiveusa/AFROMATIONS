@@ -61,12 +61,12 @@ trendsRoutes.get('/', async (c) => {
 // Get curated article topics from trends
 trendsRoutes.get('/topics', async (c) => {
   try {
-    const recent = await supabaseQuery(c, 'afromations_content', {
+    const recent = (await supabaseQuery(c, 'afromations_content', {
       select: 'title,metadata,created_at',
       limit: 10,
       order: 'created_at.desc',
       eq: { content_type: 'blog' },
-    })
+    })) as any[]
     return c.json({
       topics: recent.map((r: Record<string, unknown>) => r.title),
       generated: new Date().toISOString(),
