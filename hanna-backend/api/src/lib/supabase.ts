@@ -13,11 +13,12 @@ function getConfig(c: Context): SupabaseConfig {
 }
 
 /** Thin fetch wrapper — no SDK dep, runs on Workers */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function supabaseQuery(
   c: Context,
   table: string,
   params?: { select?: string; limit?: number; order?: string; eq?: Record<string, string> }
-) {
+): Promise<any> {
   const { url, serviceKey } = getConfig(c)
   const searchParams = new URLSearchParams()
 
@@ -45,11 +46,12 @@ export async function supabaseQuery(
   return res.json()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function supabaseInsert(
   c: Context,
   table: string,
   data: Record<string, unknown>
-) {
+): Promise<any> {
   const { url, serviceKey } = getConfig(c)
 
   const res = await fetch(`${url}/rest/v1/${table}`, {
@@ -70,12 +72,13 @@ export async function supabaseInsert(
   return res.json()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function supabaseUpsert(
   c: Context,
   table: string,
   data: Record<string, unknown>,
   onConflict: string = 'id'
-) {
+): Promise<any> {
   const { url, serviceKey } = getConfig(c)
 
   const res = await fetch(`${url}/rest/v1/${table}`, {
@@ -96,12 +99,13 @@ export async function supabaseUpsert(
   return res.json()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function supabasePatch(
   c: Context,
   table: string,
   data: Record<string, unknown>,
   filters: Record<string, string>
-) {
+): Promise<any> {
   const { url, serviceKey } = getConfig(c)
   const searchParams = new URLSearchParams()
 
@@ -127,11 +131,12 @@ export async function supabasePatch(
   return res.json()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function supabaseDelete(
   c: Context,
   table: string,
   filters: Record<string, string>
-) {
+): Promise<any> {
   const { url, serviceKey } = getConfig(c)
   const searchParams = new URLSearchParams()
 
@@ -152,5 +157,48 @@ export async function supabaseDelete(
     throw new Error(`Supabase delete ${table}: ${res.status} ${res.statusText}`)
   }
 
+  return res.json()
+}
+
+// ---------------------------------------------------------------------------
+// Raw URL/key forms — used by scheduled.ts (no Hono Context available)
+// ---------------------------------------------------------------------------
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function supabaseRawQuery(
+  url: string,
+  serviceKey: string,
+  table: string,
+  select?: string,
+  extra?: string
+): Promise<any> {
+  const qs = new URLSearchParams()
+  if (select) qs.set('select', select)
+  const full = `${url}/rest/v1/${table}?${qs}${extra ? `&${extra}` : ''}`
+  const res = await fetch(full, {
+    headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
+  })
+  if (!res.ok) throw new Error(`Supabase ${table}: ${res.status}`)
+  return res.json()
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function supabaseRawInsert(
+  url: string,
+  serviceKey: string,
+  table: string,
+  data: Record<string, unknown>
+): Promise<any> {
+  const res = await fetch(`${url}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation',
+    },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) throw new Error(`Supabase insert ${table}: ${res.status}`)
   return res.json()
 }

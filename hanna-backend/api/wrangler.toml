@@ -5,6 +5,9 @@ compatibility_date = "2025-04-01"
 [vars]
 STUDIO_NAME = "AFROMATIONS Studios"
 AGENT_NAME = "Hanna"
+HANA_PUBLISHING_APPROVAL_MODE = "true"
+HANA_DRY_RUN_PUBLISHING = "true"
+HANA_AUTOPUBLISH_ENABLED = "false"
 
 # Cron triggers — Google Trends scan every 2 days, daily brief at 8am UTC
 [triggers]
@@ -15,4 +18,16 @@ crons = ["0 */48 * * *", "0 8 * * *"]
 # SUPABASE_SERVICE_KEY
 # GOOGLE_TRENDS_API_KEY
 # GEMINI_API_KEY
-# FIRECRAWL_API_KEY  ← get your key at https://firecrawl.dev
+# FIRECRAWL_API_KEY            ← get your key at https://firecrawl.dev
+# --- Hana Anime Harness ---
+# BRIGHT_DATA_MCP_URL          ← Bright Data MCP endpoint
+# BRIGHT_DATA_API_KEY          ← Bright Data API key
+# FILE_CRAWL_MCP_URL           ← File Crawl MCP endpoint
+# FILE_CRAWL_API_KEY           ← File Crawl API key
+# YOUTUBE_DATA_API_KEY         ← YouTube Data API v3
+# TRANSCRIPT_PROVIDER_API_KEY  ← Optional transcript provider
+# HUGGINGFACE_API_KEY          ← HuggingFace Inference API
+# POSTIZ_API_URL               ← Postiz instance URL
+# POSTIZ_API_KEY               ← Postiz API key
+# AGENTMAIL_API_URL            ← AgentMail endpoint
+# AGENTMAIL_API_KEY            ← AgentMail API key
