@@ -91,11 +91,7 @@ affirmationsRoutes.get('/:id', async (c) => {
 
     const affirmations = await supabaseQuery(c, 'hana_affirmations', {
       select: '*',
-
       eq: { id: c.req.param('id'), user_id: userId },
-=======
-      eq: { id: c.param('id'), user_id: userId },
-
       limit: 1,
     })
 
@@ -184,7 +180,7 @@ affirmationsRoutes.post('/generate', zValidator('json', generateAffirmationSchem
       )
     )
 
-    const results = saved.filter((r) => Array.isArray(r) && r.length > 0).map((r) => r[0])
+    const results = saved.filter((r): r is any[] => Array.isArray(r) && r.length > 0).map((r) => r[0])
 
     return c.json({
       affirmations: results,
@@ -217,11 +213,7 @@ affirmationsRoutes.patch('/:id', zValidator('json', createAffirmationSchema.part
         content: body.content,
         category: body.category,
       },
-
       { id: c.req.param('id'), user_id: userId }
-=======
-      { id: c.param('id'), user_id: userId }
-
     )
 
     if (!Array.isArray(result) || result.length === 0) {
@@ -247,11 +239,7 @@ affirmationsRoutes.delete('/:id', async (c) => {
     }
 
     await supabaseDelete(c, 'hana_affirmations', {
-
       id: c.req.param('id'),
-=======
-      id: c.param('id'),
-
       user_id: userId,
     })
 
@@ -268,11 +256,7 @@ affirmationsRoutes.delete('/:id', async (c) => {
 // 
 affirmationsRoutes.get('/:id/likes', async (c) => {
   try {
-
     const affirmationId = c.req.param('id')
-=======
-    const affirmationId = c.param('id')
-
 
     const likes = await supabaseQuery(c, 'hana_affirmation_likes', {
       select: 'count(*)',
@@ -299,11 +283,7 @@ affirmationsRoutes.post('/:id/like', async (c) => {
       return c.json({ error: 'Unauthorized' }, 401)
     }
 
-
     const affirmationId = c.req.param('id')
-=======
-    const affirmationId = c.param('id')
-
 
     // Check if already liked
     const existing = await supabaseQuery(c, 'hana_affirmation_likes', {

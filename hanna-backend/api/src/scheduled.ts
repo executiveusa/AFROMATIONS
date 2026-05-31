@@ -4,7 +4,7 @@
  * - Daily brief for Tyshawn (every day at 8am UTC)
  */
 
-import { supabaseRawInsert, supabaseRawQuery } from './lib/supabase'
+import { supabaseInsertWithEnv, supabaseQueryWithEnv } from './lib/supabase'
 
 interface Env {
   SUPABASE_URL: string
@@ -80,7 +80,7 @@ async function storeTrends(env: Env, trends: { keyword: string; interest: number
   }
 
   for (const t of trends) {
-    await supabaseRawInsert(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, 'anime_trends', {
+    await supabaseInsertWithEnv(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, 'anime_trends', {
       keyword: t.keyword,
       interest_score: t.interest,
       scanned_at: new Date().toISOString(),
@@ -99,12 +99,15 @@ async function generateDailyBrief(env: Env) {
   }
 
   // Get latest trends from the last 3 days
-  const trends = await supabaseRawQuery(
+  const trends = await supabaseQueryWithEnv(
     env.SUPABASE_URL,
     env.SUPABASE_SERVICE_KEY,
     'anime_trends',
-    'keyword,interest_score,scanned_at',
-    'order=scanned_at.desc&limit=10'
+    {
+      select: 'keyword,interest_score,scanned_at',
+      order: 'scanned_at.desc',
+      limit: 10,
+    }
   )
 
   const trendsList = (trends ?? []) as { keyword: string; interest_score: number }[]
@@ -132,7 +135,7 @@ async function generateDailyBrief(env: Env) {
     generated_by: 'Agent Hanna 花',
   }
 
-  await supabaseRawInsert(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, 'daily_briefs', brief)
+  await supabaseInsertWithEnv(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, 'daily_briefs', brief)
   console.log(`[Brief] Daily brief generated for ${brief.date}`)
 }
 

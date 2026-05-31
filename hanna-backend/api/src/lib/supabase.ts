@@ -160,35 +160,12 @@ export async function supabaseDelete(
   return res.json()
 }
 
-// ---------------------------------------------------------------------------
-// Raw URL/key forms — used by scheduled.ts (no Hono Context available)
-// ---------------------------------------------------------------------------
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function supabaseRawQuery(
-  url: string,
-  serviceKey: string,
-  table: string,
-  select?: string,
-  extra?: string
-): Promise<any> {
-  const qs = new URLSearchParams()
-  if (select) qs.set('select', select)
-  const full = `${url}/rest/v1/${table}?${qs}${extra ? `&${extra}` : ''}`
-  const res = await fetch(full, {
-    headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
-  })
-  if (!res.ok) throw new Error(`Supabase ${table}: ${res.status}`)
-  return res.json()
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function supabaseRawInsert(
+export async function supabaseInsertWithEnv(
   url: string,
   serviceKey: string,
   table: string,
   data: Record<string, unknown>
-): Promise<any> {
+) {
   const res = await fetch(`${url}/rest/v1/${table}`, {
     method: 'POST',
     headers: {
@@ -199,6 +176,42 @@ export async function supabaseRawInsert(
     },
     body: JSON.stringify(data),
   })
-  if (!res.ok) throw new Error(`Supabase insert ${table}: ${res.status}`)
+
+  if (!res.ok) {
+    throw new Error(`Supabase insert ${table}: ${res.status} ${res.statusText}`)
+  }
+
+  return res.json()
+}
+
+export async function supabaseQueryWithEnv(
+  url: string,
+  serviceKey: string,
+  table: string,
+  params?: { select?: string; limit?: number; order?: string; eq?: Record<string, string> }
+) {
+  const searchParams = new URLSearchParams()
+
+  if (params?.select) searchParams.set('select', params.select)
+  if (params?.limit) searchParams.set('limit', String(params.limit))
+  if (params?.order) searchParams.set('order', params.order)
+  if (params?.eq) {
+    for (const [k, v] of Object.entries(params.eq)) {
+      searchParams.set(k, `eq.${v}`)
+    }
+  }
+
+  const res = await fetch(`${url}/rest/v1/${table}?${searchParams}`, {
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+    },
+  })
+
+  if (!res.ok) {
+    throw new Error(`Supabase ${table}: ${res.status} ${res.statusText}`)
+  }
+
   return res.json()
 }
