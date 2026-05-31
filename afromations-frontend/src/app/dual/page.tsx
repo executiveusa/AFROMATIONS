@@ -274,10 +274,10 @@ export default function DualPage() {
               Meet Agent Hana
             </Link>
             <Link
-              href="/store"
+              href="/apply"
               className="inline-flex h-11 items-center rounded-sm bg-(--af-red) px-8 text-sm font-semibold tracking-wider text-(--af-cream) transition-colors hover:bg-(--af-red-dark)"
             >
-              Explore DUAL Store
+              Apply for Invite
             </Link>
           </div>
         </section>

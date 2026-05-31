@@ -1,386 +1,155 @@
 'use client'
 
-import { useState } from 'react'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
-import { InView } from '@/components/motion/in-view'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-const SERVICES = [
+const PILLARS = [
   {
-    title: 'Graffiti Cleanup',
-    description: 'We coordinate crews, artists, and community partners to remove graffiti responsibly and restore public-facing spaces.',
-    href: '/graffiti-cleanup',
+    title: 'Artist Infrastructure',
+    description: 'Hana manages research, content, publishing, and provenance for independent creators — so artists spend time creating, not administering.',
   },
   {
-    title: 'Community Murals',
-    description: 'We help property owners, schools, nonprofits, and neighborhoods turn blank or damaged walls into commissioned art.',
-    href: '/commission',
+    title: 'Owned IP',
+    description: 'Every character built through AFROMATIONS stays owned by the artist. We build tools that document, protect, and monetize your creative work.',
   },
   {
-    title: 'Paid Artist Opportunities',
-    description: 'Artists should not have to work for exposure. We build paid projects, apprenticeships, and repeatable creative contracts.',
-    href: '/volunteer',
+    title: 'Provenance by Default',
+    description: 'Every project generates an authorship trail: file hashes, process notes, AI assistance records, and public proof. Because proof of originality is infrastructure.',
   },
   {
-    title: 'School & Youth Programs',
-    description: 'We create workshops where students learn mural planning, storytelling, cultural research, teamwork, and AI-assisted design.',
-    href: '/volunteer',
+    title: 'Paid Creative Work',
+    description: 'We operate for profit — so artists can be paid. Infrastructure, drops, licensing, and auction support are services artists pay for because they generate real returns.',
   },
   {
-    title: 'AI Education',
-    description: 'Agent Hana helps artists learn practical AI workflows, Japanese language through anime, visual storytelling, and creative business skills.',
-    href: '/learn',
+    title: 'Underrepresented Creators',
+    description: 'Our social-purpose commitment is to build tools and access for creators who have been locked out of the infrastructure that larger studios take for granted.',
   },
   {
-    title: 'Community Impact Reporting',
-    description: 'As a social purpose company, we track what matters: walls cleaned, murals created, artists paid, youth trained, and community dollars reinvested.',
-    href: '/social-purpose',
+    title: 'Transparency',
+    description: 'We report on what we build, what artists earn, and how the platform operates. No opaque contracts. No hidden clauses. No fake promises.',
   },
 ]
 
-const IMPACT_CARDS = [
+const MODEL_CARDS = [
   {
-    title: 'Service Revenue',
-    description: 'Businesses, property owners, schools, and agencies pay for cleanup, mural, and training services.',
+    title: 'Artist Partner Program',
+    description: 'Artists pay for infrastructure — Hana installs, provenance vaults, drop support, and landing pages — because infrastructure that generates income is worth paying for.',
   },
   {
-    title: 'Artist Payments',
-    description: 'Project budgets include compensation for artists, crew leads, educators, and apprentices.',
+    title: 'Drop & Auction Fees',
+    description: 'When a character drop or commission auction goes live, AFROMATIONS takes a platform fee. Artist keeps the majority. Splits are defined in writing before any drop.',
   },
   {
-    title: 'Community Sponsorships',
-    description: 'Sponsors help fund discounted work for schools, nonprofits, and neighborhoods.',
+    title: 'Character Licensing',
+    description: 'When a brand, game, or media project licenses an original character, the artist earns licensing revenue. AFROMATIONS earns a brokerage fee for facilitation.',
   },
   {
-    title: 'Reinvestment',
-    description: 'A portion of profit supports community art, youth training, open-source tools, and future projects.',
+    title: 'Social-Purpose Commitment',
+    description: 'A portion of platform revenue funds access for underrepresented creators — reduced-cost or subsidized infrastructure access for qualified applicants.',
   },
 ]
 
 export default function SocialPurposePage() {
-  const [hoveredService, setHoveredService] = useState<string | null>(null)
-
   return (
     <main>
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-background px-4 py-20">
+      {/* Hero */}
+      <section className="relative min-h-[80vh] flex items-center justify-center bg-(--af-black) px-4 py-24">
         <div className="max-w-4xl mx-auto text-center">
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6 }}
-            once
-          >
-            <div className="text-(--af-red) text-sm uppercase tracking-widest font-bold mb-4">
-              Building Community Impact
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black text-(--af-cream) mb-6">
-              Art, Cleanup, and AI for a Better Seattle
-            </h1>
-            <p className="text-lg md:text-xl text-(--af-grey-light) max-w-2xl mx-auto leading-relaxed mb-8">
-              AFROMATIONS is building a Seattle social purpose company that turns graffiti cleanup, community murals, and artist education into paid creative opportunities.
-            </p>
-          </InView>
-
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            once
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <Link href="/volunteer">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-primary px-6 py-3 font-semibold"
-              >
-                Volunteer
-              </motion.button>
+          <div className="text-(--af-red) text-[10px] uppercase tracking-[0.4em] font-bold mb-4">
+            21+ · For-Profit · Social Purpose
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black text-(--af-cream) mb-6" style={{ fontFamily: 'Sora, sans-serif' }}>
+            Artist-Owned Creative Infrastructure
+          </h1>
+          <p className="text-lg md:text-xl text-(--af-grey-light) max-w-2xl mx-auto leading-relaxed mb-10">
+            AFROMATIONS is building artist-owned creative infrastructure for underrepresented and independent creators. We operate as a for-profit artist infrastructure company with a social-purpose commitment built into our charter.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/apply" className="af-btn-primary px-6 py-3 rounded-full text-sm font-semibold">
+              Apply for Invite
             </Link>
-            <Link href="/donate">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-secondary px-6 py-3 font-semibold"
-              >
-                Sponsor Community Work
-              </motion.button>
+            <Link href="/artist-partner-program" className="af-btn-secondary px-6 py-3 rounded-full text-sm font-semibold">
+              Artist Partner Program
             </Link>
-            <Link href="/commission">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-secondary px-6 py-3 font-semibold"
-              >
-                Commission a Mural
-              </motion.button>
-            </Link>
-            <Link href="/graffiti-cleanup">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-secondary px-6 py-3 font-semibold"
-              >
-                Request Cleanup
-              </motion.button>
-            </Link>
-          </InView>
-        </div>
-      </section>
-
-      {/* What We Do Section */}
-      <section className="bg-(--af-grey) border-t border-(--af-red) border-opacity-30 px-4 py-20 md:py-28">
-        <div className="max-w-6xl mx-auto">
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6 }}
-            once
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-black text-(--af-cream) mb-4">
-              What We Do
-            </h2>
-            <p className="text-lg text-(--af-grey-light) max-w-2xl mx-auto">
-              We partner with schools, neighborhoods, businesses, artists, and community groups to clean damaged spaces, commission public art, train local creatives, and teach practical AI skills through Agent Hana.
-            </p>
-          </InView>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service, i) => (
-              <InView
-                key={service.title}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                once
-              >
-                <Link href={service.href}>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    onHoverStart={() => setHoveredService(service.title)}
-                    onHoverEnd={() => setHoveredService(null)}
-                    className="bg-background border border-(--af-red) border-opacity-30 hover:border-opacity-100 rounded-lg p-6 cursor-pointer transition-all h-full"
-                  >
-                    <h3 className="text-xl font-bold text-(--af-cream) mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-(--af-grey-light) leading-relaxed">
-                      {service.description}
-                    </p>
-                    {hoveredService === service.title && (
-                      <div className="text-(--af-red) text-sm font-semibold mt-4">
-                        Learn more →
-                      </div>
-                    )}
-                  </motion.div>
-                </Link>
-              </InView>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* Why Social Purpose Section */}
-      <section className="px-4 py-20 md:py-28">
+      {/* What we are */}
+      <section className="bg-(--af-grey)/30 border-t border-white/5 px-4 py-20 md:py-28">
         <div className="max-w-4xl mx-auto">
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6 }}
-            once
-            className="mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-black text-(--af-cream) mb-6">
-              Why a Social Purpose Company?
-            </h2>
-            <p className="text-lg text-(--af-grey-light) leading-relaxed">
-              We are not positioning this as a traditional nonprofit. A social purpose company lets us earn revenue, pay artists, sell services, build software, and still keep the mission locked into the business. The goal is sustainable impact: clean spaces, paid artists, stronger neighborhoods, and tools that help creatives build long-term income.
+          <div className="mb-2 text-[10px] tracking-[0.4em] text-(--af-red) uppercase">What AFROMATIONS Is</div>
+          <h2 className="text-3xl md:text-4xl font-black text-(--af-cream) mb-6" style={{ fontFamily: 'Sora, sans-serif' }}>
+            This is not a kids app.<br />This is not a nonprofit.<br />This is not a generic AI art tool.
+          </h2>
+          <div className="space-y-4 text-(--af-grey-light) leading-relaxed">
+            <p>
+              AFROMATIONS is an artist infrastructure company. We build the back-office that independent creators — anime artists, character designers, illustrators — have never had access to before.
             </p>
-          </InView>
-
-          {/* Key Principles */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                title: 'Mission-Driven Business',
-                body: 'We profit sustainably while keeping social impact locked into every decision.',
-              },
-              {
-                title: 'Artist-First Compensation',
-                body: 'Every project includes direct payment to creatives, not "exposure" or charity.',
-              },
-              {
-                title: 'Community Ownership',
-                body: 'Reinvestment happens in the neighborhoods we serve, not extracted profits.',
-              },
-              {
-                title: 'Transparency & Accountability',
-                body: 'We report on walls cleaned, artists paid, youth trained, and impact delivered.',
-              },
-            ].map((item, i) => (
-              <InView
-                key={item.title}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                once
-              >
-                <div className="border-l-2 border-(--af-red) pl-6">
-                  <h3 className="text-lg font-bold text-(--af-cream) mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-(--af-grey-light)">
-                    {item.body}
-                  </p>
-                </div>
-              </InView>
-            ))}
+            <p>
+              Hana is our primary PI agent. She manages research, content, publishing, provenance records, and creative operations for partner artists. She doesn&apos;t own your IP. You do.
+            </p>
+            <p>
+              We are for-profit because sustainability requires revenue. We are social-purpose because our commitment to underrepresented creators is written into how we operate — not added as an afterthought.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* How Money Flows Section */}
-      <section className="bg-(--af-grey) border-t border-(--af-red) border-opacity-30 px-4 py-20 md:py-28">
-        <div className="max-w-6xl mx-auto">
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6 }}
-            once
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-black text-(--af-cream) mb-4">
-              How the Model Works
-            </h2>
-          </InView>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {IMPACT_CARDS.map((card, i) => (
-              <InView
-                key={card.title}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                once
-              >
-                <div className="bg-background border border-(--af-red) border-opacity-30 rounded-lg p-6">
-                  <h3 className="text-lg font-bold text-(--af-cream) mb-3">
-                    {card.title}
-                  </h3>
-                  <p className="text-(--af-grey-light) text-sm leading-relaxed">
-                    {card.description}
-                  </p>
-                </div>
-              </InView>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Work With Us Section */}
+      {/* Six Pillars */}
       <section className="px-4 py-20 md:py-28">
-        <div className="max-w-4xl mx-auto text-center">
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6 }}
-            once
-          >
-            <h2 className="text-4xl md:text-5xl font-black text-(--af-cream) mb-4">
-              Work With Us
-            </h2>
-            <p className="text-lg text-(--af-grey-light) max-w-2xl mx-auto mb-8 leading-relaxed">
-              Whether you need graffiti removed, want to commission a mural, sponsor a youth project, volunteer for a cleanup, or teach with us, this is the entry point.
-            </p>
-          </InView>
-
-          <InView
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            once
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <Link href="/volunteer">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-primary px-6 py-3 font-semibold"
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-2 text-[10px] tracking-[0.4em] text-(--af-red) uppercase">Platform Pillars</div>
+          <h2 className="text-3xl font-black text-(--af-cream) mb-12" style={{ fontFamily: 'Sora, sans-serif' }}>
+            What We Build For
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PILLARS.map((pillar) => (
+              <div
+                key={pillar.title}
+                className="rounded-xl border border-white/10 bg-white/5 p-6"
               >
-                Volunteer
-              </motion.button>
-            </Link>
-            <Link href="/donate">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-secondary px-6 py-3 font-semibold"
-              >
-                Donate / Sponsor
-              </motion.button>
-            </Link>
-            <Link href="/commission">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-secondary px-6 py-3 font-semibold"
-              >
-                Commission a Mural
-              </motion.button>
-            </Link>
-            <Link href="/graffiti-cleanup">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-secondary px-6 py-3 font-semibold"
-              >
-                Request Cleanup
-              </motion.button>
-            </Link>
-            <Link href="/partnerships">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="af-btn-secondary px-6 py-3 font-semibold"
-              >
-                Partner With Us
-              </motion.button>
-            </Link>
-          </InView>
+                <h3 className="text-base font-bold text-(--af-cream) mb-3">{pillar.title}</h3>
+                <p className="text-(--af-grey-light) text-sm leading-relaxed">{pillar.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Disclaimer */}
-      <section className="bg-(--af-grey) border-t border-(--af-red) border-opacity-30 px-4 py-12">
+      {/* Business model */}
+      <section className="bg-(--af-grey)/30 border-t border-white/5 px-4 py-20 md:py-28">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-2 text-[10px] tracking-[0.4em] text-(--af-red) uppercase">Business Model</div>
+          <h2 className="text-3xl font-black text-(--af-cream) mb-4" style={{ fontFamily: 'Sora, sans-serif' }}>
+            How the Money Works
+          </h2>
+          <p className="text-(--af-grey-light) mb-12 max-w-2xl">
+            Pricing is private and discussed after application review. The model below describes how revenue is structured — not pricing specifics.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {MODEL_CARDS.map((card) => (
+              <div
+                key={card.title}
+                className="border-l-2 border-(--af-red) pl-6"
+              >
+                <h3 className="text-base font-bold text-(--af-cream) mb-2">{card.title}</h3>
+                <p className="text-(--af-grey-light) text-sm leading-relaxed">{card.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Legal disclaimer */}
+      <section className="border-t border-white/5 px-4 py-12">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm text-(--af-grey-light) leading-relaxed">
-            AFROMATIONS social purpose work is mission-driven, but unless explicitly stated through a qualified nonprofit partner, contributions may not be tax-deductible. Sponsorships support community projects, supplies, artist stipends, and program operations.
+          <p className="text-xs text-(--af-grey-light) leading-relaxed">
+            AFROMATIONS operates as a for-profit social purpose company. Unless explicitly stated through a qualified nonprofit partner, contributions and fees are not tax-deductible.
+            Nothing on this site constitutes legal advice. IP, provenance, copyright, and licensing questions require a licensed attorney.
           </p>
         </div>
       </section>

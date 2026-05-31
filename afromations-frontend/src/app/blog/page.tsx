@@ -114,6 +114,29 @@ export default function BlogPage() {
           {t('blog.description')}
         </p>
 
+        {/* IP & Legal Education Categories */}
+        <div className="mt-10 mb-2">
+          <p className="text-[10px] tracking-[0.4em] text-(--af-red) uppercase mb-4">IP &amp; Legal Education</p>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { label: 'AI & Copyright', href: '/blog/ai-copyright' },
+              { label: 'Character Protection', href: '/blog/character-protection' },
+              { label: 'Artist Contracts', href: '/blog/artist-contracts' },
+              { label: 'Provenance', href: '/blog/provenance' },
+              { label: 'Licensing', href: '/blog/licensing' },
+              { label: 'Auctions', href: '/blog/auctions' },
+            ].map((cat) => (
+              <a
+                key={cat.href}
+                href={cat.href}
+                className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-(--af-grey-light) hover:border-(--af-red)/40 hover:text-(--af-cream) transition-colors"
+              >
+                {cat.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
         {/* Loading skeleton */}
         {loading && (
           <div className="mt-12 space-y-4">

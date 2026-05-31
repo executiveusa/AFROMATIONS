@@ -12,10 +12,12 @@ export function Navbar() {
   const { locale, setLocale, t } = useI18n()
 
   const links = [
+    { label: 'Hana', href: '/hana' },
+    { label: 'Dual', href: '/dual' },
+    { label: 'Artist Partner', href: '/artist-partner-program' },
+    { label: 'Provenance', href: '/provenance' },
+    { label: 'Drops', href: '/drops' },
     { label: 'Studio', href: '/studio' },
-    { label: 'Academy', href: '/learn' },
-    { label: 'Store', href: '/store' },
-    { label: 'Mission', href: '/social-purpose' },
   ]
 
   const currentLocale = LOCALES.find((l) => l.code === locale)
@@ -83,6 +85,14 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
+
+            {/* Apply CTA */}
+            <a
+              href="/apply"
+              className="af-btn-primary px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider"
+            >
+              Apply
+            </a>
 
             {/* Cart Badge */}
             <CartBadge />
@@ -213,14 +223,25 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Discord CTA */}
-          <div className="mt-8 mb-4">
+          {/* Apply CTA */}
+          <div className="mt-8 mb-2">
+            <a
+              href="/apply"
+              onClick={handleLinkClick}
+              className="af-btn-primary flex h-12 w-full items-center justify-center rounded-full text-sm font-semibold tracking-wider"
+            >
+              Apply for Invite
+            </a>
+          </div>
+
+          {/* Discord */}
+          <div className="mb-4">
             <a
               href="https://discord.gg/afromations"
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleLinkClick}
-              className="af-btn-primary flex h-12 w-full items-center justify-center rounded-full text-sm font-semibold tracking-wider"
+              className="af-btn-secondary flex h-11 w-full items-center justify-center rounded-full text-sm font-semibold tracking-wider"
               aria-label="Join the AFROMATIONS Discord community"
             >
               {t('hero.cta.discord')}
