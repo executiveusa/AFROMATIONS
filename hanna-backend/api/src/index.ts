@@ -24,6 +24,7 @@ import { hanaCronRoutes } from './routes/hana-cron'
 import { hanaMailRoutes } from './routes/hana-mail'
 import { hanaWalletRoutes } from './routes/hana-wallet'
 import { hanaHarnessHealthRoutes } from './routes/hana-harness-health'
+import { artistApplicationRoutes } from './routes/artist-application'
 
 type Bindings = {
   SUPABASE_URL: string
@@ -120,6 +121,9 @@ app.route('/api/hana', hanaCronRoutes)
 app.route('/api/hana', hanaMailRoutes)
 app.route('/api/hana', hanaWalletRoutes)
 app.route('/api/hana', hanaHarnessHealthRoutes)
+
+// Routes — Artist Partner Platform
+app.route('/api', artistApplicationRoutes)
 
 // Dashboard — Admin control panel
 app.route('/dashboard', dashboardRoutes)

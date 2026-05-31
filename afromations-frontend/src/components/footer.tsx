@@ -93,22 +93,34 @@ export function Footer() {
 
           <nav aria-label="Footer links" className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
             <a
+              href="/artist-partner-program"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Artist Partner
+            </a>
+            <a
+              href="/provenance"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Provenance
+            </a>
+            <a
+              href="/drops"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Drops
+            </a>
+            <a
+              href="/directory"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Directory
+            </a>
+            <a
               href="/social-purpose"
               className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
             >
               Social Purpose
-            </a>
-            <a
-              href="/learn"
-              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
-            >
-              Hana Academy
-            </a>
-            <a
-              href="/store"
-              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
-            >
-              Store
             </a>
             <a
               href="https://github.com/executiveusa/AFROMATIONS"
@@ -118,15 +130,6 @@ export function Footer() {
               aria-label="View AFROMATIONS on GitHub"
             >
               {t('footer.github')}
-            </a>
-            <a
-              href="https://discord.gg/afromations"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
-              aria-label="Join AFROMATIONS on Discord"
-            >
-              {t('footer.discord')}
             </a>
           </nav>
         </div>
