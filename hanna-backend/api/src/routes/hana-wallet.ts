@@ -45,7 +45,7 @@ hanaWalletRoutes.get('/wallet/ledger', async (c) => {
       .reduce((sum, e) => sum + e.amount, 0)
 
     const pending = (entries as { status: string; amount: number; ledger_type: string }[])
-      .filter((e) => e.status === 'pending' && e.ledger_type === 'payout')
+      .filter((e) => (e.status === 'pending' || e.status === 'pending_approval') && e.ledger_type === 'payout')
       .reduce((sum, e) => sum + e.amount, 0)
 
     return c.json({

@@ -42,11 +42,12 @@ export function checkPublishingPolicy(
     }
   }
 
-  // Dry-run mode: block all live publishing but allow scheduling/queuing
+  // Dry-run mode: allow the action but signal callers to simulate (not send live)
+  // allowed=true so the publish route proceeds to the dry-run path in postiz-client
   if (dryRun && (opts.action === 'post_social' || opts.action === 'publish_blog')) {
     return {
-      allowed: false,
-      reason: 'HANA_DRY_RUN_PUBLISHING=true. Content is queued but not sent live.',
+      allowed: true,
+      reason: 'HANA_DRY_RUN_PUBLISHING=true. Running in dry-run mode — post queued, not sent live.',
       requiresApproval: false,
       riskLevel: 'low',
     }

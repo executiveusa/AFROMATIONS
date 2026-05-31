@@ -14,6 +14,8 @@ import { trendsRoutes } from './routes/trends'
 import { galleryRoutes } from './routes/gallery'
 import { handleScheduled } from './scheduled'
 import { hanaScrapeRoutes } from './routes/hana-scrape'
+import { authRoutes } from './routes/auth'
+import { affirmationsRoutes } from './routes/affirmations'
 // Hana Anime Harness routes
 import { hanaResearchRoutes } from './routes/hana-research'
 import { hanaContentRoutes } from './routes/hana-content'
@@ -31,6 +33,11 @@ type Bindings = {
   FIRECRAWL_API_KEY: string
   STUDIO_NAME: string
   AGENT_NAME: string
+  // NVIDIA NIM
+  NIM_BASE_URL?: string
+  NIM_MODEL?: string
+  NIM_API_KEY?: string
+  NIM_RATE_LIMIT?: string
   // Hana Anime Harness
   BRIGHT_DATA_MCP_URL: string
   BRIGHT_DATA_API_KEY: string
@@ -100,6 +107,10 @@ app.route('/api/hana', hanaScrapeRoutes)
 app.route('/api/blog', blogRoutes)
 app.route('/api/trends', trendsRoutes)
 app.route('/api/gallery', galleryRoutes)
+
+// Routes — Authentication and Affirmations (HANA Dashboard)
+app.route('/api/auth', authRoutes)
+app.route('/api/affirmations', affirmationsRoutes)
 
 // Routes — Hana Anime Harness
 app.route('/api/hana', hanaResearchRoutes)

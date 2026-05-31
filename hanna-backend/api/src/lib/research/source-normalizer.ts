@@ -17,7 +17,8 @@ export interface NormalizedSource {
 export function normalizeYouTubeChannelUrl(input: string): string {
   // Remove tracking params (e.g., ?si=...)
   const url = new URL(input.startsWith('http') ? input : `https://${input}`)
-  const path = url.pathname.replace(/\/$/, '')
+  // Strip trailing slash and any existing /videos suffix to avoid double-append
+  const path = url.pathname.replace(/\/$/, '').replace(/\/videos$/, '')
 
   // @handle format → canonical
   if (path.startsWith('/@')) {
