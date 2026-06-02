@@ -7,6 +7,7 @@ import { hanaLessonRoutes } from './routes/hana-lesson'
 import { hanaAssessRoutes } from './routes/hana-assess'
 import { hanaWikiRoutes } from './routes/hana-wiki'
 import { hanaMangaRoutes } from './routes/hana-manga'
+import { hanaMangaReaderRoutes } from './routes/hana-manga-reader'
 import { hanaAdminRoutes } from './routes/hana-admin'
 import { dashboardRoutes } from './routes/dashboard'
 import { blogRoutes } from './routes/blog'
@@ -103,6 +104,7 @@ app.route('/api/hana', hanaLessonRoutes)
 app.route('/api/hana', hanaAssessRoutes)
 app.route('/api/hana', hanaWikiRoutes)
 app.route('/api/hana', hanaMangaRoutes)
+app.route('/api/hana', hanaMangaReaderRoutes)
 app.route('/api/hana', hanaAdminRoutes)
 
 // Routes — Hana Web Skills (scrape, search, youtube transcript, research)
