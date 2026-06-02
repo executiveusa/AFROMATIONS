@@ -14,6 +14,7 @@ export function Navbar() {
   const links = [
     { label: 'Hana', href: '/hana' },
     { label: 'Dual', href: '/dual' },
+    { label: 'Manga', href: '/manga' },
     { label: 'Artist Partner', href: '/artist-partner-program' },
     { label: 'Provenance', href: '/provenance' },
     { label: 'Drops', href: '/drops' },

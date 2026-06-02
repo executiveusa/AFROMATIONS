@@ -111,6 +111,18 @@ export function Footer() {
               Drops
             </a>
             <a
+              href="/manga"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Manga
+            </a>
+            <a
+              href="/learn/manga-lessons"
+              className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
+            >
+              Hana Lessons
+            </a>
+            <a
               href="/directory"
               className="text-xs text-(--af-grey-light) transition-colors hover:text-(--af-cream) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--af-red)"
             >
