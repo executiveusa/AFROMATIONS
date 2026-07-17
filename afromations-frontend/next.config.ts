@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  transpilePackages: ['tegaki'],
+  transpilePackages: ['tegaki', '@yui540/comimi'],
   webpack(config) {
     config.module.rules.push({
       test: /\.ttf$/,

@@ -28,6 +28,7 @@ export function ComimiReader({
 
   useEffect(() => {
     let destroyed = false
+    let unsubscribePageChange: (() => void) | undefined
 
     async function init() {
       try {
@@ -42,14 +43,13 @@ export function ComimiReader({
         if (!manifest) throw new Error('No manifest provided')
         if (!containerRef.current) return
 
-        // Dynamic import — client only, avoids SSR crash
         const { createMangaViewer } = await import('@yui540/comimi')
 
         if (destroyed) return
 
         const pages = manifest.manga.pages.map((p) => {
           if (p.type === 'html' && p.html) {
-            return { id: p.id, type: 'html' as const, html: p.html, alt: p.alt, label: p.label }
+            return { id: p.id, type: 'html' as const, html: p.html, label: p.label }
           }
           return {
             id: p.id,
@@ -73,34 +73,36 @@ export function ComimiReader({
             readingDirection: manifest.settings.readingDirection ?? 'rtl',
             hasCover: manifest.settings.hasCover ?? true,
             pageTurnMode: manifest.settings.pageTurnMode ?? 'single',
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            backgroundColor: (manifest.settings.backgroundColor ?? 'black') as any,
+            backgroundColor: manifest.settings.backgroundColor ?? 'black',
+            theme: 'dark',
           },
           locale,
         })
 
-        // Track page changes and save progress
         if (viewerRef.current?.on) {
-          viewerRef.current.on('pageChange', async (pageIndex: number) => {
-            if (!learnerId || !chapterId) return
-            try {
-              await fetch('/api/hana/manga/progress', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  learnerId,
-                  chapterId,
-                  currentPageIndex: pageIndex,
-                  completed: pageIndex >= pages.length - 1,
-                }),
-              })
-            } catch {
-              // progress save is best-effort
+          unsubscribePageChange = viewerRef.current.on(
+            'pageChange',
+            async ({ pageIndex }: { pageIndex: number }) => {
+              if (!learnerId || !chapterId) return
+              try {
+                await fetch('/api/hana/manga/progress', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    learnerId,
+                    chapterId,
+                    currentPageIndex: pageIndex,
+                    completed: pageIndex >= pages.length - 1,
+                  }),
+                })
+              } catch {
+                // Progress persistence is best-effort and must not break reading.
+              }
             }
-          })
+          )
         }
 
-        setLoading(false)
+        if (!destroyed) setLoading(false)
       } catch (err) {
         if (!destroyed) {
           setError(err instanceof Error ? err.message : 'Failed to load reader')
@@ -113,6 +115,7 @@ export function ComimiReader({
 
     return () => {
       destroyed = true
+      unsubscribePageChange?.()
       if (viewerRef.current?.destroy) {
         viewerRef.current.destroy()
       }
