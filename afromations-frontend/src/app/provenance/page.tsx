@@ -1,121 +1,192 @@
-import Link from 'next/link'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Provenance Vault — AFROMATIONS',
+  title: 'Sovereignty Vault — AFROMATIONS',
   description:
-    'Track authorship evidence, human contribution, AI assistance, file hashes, and source files for your original characters.',
+    'A readable provenance and certificate system for artist-owned work: human contribution records, license terms, file fingerprints, timestamps, C2PA-ready metadata, and optional blockchain anchoring.',
 }
 
-const FIELDS = [
-  { label: 'Source files', desc: 'Original sketches, reference photos, process screenshots' },
-  { label: 'Final files', desc: 'Finished illustrations, animation files, exports' },
-  { label: 'File hashes', desc: 'SHA-256 fingerprints of every file version' },
-  { label: 'Human contribution notes', desc: "Artist's own description of their creative process" },
-  { label: 'AI tools used', desc: 'Which AI tools assisted and how (image gen, color, cleanup)' },
-  { label: 'Prompts used', desc: 'Optional: prompts that produced specific outputs' },
-  { label: 'License terms', desc: 'Current license status for this character or work' },
-  { label: 'Auction / drop ID', desc: 'Link to any public drops this work appeared in' },
-  { label: 'Public proof URL', desc: 'Public permalink for sharing provenance with buyers/licensees' },
+const VAULT_LAYERS = [
+  {
+    title: 'Source archive',
+    body: 'Original sketches, layered files, photos, voice notes, drafts, and creator declarations are preserved as the private evidence base.',
+  },
+  {
+    title: 'Human contribution log',
+    body: 'The record states who conceived, drew, edited, approved, inked, colored, prepared, or otherwise shaped the final work.',
+  },
+  {
+    title: 'License record',
+    body: 'Product, territory, duration, exclusivity, payment, attribution, renewal, and termination terms are summarized in plain language.',
+  },
+  {
+    title: 'AI disclosure',
+    body: 'Models, tools, reference inputs, generated stages, and human modifications are documented rather than hidden.',
+  },
+  {
+    title: 'Cryptographic fingerprint',
+    body: 'Each approved file receives a SHA-256 hash so later copies can be checked against the recorded version.',
+  },
+  {
+    title: 'Timestamp and optional chain anchor',
+    body: 'A signed timestamp and optional public-chain batch anchor can support evidence that the recorded manifest existed at a particular time.',
+  },
+]
+
+const NOT_CLAIMS = [
+  'A certificate does not automatically create copyright.',
+  'A blockchain transaction does not determine who legally authored a work.',
+  'A file hash does not prove the submitter had permission to register the file.',
+  'The Vault does not replace contracts, government registration, or legal advice.',
+  'C2PA-style provenance describes a production history; it is not an ownership court.',
 ]
 
 export default function ProvenancePage() {
   return (
     <main className="min-h-screen bg-(--af-black) text-(--af-cream)">
-      <nav className="border-b border-white/5 px-6 py-4 flex items-center gap-4 text-xs">
-        <Link href="/" className="font-bold tracking-widest text-(--af-red)">AFROMATIONS</Link>
-        <span className="text-(--af-grey-light)">/</span>
-        <span>Provenance Vault</span>
+      <nav className="border-b border-white/5 px-5 py-4 sm:px-8" aria-label="Breadcrumb">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 text-xs">
+          <Link href="/" className="font-bold tracking-[0.16em] text-(--af-red)">AFROMATIONS</Link>
+          <span className="text-(--af-grey-light)">/</span>
+          <span>Sovereignty Vault</span>
+        </div>
       </nav>
 
-      <div className="max-w-4xl mx-auto px-6 py-16">
-        {/* Hero */}
-        <div className="mb-2 text-[10px] tracking-[0.4em] text-(--af-red) uppercase">Coming soon · Partner artists only</div>
-        <h1 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Sora, sans-serif' }}>Provenance Vault</h1>
-        <p className="text-lg text-(--af-grey-light) max-w-2xl mb-4 leading-relaxed">
-          Every original character deserves an evidence trail. The Provenance Vault tracks your authorship, documents your process, hashes your files, and creates a timestamped record of your creative work.
-        </p>
-        <p className="text-sm text-(--af-grey-light)/70 mb-12 p-4 rounded-lg border border-white/5 bg-white/5">
-          <strong className="text-(--af-cream)">Important:</strong> Blockchain can timestamp evidence, but it does not replace copyright, trademark, contracts, or legal advice. The Provenance Vault is an evidence record, not a legal filing. Educational information only — not legal advice. Work with a licensed attorney for legal decisions.
-        </p>
+      <section className="relative overflow-hidden border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="vault-title">
+        <div className="absolute right-0 top-0 text-[18rem] font-black leading-none text-(--af-gold)/5" aria-hidden="true">証</div>
+        <div className="relative mx-auto max-w-7xl">
+          <p className="text-[10px] font-semibold tracking-[0.34em] text-(--af-gold) uppercase">Prove the process. Preserve the evidence.</p>
+          <h1 id="vault-title" className="mt-5 max-w-5xl text-4xl font-extrabold leading-[.98] tracking-[-.055em] sm:text-6xl lg:text-7xl" style={{ fontFamily: 'Sora, sans-serif', textWrap: 'balance' }}>
+            Keep the rights—and keep a record strong enough to travel with the work.
+          </h1>
+          <p className="mt-7 max-w-3xl text-lg leading-relaxed text-(--af-grey-light)">
+            The AFROMATIONS Sovereignty Vault organizes source files, human authorship evidence,
+            license terms, AI disclosures, cryptographic fingerprints, and public verification into one readable record.
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link href="/apply?path=artist" className="af-btn-primary inline-flex min-h-12 items-center justify-center rounded-full px-8 text-sm font-semibold">
+              Join the Artist Circle
+            </Link>
+            <Link href="/apply?path=hana" className="af-btn-secondary inline-flex min-h-12 items-center justify-center rounded-full border px-8 text-sm font-semibold">
+              Add the Vault to a Hana Installation
+            </Link>
+          </div>
+        </div>
+      </section>
 
-        {/* What gets tracked */}
-        <div className="mb-16">
-          <div className="text-[10px] tracking-[0.4em] text-(--af-grey-light) uppercase mb-6">What the Vault tracks</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {FIELDS.map((f) => (
-              <div key={f.label} className="rounded-xl border border-white/10 bg-white/5 p-5">
-                <div className="text-sm font-semibold mb-1">{f.label}</div>
-                <div className="text-xs text-(--af-grey-light) leading-relaxed">{f.desc}</div>
+      <section className="border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="vault-layers-title">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-red) uppercase">The evidence stack</p>
+            <h2 id="vault-layers-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+              Blockchain is one layer—not the whole promise.
+            </h2>
+            <p className="mt-5 text-sm leading-relaxed text-(--af-grey-light)">
+              Ownership protection begins with source files, human decisions, written agreements, and transparent contributor records.
+              A timestamp or chain anchor can make the final evidence package harder to alter retroactively, but it cannot replace the rest.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+            {VAULT_LAYERS.map((layer, index) => (
+              <article key={layer.title} className="bg-(--af-black) p-6 sm:p-7">
+                <div className="text-xs font-bold text-(--af-red)">{String(index + 1).padStart(2, '0')}</div>
+                <h3 className="mt-4 text-lg font-semibold">{layer.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-(--af-grey-light)">{layer.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/5 bg-[#0d0c0b] px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="coa-title">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-gold) uppercase">Readable certificate</p>
+            <h2 id="coa-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+              A certificate people can understand without decoding a wallet.
+            </h2>
+            <p className="mt-5 text-sm leading-relaxed text-(--af-grey-light)">
+              Every certificate is designed to answer the questions a buyer, collaborator, gallery, platform, or future licensee will actually ask.
+            </p>
+          </div>
+
+          <div className="border border-(--af-gold)/35 bg-[#15120d] p-1">
+            <div className="border border-white/10 p-6 sm:p-9">
+              <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-6">
+                <div>
+                  <div className="text-[10px] font-semibold tracking-[0.28em] text-(--af-gold) uppercase">AFROMATIONS certificate of authenticity</div>
+                  <div className="mt-2 text-2xl font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>DUAL // Chapter 1 Cover</div>
+                </div>
+                <div className="text-5xl font-black text-(--af-gold)/20" aria-hidden="true">認</div>
+              </div>
+
+              <dl className="mt-6 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
+                {[
+                  ['Work ID', 'AFR-DUAL-CH1-001'],
+                  ['Creator', 'Verified creator record'],
+                  ['Human roles', 'Concept, drawing, final approval'],
+                  ['Licensed use', 'Defined in signed project terms'],
+                  ['AI disclosure', 'Recorded by stage and tool'],
+                  ['File hash', 'SHA-256 fingerprint'],
+                  ['Timestamp', 'Signed evidence receipt'],
+                  ['Verification', 'Public certificate URL'],
+                ].map(([term, description]) => (
+                  <div key={term} className="bg-[#11100e] p-4">
+                    <dt className="text-[9px] font-semibold tracking-[0.2em] text-(--af-gold) uppercase">{term}</dt>
+                    <dd className="mt-2 text-sm text-(--af-grey-light)">{description}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="mt-6 border-l-2 border-(--af-gold) pl-4 text-xs leading-relaxed text-(--af-grey-light)">
+                The certificate summarizes evidence and terms. The signed agreement remains controlling where the two differ.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="truth-title">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-red) uppercase">Truth before hype</p>
+            <h2 id="truth-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+              What we will never claim.
+            </h2>
+            <p className="mt-5 text-sm leading-relaxed text-(--af-grey-light)">
+              Digital sovereignty depends on accurate language. False certainty makes artists more vulnerable, not less.
+            </p>
+          </div>
+          <div className="border-t border-white/10">
+            {NOT_CLAIMS.map((claim, index) => (
+              <div key={claim} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-white/10 py-5">
+                <span className="text-xs font-bold text-(--af-red)">{String(index + 1).padStart(2, '0')}</span>
+                <p className="text-sm leading-relaxed text-(--af-grey-light)">{claim}</p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Data model preview */}
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6 mb-16 overflow-auto">
-          <div className="text-[10px] tracking-[0.4em] text-(--af-grey-light) uppercase mb-4">Record schema (preview)</div>
-          <pre className="text-xs text-(--af-grey-light) leading-relaxed whitespace-pre-wrap">{`ProvenanceRecord {
-  id               — unique record ID
-  artistId         — your AFROMATIONS account
-  characterId      — the character this belongs to
-  title            — record title / description
-  sourceFiles      — original file paths
-  finalFiles       — output file paths
-  fileHashes       — SHA-256 of each file
-  humanContribution — your creative process notes
-  aiToolsUsed      — ["Flux", "AfroScribble", ...]
-  promptsUsed      — optional: prompts used
-  licenseTerms     — current license
-  copyrightStatus  — human_authored | ai_assisted | ai_generated
-  publicProofUrl   — shareable permalink
-  createdAt / updatedAt
-}`}</pre>
-        </div>
-
-        {/* What blockchain can / cannot do */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-          <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6">
-            <div className="text-[10px] tracking-wider text-emerald-400 uppercase mb-3">Blockchain can</div>
-            <ul className="space-y-2 text-sm text-(--af-grey-light)">
-              {[
-                'Timestamp when a file hash was recorded',
-                'Create a tamper-evident evidence trail',
-                'Show prior use in licensing disputes',
-                'Build buyer confidence in auctions',
-                'Support (not replace) copyright registration',
-              ].map((item) => (
-                <li key={item} className="flex gap-2"><span className="text-emerald-400 shrink-0">✓</span>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-6">
-            <div className="text-[10px] tracking-wider text-red-400 uppercase mb-3">Blockchain cannot</div>
-            <ul className="space-y-2 text-sm text-(--af-grey-light)">
-              {[
-                'Create copyright or trademark rights',
-                'Replace registration with the Copyright Office',
-                'Prevent infringement on its own',
-                'Substitute for contracts',
-                'Provide legal protection without an attorney',
-              ].map((item) => (
-                <li key={item} className="flex gap-2"><span className="text-red-400 shrink-0">✗</span>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="rounded-xl border border-(--af-red)/20 bg-(--af-red)/5 p-8 text-center">
-          <div className="text-xl font-semibold mb-3">Get access to the Provenance Vault</div>
-          <p className="text-(--af-grey-light) text-sm mb-6">
-            The Vault is part of the Hana Artist Partner Program. Apply for an invite to get started.
+      <section className="px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="vault-cta-title">
+        <div className="mx-auto max-w-5xl border border-(--af-red)/30 bg-(--af-red)/5 p-7 text-center sm:p-12">
+          <p className="text-[10px] font-semibold tracking-[0.3em] text-(--af-red) uppercase">Build the first public cases with us</p>
+          <h2 id="vault-cta-title" className="mt-4 text-3xl font-bold sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+            Dual becomes the proof. Founding artists become the standard.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-(--af-grey-light)">
+            We are building the initial verification records with a small artist circle before expanding the system.
           </p>
-          <Link href="/apply" className="af-btn-primary inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold">
-            Apply for Invite
+          <Link href="/apply?path=artist" className="af-btn-primary mt-7 inline-flex min-h-12 items-center justify-center rounded-full px-8 text-sm font-semibold">
+            Apply to the Founding Circle
           </Link>
+          <p className="mt-7 text-xs leading-relaxed text-(--af-grey-light)">
+            Educational information only. This is not legal advice. Work with a licensed attorney for legal decisions.
+          </p>
         </div>
-      </div>
+      </section>
     </main>
   )
 }
