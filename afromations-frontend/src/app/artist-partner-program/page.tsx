@@ -1,208 +1,230 @@
-import Link from 'next/link'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Hana Artist Partner Program — AFROMATIONS',
+  title: 'Founding Tattoo Artist Circle — AFROMATIONS',
   description:
-    'Private AI studio agents for 21+ serious artists. Turn your original characters into a protected, monetizable creative business.',
+    'Join the AFROMATIONS founding tattoo artist circle. Keep ownership of your art while we connect it to paid character, merchandise, media, and licensing opportunities.',
 }
 
-const WHAT_HANA_DOES = [
+const BENEFITS = [
   {
-    title: 'Research your niche',
-    desc: 'Hana studies your market, competitors, and audience so you do not have to.',
+    title: 'We market the artist, not only the image',
+    body: 'Every campaign can point back to your name, studio, portfolio, booking link, and future commissions.',
   },
   {
-    title: 'Generate content at scale',
-    desc: 'Blog posts, YouTube scripts, social packs, and reels — all in your voice, all original.',
+    title: 'Written rights before production',
+    body: 'You see exactly what is being licensed, for which products, for how long, and whether the use is exclusive.',
   },
   {
-    title: 'Manage your publishing queue',
-    desc: 'You approve. Hana schedules. Nothing goes live without your sign-off.',
+    title: 'Paid human finish work',
+    body: 'When a mockup moves forward, the originating artist or another agreed human artist can be paid to prepare the final commercial art.',
   },
   {
-    title: 'Track provenance and authorship',
-    desc: 'Every file hashed. Every AI tool documented. Human contribution noted.',
+    title: 'Certificate and provenance record',
+    body: 'Approved works receive contributor records, license notes, file fingerprints, timestamps, and a public verification reference when applicable.',
   },
   {
-    title: 'Build your artist landing page',
-    desc: 'Your characters deserve a professional home. Hana builds and maintains it.',
+    title: 'Local relationships first',
+    body: 'We are beginning with a small Seattle and Puget Sound circle so partnerships are personal, reviewable, and useful to the artist.',
   },
   {
-    title: 'Coordinate drops and commissions',
-    desc: 'Hana prepares drop pages, provenance records, and commission workflows for you.',
+    title: 'Future opportunities compound',
+    body: 'A strong collaboration can lead to new commissions, drops, character projects, licensing conversations, and recurring campaign work.',
   },
 ]
 
-const PACKAGES = [
-  {
-    name: '24-Hour Character Demo',
-    badge: 'Free / Invite-only',
-    items: [
-      'One original character evaluated',
-      'Hana generates sample content pack',
-      'Provenance trail started',
-      'Full report delivered in 24 hours',
-      'No commitment required',
-    ],
-    cta: 'Request a Demo',
-    href: '/apply?type=demo',
-    highlight: false,
-  },
-  {
-    name: 'Partner Install',
-    badge: 'Paid — Apply to unlock pricing',
-    items: [
-      'Full Hana agent installed for your studio',
-      'Artist landing page built and deployed',
-      'Research pipeline configured',
-      'Publishing queue live (approval-gated)',
-      'Provenance Vault initialized',
-      'Monthly maintenance and content cadence',
-    ],
-    cta: 'Apply for Invite',
-    href: '/apply?type=partner',
-    highlight: true,
-  },
-  {
-    name: 'Drop / Auction Support',
-    badge: 'Add-on — Partner artists only',
-    items: [
-      'Character drop page prepared',
-      'Provenance record for each drop',
-      'Auction coordination support',
-      'Commission agreement templates',
-      'Licensing opportunity preparation',
-    ],
-    cta: 'Ask about drops',
-    href: '/apply?type=drops',
-    highlight: false,
-  },
+const COVENANT = [
+  'No fee to join the founding artist roster.',
+  'Your pre-existing art remains yours unless you knowingly sign a separate transfer.',
+  'No model training on your work without explicit written permission.',
+  'No voice, likeness, or style cloning hidden inside a general consent form.',
+  'Project compensation or revenue share is agreed before commercial use.',
+  'Qualifying AFROMATIONS-owned collaborative drops pay the artist at least 40% of net profit.',
+  'No artist is asked to work only for exposure.',
+  'Every human contributor receives a visible role and credit record.',
+  'AI-assisted stages are disclosed in the production record.',
+  'You receive the approved files and the agreement that governs their use.',
+]
+
+const FIT = [
+  'Tattoo artists with original flash or character work',
+  'Anime and manga illustrators',
+  'Black and independent artists building a recognizable world',
+  'Artists interested in merchandise, media, or licensing',
+  'Studios open to local collaborations and public promotion',
+  'Artists who care about ownership, attribution, and transparent terms',
 ]
 
 export default function ArtistPartnerProgramPage() {
   return (
     <main className="min-h-screen bg-(--af-black) text-(--af-cream)">
-      {/* Nav */}
-      <nav className="border-b border-white/5 px-6 py-4 flex items-center gap-4 text-xs">
-        <Link href="/" className="font-bold tracking-widest text-(--af-red)">AFROMATIONS</Link>
-        <span className="text-(--af-grey-light)">/</span>
-        <span>Artist Partner Program</span>
+      <nav className="border-b border-white/5 px-5 py-4 sm:px-8" aria-label="Breadcrumb">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 text-xs">
+          <Link href="/" className="font-bold tracking-[0.16em] text-(--af-red)">AFROMATIONS</Link>
+          <span className="text-(--af-grey-light)">/</span>
+          <span>Founding Tattoo Artist Circle</span>
+        </div>
       </nav>
 
-      <div className="max-w-5xl mx-auto px-6 py-16">
-        {/* Hero */}
-        <div className="mb-4 text-[10px] tracking-[0.4em] text-(--af-red) uppercase">Invite-only · 21+</div>
-        <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ fontFamily: 'Sora, sans-serif' }}>
-          Turn your characters into<br className="hidden sm:block" /> an AI-powered creative business.
-        </h1>
-        <p className="text-lg text-(--af-grey-light) max-w-2xl mb-8">
-          Hana installs a private AI studio agent for serious 21+ artists. She manages your research, content, publishing queue, provenance records, and artist landing page — while you stay focused on creating.
-        </p>
-        <div className="flex flex-wrap gap-4 mb-16">
-          <Link href="/apply" className="af-btn-primary inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold">
-            Apply for Invite
-          </Link>
-          <Link href="/dual" className="af-btn-secondary inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold">
-            Watch Hana Build Dual →
-          </Link>
-        </div>
-
-        {/* What Hana does */}
-        <div className="mb-16">
-          <div className="text-[10px] tracking-[0.4em] text-(--af-grey-light) uppercase mb-4">What Hana manages for you</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {WHAT_HANA_DOES.map((item) => (
-              <div key={item.title} className="rounded-xl border border-white/10 bg-white/5 p-5">
-                <div className="text-sm font-semibold mb-2">{item.title}</div>
-                <div className="text-sm text-(--af-grey-light) leading-relaxed">{item.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Packages */}
-        <div className="mb-16">
-          <div className="text-[10px] tracking-[0.4em] text-(--af-grey-light) uppercase mb-6">How to work with Hana</div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {PACKAGES.map((pkg) => (
-              <div
-                key={pkg.name}
-                className={`rounded-xl border p-6 flex flex-col ${
-                  pkg.highlight
-                    ? 'border-(--af-red)/40 bg-white/8'
-                    : 'border-white/10 bg-white/5'
-                }`}
-              >
-                {pkg.highlight && (
-                  <div className="text-[10px] text-(--af-red) tracking-widest uppercase mb-3">Most popular</div>
-                )}
-                <div className="text-lg font-semibold mb-1">{pkg.name}</div>
-                <div className="text-[10px] text-(--af-grey-light) mb-4">{pkg.badge}</div>
-                <ul className="flex-1 space-y-2 mb-6">
-                  {pkg.items.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm text-(--af-grey-light)">
-                      <span className="text-(--af-red) shrink-0">→</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={pkg.href}
-                  className={`inline-flex items-center justify-center px-4 py-2.5 rounded-full text-sm font-semibold transition-opacity hover:opacity-90 ${
-                    pkg.highlight
-                      ? 'bg-(--af-red) text-(--af-cream)'
-                      : 'border border-white/20 text-(--af-cream)'
-                  }`}
-                >
-                  {pkg.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Who this is for */}
-        <div className="rounded-xl border border-white/10 bg-white/5 p-8 mb-16">
-          <div className="text-[10px] tracking-[0.4em] text-(--af-grey-light) uppercase mb-4">Who this is for</div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
-            {[
-              'Anime artists', 'Character designers', 'Manga creators',
-              'Tattoo artists', 'Muralists', 'Animators',
-              'Illustrators', 'Musicians with visual IP', 'Creators with original characters',
-            ].map((type) => (
-              <div key={type} className="text-sm text-(--af-grey-light) flex gap-2">
-                <span className="text-(--af-red)">◆</span>{type}
-              </div>
-            ))}
-          </div>
-          <p className="text-sm text-(--af-grey-light)">
-            AfroMations is currently invite-only for <strong className="text-(--af-cream)">21+ artists and creative professionals</strong>. We review applications personally and move slowly on purpose.
+      <section className="relative overflow-hidden border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="artist-program-title">
+        <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(196,30,30,.16),transparent_62%)]" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl">
+          <p className="text-[10px] font-semibold tracking-[0.34em] text-(--af-red) uppercase">
+            Seattle + Puget Sound // founding roster
           </p>
-        </div>
-
-        {/* The first story */}
-        <div className="mb-16 max-w-2xl">
-          <div className="text-[10px] tracking-[0.4em] text-(--af-grey-light) uppercase mb-4">The first public story</div>
-          <p className="text-base text-(--af-grey-light) leading-relaxed">
-            Dual is being built in public by Hana. Watch what Hana can do with one original character — research, content, provenance, landing page, and drops. Apply if you want your art to move, sell, and become a protected creative business.
+          <h1
+            id="artist-program-title"
+            className="mt-5 max-w-5xl text-4xl font-extrabold leading-[.98] tracking-[-.055em] sm:text-6xl lg:text-7xl"
+            style={{ fontFamily: 'Sora, sans-serif', textWrap: 'balance' }}
+          >
+            Keep your art. Grow your name. Let us build the market around it.
+          </h1>
+          <p className="mt-7 max-w-3xl text-lg leading-relaxed text-(--af-grey-light)">
+            AFROMATIONS connects tattoo artists and anime creators to character projects, merchandise,
+            campaigns, and licensing opportunities. We handle the production system and promotion while
+            artists keep control of the work they created.
           </p>
-          <div className="mt-4">
-            <Link href="/dual" className="text-sm text-(--af-red) hover:underline">
-              Follow the Dual build log →
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link href="/apply?path=artist" className="af-btn-primary inline-flex min-h-12 items-center justify-center rounded-full px-8 text-sm font-semibold">
+              Apply to Join the Founding Circle
+            </Link>
+            <Link href="/provenance" className="af-btn-secondary inline-flex min-h-12 items-center justify-center rounded-full border px-8 text-sm font-semibold">
+              Review the Artist Protection System
             </Link>
           </div>
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-(--af-grey-light)">
+            <span>No roster fee</span>
+            <span aria-hidden="true">◆</span>
+            <span>Written project terms</span>
+            <span aria-hidden="true">◆</span>
+            <span>40% minimum net-profit floor on qualifying AFROMATIONS-owned drops</span>
+            <span aria-hidden="true">◆</span>
+            <span>21+ founding program</span>
+          </div>
         </div>
+      </section>
 
-        {/* Apply CTA */}
-        <div className="rounded-xl border border-(--af-red)/20 bg-(--af-red)/5 p-8 text-center">
-          <div className="text-2xl font-bold mb-3" style={{ fontFamily: 'Sora, sans-serif' }}>Ready to apply?</div>
-          <p className="text-(--af-grey-light) mb-6">Applications take 5 minutes. We review personally and follow up within a few days.</p>
-          <Link href="/apply" className="af-btn-primary inline-flex items-center px-8 py-3 rounded-full text-sm font-semibold">
-            Apply for Invite
-          </Link>
+      <section className="border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="how-it-works-title">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-16">
+            <div>
+              <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-gold) uppercase">How it works</p>
+              <h2 id="how-it-works-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+                Small circle. Real agreements. Useful opportunities.
+              </h2>
+              <p className="mt-5 text-sm leading-relaxed text-(--af-grey-light)">
+                We do not need thousands of artists to start. We need a small roster whose work is distinct,
+                whose terms are respected, and whose collaborations can become public proof that the model works.
+              </p>
+            </div>
+
+            <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
+              {BENEFITS.map((item, index) => (
+                <article key={item.title} className="bg-(--af-black) p-6 sm:p-7">
+                  <div className="text-xs font-bold text-(--af-red)">{String(index + 1).padStart(2, '0')}</div>
+                  <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-(--af-grey-light)">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section className="border-b border-white/5 bg-(--af-grey)/35 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="two-paths-title">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-red) uppercase">Two ways to work with AFROMATIONS</p>
+          <h2 id="two-paths-title" className="mt-4 max-w-3xl text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+            Join as an artist—or hire Hana to build your own character business.
+          </h2>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            <article className="border border-(--af-gold)/30 bg-[#15120d] p-7 sm:p-9">
+              <div className="text-[10px] font-semibold tracking-[0.28em] text-(--af-gold) uppercase">Artist roster</div>
+              <h3 className="mt-4 text-3xl font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>Founding Tattoo Artist Circle</h3>
+              <p className="mt-4 text-sm leading-relaxed text-(--af-grey-light)">
+                Submit your portfolio. When your work fits a project, we present written terms and a paid collaboration or revenue-share option before anything is used commercially.
+              </p>
+              <div className="mt-6 text-4xl font-bold">$0</div>
+              <div className="text-xs text-(--af-grey-light)">to join the roster</div>
+              <Link href="/apply?path=artist" className="af-btn-primary mt-7 inline-flex min-h-12 items-center justify-center rounded-full px-7 text-sm font-semibold">
+                Apply as an Artist
+              </Link>
+            </article>
+
+            <article className="border border-(--af-red)/35 bg-(--af-black) p-7 sm:p-9">
+              <div className="text-[10px] font-semibold tracking-[0.28em] text-(--af-red) uppercase">Done-for-you installation</div>
+              <h3 className="mt-4 text-3xl font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>Hana Character Launch Agent</h3>
+              <p className="mt-4 text-sm leading-relaxed text-(--af-grey-light)">
+                Give Hana one original character. We install the private studio agent, consistency system, campaign assets, merchandise concepts, animation tests, and provenance workflow.
+              </p>
+              <div className="mt-6 text-4xl font-bold">$1,495</div>
+              <div className="text-xs text-(--af-grey-light)">or 3 payments of $550</div>
+              <Link href="/apply?path=hana" className="af-btn-primary mt-7 inline-flex min-h-12 items-center justify-center rounded-full px-7 text-sm font-semibold">
+                Apply for a Hana Installation
+              </Link>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="covenant-title">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-red) uppercase">The artist covenant</p>
+            <h2 id="covenant-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+              Nobody should have to surrender their future to get help marketing their art.
+            </h2>
+            <p className="mt-6 text-sm leading-relaxed text-(--af-grey-light)">
+              These are operating rules, not decorative values. The project agreement controls each collaboration,
+              but the default posture is artist ownership, informed permission, visible credit, and understandable terms.
+            </p>
+          </div>
+          <div className="border-t border-white/10">
+            {COVENANT.map((item, index) => (
+              <div key={item} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-white/10 py-5">
+                <span className="text-xs font-bold text-(--af-red)">{String(index + 1).padStart(2, '0')}</span>
+                <p className="text-sm leading-relaxed text-(--af-grey-light)">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="fit-title">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[1fr_.9fr] lg:items-center">
+            <div>
+              <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-gold) uppercase">Who should apply</p>
+              <h2 id="fit-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+                Artists with a real point of view.
+              </h2>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {FIT.map((item) => (
+                  <div key={item} className="flex gap-3 border-t border-white/10 py-3 text-sm text-(--af-grey-light)">
+                    <span className="text-(--af-red)">◆</span>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <aside className="border border-(--af-red)/30 bg-(--af-red)/5 p-7 sm:p-9">
+              <div className="text-[10px] font-semibold tracking-[0.28em] text-(--af-red) uppercase">Founding application</div>
+              <h3 className="mt-4 text-2xl font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>Show us the work you want the future to remember.</h3>
+              <p className="mt-4 text-sm leading-relaxed text-(--af-grey-light)">
+                We review every application personally. Portfolio quality, originality, professionalism, and fit matter more than follower count.
+              </p>
+              <Link href="/apply?path=artist" className="af-btn-primary mt-7 inline-flex min-h-12 w-full items-center justify-center rounded-full px-7 text-sm font-semibold">
+                Start the Artist Application
+              </Link>
+            </aside>
+          </div>
+          <p className="mt-12 text-xs leading-relaxed text-(--af-grey-light)">
+            Educational information only. This is not legal advice. Work with a licensed attorney for legal decisions.
+          </p>
+        </div>
+      </section>
     </main>
   )
 }
