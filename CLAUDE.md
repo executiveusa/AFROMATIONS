@@ -1,226 +1,205 @@
-# AFROMATIONS — Claude Code Customizer
+# AFROMATIONS — Project Operating Contract
 
 ## Project Identity
 
-AFROMATIONS is a **21+ artist infrastructure platform**.
+AFROMATIONS is Tyshawn's original anime universe and an artist-sovereignty production platform.
 
-It helps serious artists turn original characters into protected, monetizable creative IP through private AI studio agents, production workflows, artist landing pages, provenance tracking, auctions, commissions, licensing, and build-in-public systems.
+The public experience is entertainment first:
+- **Dual** is the flagship original character and public proof-of-work IP.
+- **Seattle 2056** is the opening world.
+- **Hana** is the intelligent character, private operator, and repeatable studio product.
 
-This is **not** a generic AI image app.  
-This is **not** a kids-first learning app.  
-This is **not** a nonprofit.  
-This is **not** a self-serve gimmick.
+The professional platform helps tattoo artists, anime artists, manga creators, and original-character owners turn human-authored work into paid collaborations, media, merchandise, and licensing opportunities without surrendering control of their art.
 
-AFROMATIONS is a **for-profit artist infrastructure company** with a social-purpose commitment.
+This is not:
+- a generic AI image generator
+- an NFT marketplace
+- a hidden model-training operation
+- a platform that claims ownership by default
+- a law firm or automatic copyright service
 
----
+AFROMATIONS is a for-profit artist infrastructure company with a social-purpose commitment.
+
+## Core Position
+
+**Public promise:** "Every world starts with one original character."
+
+**Artist promise:** "Keep your art. Grow your name. Let us build the market around it."
+
+**Production doctrine:** "AI drafts. Artists author. AFROMATIONS proves the process."
+
+**Sovereignty line:** "AI-assisted. Human-finished. Creator-owned."
 
 ## Core Architecture
 
 | Layer | Purpose |
-|-------|---------|
-| **AFROMATIONS** | Head product architecture |
-| **Hana** | PI agent and platform manager |
-| **Dual** | In-house demo character and public proof-of-work IP |
-| **AfroScribble** | Creative tool: stencils, coloring pages, printables, asset packs |
-| **Paperclip** | Operations / control-plane layer |
-| **Absurd** | Durable workflow engine |
-| **Pi** | Coding / build harness |
-| **Provenance Vault** | Authorship / IP evidence layer |
-| **Artist Directory** | Future network / community graph |
-| **Drops / Auctions** | Monetization pathway |
-
----
+|---|---|
+| AFROMATIONS | Head product architecture and public universe |
+| Dual | Flagship character, story, and public proof-of-work |
+| Hana Operator | Tyshawn's private studio and business operator |
+| Hana Companion | Public anime-native Japanese and story companion |
+| Hana Studio | Paid creator installation product |
+| Artist Circle | Tattoo/anime artist roster and paid collaboration network |
+| Sovereignty Vault | Source, authorship, license, provenance, and certificate records |
+| Drops | Merchandise and digital release pathway |
+| Paperclip / Absurd / Pi | Operations, workflows, and build harnesses |
 
 ## Naming Rules
 
-Public name is **Hana**.  
-Legacy code may contain **Hanna** — do not break existing routes or imports by blindly renaming.  
-New public-facing UI and docs use **Hana**.  
-Legacy aliases may remain as compatibility paths.
+Public name is **Hana**.
+Legacy code may contain **Hanna**. Do not break routes or imports through blind renaming.
+New public UI, docs, copy, and assets use **Hana**.
 
----
+**Dual** is the character. Do not use Dual as the public name of a technical browser agent.
 
-## Target User
+## Primary Audiences
 
-21+ serious artists and creative professionals:
-- Anime artists, character designers, manga creators
-- Tattoo artists, muralists, animators, illustrators
-- Musicians needing visual IP
-- Creators with original characters
-- Studios and collectors
+1. Tattoo artists with original flash, characters, or recognizable visual work
+2. Anime artists, character designers, and manga creators
+3. Original-character owners who need a repeatable launch and production system
+4. Musicians and creators with original visual IP
 
----
+Initial artist recruitment is local-first: Seattle and the Puget Sound region.
 
-## Core Offer
+## Locked Offers
 
-**Primary offer:** Hana Artist Partner Program  
-**Primary promise:** "Turn your characters into an AI-powered creative business."  
-**Primary CTA:** "Apply for Invite"  
-**Secondary CTA:** "Watch Hana Build Dual"
+### Founding Tattoo Artist Circle
 
----
+- $0 to join the roster
+- artists keep pre-existing rights by default
+- project-specific written licenses
+- paid work or written revenue share agreed before commercial use
+- at least 40% of net profit to the contributing artist on qualifying AFROMATIONS-owned collaborative drops
+- no exposure-only work
+- visible credit and promotion
+- provenance and certificate record when applicable
 
-## Business Model
+### Hana Character Launch Agent
 
-1. Invite-only artist application + waitlist
-2. 24-hour character demo
-3. Paid Hana artist agent install
-4. Monthly agent management fee
-5. Artist landing pages
-6. Character asset packs
-7. Auction / drop commissions
-8. Licensing commissions
-9. Provenance / IP workflow support
+- **$1,495 paid in full**
+- **3 payments of $550 ($1,650 total)**
+- optional maintenance: **$249/month, cancel anytime**
+- three founding installations
 
----
+Core package:
+- private Hana agent installation
+- one primary original character
+- character consistency system
+- 15 campaign assets
+- 5 merchandise concepts
+- 3 animation tests
+- voice and Telegram control
+- 30-day content engine
+- Provenance Starter Vault
+- one paid human finish pass
+- one public artwork verification page
+- one optional blockchain evidence anchor
+- two creative revision rounds
+
+Third-party APIs, hosting, ads, physical samples, platform fees, and product-order costs are client-paid.
+
+## Artist Covenant
+
+1. No model training on artist work without explicit written permission.
+2. No hidden transfer of pre-existing intellectual property.
+3. No voice, likeness, or style cloning inside general consent language.
+4. Human contributors are credited and paid.
+5. AI-assisted stages are disclosed.
+6. Publishing and commercial use require owner approval.
+7. Rights grants state product, territory, duration, exclusivity, payment, and renewal.
+8. Artists retain access to approved files and records.
+9. The campaign promotes the artist, studio, portfolio, and future commissions.
+10. Artists can leave the platform without losing access to their own work.
 
 ## UI Truth Rule
 
-Every page, CTA, nav item, and feature claim must connect to:
-1. Implemented functionality, OR
-2. A real waitlist / application path, OR
-3. A placeholder labeled "Coming soon", "Invite-only", or "Prototype", OR
-4. A documented roadmap item
+Every page, CTA, price, nav item, and feature claim must connect to:
+1. implemented functionality, or
+2. a real application / waitlist path, or
+3. an explicitly labeled prototype, invite-only feature, or roadmap item.
 
-**No fake product claims. No promised features that don't exist.**
-
----
+No fake statistics, testimonials, partnerships, legal guarantees, or autonomous publishing claims.
 
 ## Legal / IP Copy Rules
 
-Required disclaimer on all IP/legal pages:
-> "Educational information only. This is not legal advice. Work with a licensed attorney for legal decisions."
+Required disclaimer on all legal, licensing, or provenance pages:
 
-Do NOT say:
-- Guaranteed copyright
-- Blockchain trademark
-- Automatic legal protection
+> Educational information only. This is not legal advice. Work with a licensed attorney for legal decisions.
+
+Do not claim:
+- guaranteed copyright
+- blockchain trademark
+- automatic legal protection
+- a token proves legal ownership
+- a file hash proves the submitter had permission
 - AI-generated work is always protected
-- AfroMations is a law firm
 
 Correct framing:
-- Blockchain can timestamp evidence
-- Copyright and trademark require legal process
-- Human authorship matters
-- Contracts and records matter
-- Artists need provenance trails
+- human authorship and decisions matter
+- contracts and license scope matter
+- source files and contributor records matter
+- hashes help verify file identity
+- timestamps and blockchain anchors can support evidence of existence at a time
+- C2PA-style credentials support provenance, not automatic ownership
+- government registration and legal advice are separate processes
 
----
+## Public Route Hierarchy
 
-## 21+ Rule
+- `/` — Dual-first cinematic homepage and artist-sovereignty position
+- `/dual` — Seattle 2056 story and public proof-of-work
+- `/hana` — Hana companion and agent identity
+- `/artist-partner-program` — Founding Tattoo Artist Circle
+- `/studio` — $1,495 Hana Character Launch Agent offer
+- `/provenance` — Sovereignty Vault and certificate system
+- `/apply` — Artist roster / Hana installation application
+- `/drops` — Approved merchandise and releases
+- `/manga` — Dual manga build
 
-Public platform language: "AfroMations is currently invite-only for 21+ artists and creative professionals."
-
-Do not lead with youth, school, or kids.
-
----
+Secondary/future routes must not compete with these in primary navigation.
 
 ## Build Priorities
 
-1. Waitlist / application flow
-2. Hana Artist Partner Program page
-3. Dual public demo / build-in-public page
-4. Provenance Vault placeholder + schema
-5. IP / legal blog structure
-6. Drops / auction placeholder
-7. Directory placeholder
-8. AfroScribble tool integration docs
-9. Paperclip / Absurd / Pi architecture docs
-10. UI copy audit
-11. Build / lint verification
-
----
+1. Working artist / Hana application flow
+2. Tattoo Artist Circle recruitment page
+3. Clear $1,495 Hana offer and payment plan
+4. Dual story route with no technical-agent identity collision
+5. Sovereignty Vault v0 and readable certificate model
+6. Artist covenant and license workflow
+7. Artist roster and local outreach workflow
+8. Product / drop workflow with Printify integration
+9. Hana skills and lazy-loaded ICM context structure
+10. Japanese localization after English source copy is stable
 
 ## Engineering Rules
 
-**Before editing:**
-- Inspect existing structure and framework versions
-- Find Hana / Hanna routes and avoid breaking them
-- Produce a short plan
+Before editing:
+- inspect framework, routes, API schemas, and dirty state
+- check Hana / Hanna compatibility
+- create a rollback copy
+- identify the exact files and acceptance checks
 
-**When editing:**
-- Preserve working code
-- Make small, safe changes
-- Use compatibility aliases, not blind renames
-- No secrets in code
-- Keep backend and UI aligned — no fake UI promises
+When editing:
+- preserve working backend behavior
+- use small, reviewable changes
+- do not expose secrets or edit environment files
+- keep UI payloads aligned with API validation
+- no fake backend claims
+- use human approval gates for publishing, purchases, deletion, rights changes, and production deployment
 
-**After editing:**
-- Run lint if available
-- Run typecheck if available
-- Run build if available
-- List changed files and unresolved issues
-
----
-
-## Required Routes
-
-**Frontend pages:**
-- `/` — Homepage
-- `/hana` — Hana agent
-- `/dual` — Dual build-in-public
-- `/artist-partner-program` — Program details
-- `/apply` — Application form (21+, invite-only)
-- `/waitlist` — Redirect to `/apply`
-- `/studio` — AI creative tools
-- `/provenance` — Provenance Vault placeholder
-- `/drops` — Auction / drop placeholder
-- `/directory` — Artist directory placeholder
-- `/artists` — Artist discovery placeholder
-- `/services` — Service listing placeholder
-- `/commissions` — Commission requests
-- `/blog` — IP / legal education blog
-
-**Backend API:**
-- `POST /api/waitlist` — Collect waitlist signups
-- `POST /api/artist-application` — Full partner application
-
-**AfroScribble (future, document only):**
-- `POST /api/hana/tools/afroscribble/create`
-- `POST /api/hana/tools/afroscribble/stencil`
-- `POST /api/hana/tools/afroscribble/coloring-book`
-- `GET /api/hana/tools/afroscribble/jobs/:id`
-- `GET /api/hana/tools/afroscribble/exports/:id`
-
----
-
-## Copy System
-
-**Preferred headlines:**
-- "Turn your characters into an AI-powered creative business."
-- "Private AI studio agents for serious artists."
-- "Hana helps artists turn original characters into protected, monetizable IP."
-
-**Preferred CTAs:**
-- "Apply for Invite"
-- "Watch Hana Build Dual"
-- "Request a 24-Hour Character Demo"
-- "Join the Artist Partner Waitlist"
-- "Explore the Provenance Vault"
-- "Read the Artist IP Journal"
-- "Preview AfroScribble Workflow"
-
-**Avoid:**
-- "Sign up for school"
-- "Free AI art"
-- "Kids program"
-- "NFT marketplace"
-- "Instant legal protection"
-- "Blockchain trademark"
-
----
+After editing:
+- run TypeScript validation
+- run production build where the environment permits
+- verify all changed routes return 200
+- test the application payload against the backend schema
+- report warnings and unresolved issues honestly
 
 ## Final Report Format
 
-At the end of every major task, report:
-1. What was found
-2. What changed
-3. Routes added / updated
-4. UI copy updated
-5. Backend / API work done
-6. Tests / build commands run
-7. Errors or warnings
-8. Next recommended task
-9. Risks
-10. Files changed
+1. What changed
+2. Routes updated
+3. Offer and copy updates
+4. Backend / form alignment
+5. Tests run
+6. Warnings and unresolved risks
+7. Commit / branch information
+8. Recommended next task
