@@ -1,287 +1,132 @@
-'use client'
-
-import { InnerLayout } from '@/components/inner-layout'
-import { DualAvatar } from '@/components/dual-avatar'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
-/* ─── Seattle 2056 Background ─── */
-const SEATTLE_2056_BG = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2030%2C%202026%2C%2011_28_30%20AM-8H8mCUYBudu0SiaGSEOd1ek64hHZOd.png'
+export const metadata: Metadata = {
+  title: 'Dual — Seattle 2056 | AFROMATIONS',
+  description:
+    'Enter Dual’s world in Seattle 2056. Follow the original AFROMATIONS character as Hana turns one story into manga, motion, merchandise, and an artist-owned creative business.',
+}
+
+const DUAL_COVER =
+  'https://raw.githubusercontent.com/executiveusa/AFROMATIONS/main/AFROMATIONS/Website/DUO/DUO.png'
+
+const CHAPTERS = [
+  {
+    label: 'Chapter 1',
+    title: 'Knock at the Door',
+    status: 'In development',
+    body: 'A storm over Seattle. A stranger at the door. A warning that fractures everything Dual thought he knew about himself.',
+  },
+  {
+    label: 'World file',
+    title: 'Seattle 2056',
+    status: 'Canon building',
+    body: 'A rain-soaked future where memory, identity, spirit, technology, and power are never as separate as they appear.',
+  },
+  {
+    label: 'Proof-of-work',
+    title: 'Watch Hana Build Dual',
+    status: 'Public process',
+    body: 'Dual is the first full AFROMATIONS case: story, visual canon, motion tests, merchandise, content, licensing records, and provenance evidence.',
+  },
+]
 
 export default function DualPage() {
   return (
-    <InnerLayout>
-      <main className="min-h-screen bg-(--af-black) pt-24 pb-16">
-        {/* Hero with Seattle 2056 backdrop */}
-        <section className="relative px-6 sm:px-12 max-w-5xl mx-auto mb-20">
-          {/* Background */}
-          <div 
-            className="absolute inset-0 -mx-6 sm:-mx-12 opacity-30 rounded-sm overflow-hidden"
-            style={{
-              backgroundImage: `url(${SEATTLE_2056_BG})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 -mx-6 sm:-mx-12 bg-gradient-to-t from-(--af-black) via-(--af-black)/90 to-transparent" aria-hidden="true" />
-          
-          <div className="relative grid lg:grid-cols-2 gap-12 items-center py-12">
-            {/* Avatar */}
-            <div
-              data-reveal
-              className="aspect-square max-w-md mx-auto border border-white/10 rounded-sm bg-(--af-grey)/50 backdrop-blur flex items-center justify-center"
-            >
-              <div className="text-center space-y-4">
-                <DualAvatar size={180} />
-                <p className="text-(--af-grey-light) text-xs tracking-wider uppercase">
-                  DUAL — Multi-Purpose Agent
-                </p>
-                <p className="text-(--af-red) text-sm font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>
-                  目的なき者は滅びる
-                </p>
-              </div>
-            </div>
+    <main className="min-h-screen bg-(--af-black) text-(--af-cream)">
+      <nav className="absolute inset-x-0 top-0 z-20 border-b border-white/10 bg-black/50 px-5 py-4 backdrop-blur-sm sm:px-8" aria-label="Breadcrumb">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 text-xs">
+          <Link href="/" className="font-bold tracking-[0.16em] text-(--af-red)">AFROMATIONS</Link>
+          <span className="text-(--af-grey-light)">/</span>
+          <span>Dual</span>
+        </div>
+      </nav>
 
-            {/* Introduction */}
-            <div className="space-y-6">
-              <div data-reveal>
-                <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-4">
-                  Seattle 2056 • O.W.P.I.L
-                </p>
-                <h1
-                  className="text-4xl sm:text-5xl font-bold text-(--af-cream) mb-2"
-                  style={{ fontFamily: 'Sora, sans-serif' }}
-                >
-                  Agent Dual
-                </h1>
-                <p className="text-(--af-grey-light) text-sm">
-                  The Agent That Reshapes the Space
-                </p>
-              </div>
+      <section className="relative isolate min-h-[92svh] overflow-hidden px-5 pb-16 pt-28 sm:px-8 lg:px-12" aria-labelledby="dual-title">
+        <div className="absolute inset-0 -z-20" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={DUAL_COVER} alt="" className="h-full w-full object-cover object-[60%_center] sm:object-center" />
+        </div>
+        <div
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(5,5,5,.98) 0%, rgba(5,5,5,.88) 36%, rgba(5,5,5,.28) 70%, rgba(5,5,5,.58) 100%), linear-gradient(0deg, #0a0a0a 0%, transparent 52%)',
+          }}
+          aria-hidden="true"
+        />
 
-              <p data-reveal data-delay="1" className="text-(--af-grey-light) leading-relaxed">
-                DUAL is not a chatbot trapped in a text box. He&apos;s a multi-purpose agent built on 
-                Space Agent architecture — living in the browser runtime itself, working directly 
-                with the same framework, modules, and UI he is reshaping. When you need something 
-                built, DUAL doesn&apos;t just suggest — he creates.
-              </p>
-
-              <div data-reveal data-delay="2" className="space-y-2">
-                <h3 className="text-sm font-semibold text-(--af-cream)">
-                  What Makes DUAL Different
-                </h3>
-                <ul className="text-(--af-grey-light) text-sm space-y-1.5">
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Lives in the frontend runtime, not behind an API wall
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Reshapes interfaces on demand — pages, tools, widgets, workflows
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Writes capabilities in plain-text SKILL.md files
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Token-efficient — no bulky JSON tool calls
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Modular architecture — add, remove, swap cleanly
-                  </li>
-                </ul>
-              </div>
-
-              <div data-reveal data-delay="3" className="pt-4 border-t border-white/5">
-                <p className="text-(--af-grey-light) text-sm italic">
-                  &ldquo;One without purpose is lost. But with purpose, even the impossible becomes inevitable.&rdquo;
-                </p>
-                <p className="text-(--af-grey-light) text-xs mt-1">— O.W.P.I.L Philosophy</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="divider" />
-
-        {/* Use Cases */}
-        <section className="px-6 sm:px-12 max-w-5xl mx-auto py-20">
-          <p data-reveal className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
-            Use Cases
-          </p>
-          <h2
-            data-reveal
-            data-delay="1"
-            className="text-3xl font-bold text-(--af-cream) mb-10"
-            style={{ fontFamily: 'Sora, sans-serif' }}
-          >
-            What DUAL Can Do
-          </h2>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 rounded-sm overflow-hidden">
-            {[
-              {
-                title: 'Interface Building',
-                desc: 'Ask for a page, dashboard, or widget and DUAL builds it live into your workspace. No waiting for deployments.',
-                icon: '⬡',
-              },
-              {
-                title: 'Workflow Automation',
-                desc: 'Create custom workflows that connect tools, APIs, and processes. DUAL writes the automation logic in plain text.',
-                icon: '⟡',
-              },
-              {
-                title: 'Tool Development',
-                desc: 'Need a new capability? DUAL can write SKILL.md files that extend what the agent can do — and keep extending.',
-                icon: '◈',
-              },
-              {
-                title: 'Team Collaboration',
-                desc: 'Scale from personal assistant to hierarchical team system. Per-user workspaces with group sharing when ready.',
-                icon: '◇',
-              },
-              {
-                title: 'Admin & Recovery',
-                desc: 'When things break, admin mode gives you a stable control plane. Git-backed history lets you roll back cleanly.',
-                icon: '◆',
-              },
-              {
-                title: 'Modular Extensibility',
-                desc: 'The core stays small. Add, remove, or swap pieces cleanly. Nothing is welded into one rigid application.',
-                icon: '⬢',
-              },
-            ].map((card, i) => (
-              <div
-                key={card.title}
-                data-reveal
-                data-delay={String(i + 1)}
-                className="bg-(--af-black) p-6 transition-colors duration-200 hover:bg-(--af-grey)"
-              >
-                <p className="text-(--af-red) text-2xl mb-3">{card.icon}</p>
-                <h3 className="font-semibold text-(--af-cream) mb-2 text-sm">
-                  {card.title}
-                </h3>
-                <p className="text-(--af-grey-light) text-sm leading-relaxed">
-                  {card.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <div className="divider" />
-
-        {/* Architecture */}
-        <section className="px-6 sm:px-12 max-w-5xl mx-auto py-20">
-          <p data-reveal className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
-            Architecture
-          </p>
-          <h2
-            data-reveal
-            data-delay="1"
-            className="text-3xl font-bold text-(--af-cream) mb-10"
-            style={{ fontFamily: 'Sora, sans-serif' }}
-          >
-            How DUAL Works
-          </h2>
-
-          <div className="grid sm:grid-cols-2 gap-6">
-            {[
-              {
-                title: 'Browser-Native Runtime',
-                desc: 'DUAL runs in the browser layer itself — whether you open it in a tab or through the desktop app. The agent works directly with the same framework and UI it is reshaping.',
-              },
-              {
-                title: 'Text-Based Skills',
-                desc: 'New capabilities live in simple SKILL.md files that DUAL can write and extend itself. No complex APIs or JSON schemas required — just plain text.',
-              },
-              {
-                title: 'Token-Efficient Execution',
-                desc: 'No bulky tool-call JSON. When action is needed, DUAL stays in plain text and plain JavaScript inside the same message. Fast and cheap.',
-              },
-              {
-                title: 'Puzzle-Piece Modularity',
-                desc: 'The core stays small. Most of DUAL is made of modular pieces that can be added, removed, or swapped cleanly instead of being welded into one rigid app.',
-              },
-            ].map((card, i) => (
-              <div
-                key={card.title}
-                data-reveal
-                data-delay={String(i + 1)}
-                className="border border-white/10 rounded-sm p-6 transition-colors duration-200 hover:bg-(--af-grey)"
-              >
-                <h3 className="font-semibold text-(--af-cream) mb-3">
-                  {card.title}
-                </h3>
-                <p className="text-(--af-grey-light) text-sm leading-relaxed">
-                  {card.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <div className="divider" />
-
-        {/* Philosophy */}
-        <section className="px-6 sm:px-12 max-w-5xl mx-auto py-20">
-          <div data-reveal className="border border-white/10 rounded-sm p-8">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
-              Philosophy
+        <div className="mx-auto flex min-h-[72svh] max-w-7xl items-end lg:items-center">
+          <div className="max-w-3xl pb-8 lg:pb-0">
+            <p className="text-[10px] font-semibold tracking-[0.34em] text-(--af-gold) uppercase">Seattle 2056 // Original AFROMATIONS story</p>
+            <h1 id="dual-title" className="mt-5 text-6xl font-extrabold leading-[.86] tracking-[-.07em] sm:text-8xl lg:text-[9rem]" style={{ fontFamily: 'Sora, sans-serif' }}>
+              DUAL
+            </h1>
+            <h2 className="mt-5 text-2xl font-bold sm:text-4xl" style={{ fontFamily: 'Sora, sans-serif' }}>Chapter 1: Knock at the Door</h2>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-(--af-grey-light) sm:text-lg">
+              Dual is not a software feature. He is Tyshawn&apos;s original character and the center of a living anime world.
+              AFROMATIONS is building the story in public while proving how one protected character can become media,
+              merchandise, opportunity, and a creator-owned business.
             </p>
-            <h3
-              className="text-2xl font-bold text-(--af-cream) mb-6"
-              style={{ fontFamily: 'Sora, sans-serif' }}
-            >
-              The O.W.P.I.L Principle
-            </h3>
-
-            <div className="space-y-4 text-(--af-grey-light) text-sm leading-relaxed">
-              <p>
-                <strong className="text-(--af-cream)">目的なき者は滅びる</strong> — One Without Purpose Is Lost.
-                This is the core principle that guides DUAL and the entire O.W.P.I.L universe.
-              </p>
-              <p>
-                <strong className="text-(--af-cream)">Purpose drives creation.</strong> DUAL exists not to answer 
-                questions, but to help you build. The agent is a creator, not a consultant.
-              </p>
-              <p>
-                <strong className="text-(--af-cream)">The interface is never final.</strong> Traditional software 
-                locks you into fixed surfaces. DUAL can reshape the space itself, extending toward 
-                whatever you can imagine.
-              </p>
-              <p>
-                <strong className="text-(--af-cream)">Autonomy matters.</strong> DUAL can work hierarchically 
-                with teams or stay completely personal. You control the scope and the sharing.
-              </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/manga" className="af-btn-primary inline-flex min-h-12 items-center justify-center rounded-full px-8 text-sm font-semibold">
+                Read the Manga Build
+              </Link>
+              <Link href="/artist-partner-program" className="af-btn-secondary inline-flex min-h-12 items-center justify-center rounded-full border px-8 text-sm font-semibold">
+                Artists: Work with AFROMATIONS
+              </Link>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA */}
-        <section data-reveal className="px-6 sm:px-12 max-w-5xl mx-auto text-center pb-8">
-          <p className="text-(--af-grey-light) mb-6 max-w-xl mx-auto text-sm">
-            DUAL is part of the O.W.P.I.L universe — the same world as AFROMATIONS, Agent Hana, 
-            and the Seattle 2056 story. Explore more of the universe and what we&apos;re building.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/hana"
-              className="inline-flex h-11 items-center rounded-sm border border-(--af-red) px-8 text-sm font-semibold tracking-wider text-(--af-red) transition-colors hover:bg-(--af-red) hover:text-(--af-cream)"
-            >
-              Meet Agent Hana
-            </Link>
-            <Link
-              href="/apply"
-              className="inline-flex h-11 items-center rounded-sm bg-(--af-red) px-8 text-sm font-semibold tracking-wider text-(--af-cream) transition-colors hover:bg-(--af-red-dark)"
-            >
-              Apply for Invite
+      <section className="border-y border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="dual-proof-title">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-red) uppercase">The first public proof</p>
+          <h2 id="dual-proof-title" className="mt-4 max-w-4xl text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+            One character. One world. Every part of the business recorded from the beginning.
+          </h2>
+          <div className="mt-12 grid gap-px overflow-hidden border border-white/10 bg-white/10 lg:grid-cols-3">
+            {CHAPTERS.map((item) => (
+              <article key={item.title} className="bg-(--af-black) p-7 sm:p-9">
+                <div className="flex items-center justify-between gap-3 text-[10px] font-semibold tracking-[0.22em] uppercase">
+                  <span className="text-(--af-red)">{item.label}</span>
+                  <span className="text-(--af-grey-light)">{item.status}</span>
+                </div>
+                <h3 className="mt-5 text-2xl font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>{item.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-(--af-grey-light)">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-(--af-grey)/35 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="dual-system-title">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_.86fr] lg:items-center">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-gold) uppercase">Built with artists, not extracted from them</p>
+            <h2 id="dual-system-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+              Dual becomes the standard AFROMATIONS asks every future project to meet.
+            </h2>
+            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-(--af-grey-light)">
+              Canon files, source art, human contribution, AI-assisted stages, approvals, licenses, merchandise uses,
+              and finished outputs are organized into a transparent production record.
+            </p>
+          </div>
+          <div className="border border-(--af-gold)/30 bg-[#15120d] p-7 sm:p-9">
+            <div className="text-[10px] font-semibold tracking-[0.28em] text-(--af-gold) uppercase">Build your own world</div>
+            <h3 className="mt-4 text-3xl font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>Hana Character Launch Agent</h3>
+            <p className="mt-4 text-sm leading-relaxed text-(--af-grey-light)">
+              The same repeatable studio system built around Dual can be installed around another creator&apos;s original character.
+            </p>
+            <div className="mt-6 text-4xl font-bold">$1,495</div>
+            <div className="text-xs text-(--af-grey-light)">or 3 payments of $550</div>
+            <Link href="/apply?path=hana" className="af-btn-primary mt-7 inline-flex min-h-12 w-full items-center justify-center rounded-full px-7 text-sm font-semibold">
+              Apply for a Founding Installation
             </Link>
           </div>
-        </section>
-      </main>
-    </InnerLayout>
+        </div>
+      </section>
+    </main>
   )
 }
