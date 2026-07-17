@@ -3,31 +3,35 @@ import Link from 'next/link'
 import { ApplicationForm } from './form'
 
 export const metadata: Metadata = {
-  title: 'Apply — Hana Artist Partner Program',
+  title: 'Apply — AFROMATIONS',
   description:
-    'Apply for an invite to the AFROMATIONS Hana Artist Partner Program. Invite-only for 21+ serious artists.',
+    'Apply to join the founding tattoo artist circle or request a $1,495 done-for-you Hana Character Launch Agent installation.',
 }
 
 export default function ApplyPage() {
   return (
     <main className="min-h-screen bg-(--af-black) text-(--af-cream)">
-      <nav className="border-b border-white/5 px-6 py-4 flex items-center gap-4 text-xs">
-        <Link href="/" className="font-bold tracking-widest text-(--af-red)">AFROMATIONS</Link>
-        <span className="text-(--af-grey-light)">/</span>
-        <Link href="/artist-partner-program" className="text-(--af-grey-light) hover:text-(--af-cream)">Artist Partner Program</Link>
-        <span className="text-(--af-grey-light)">/</span>
-        <span>Apply</span>
+      <nav className="border-b border-white/5 px-5 py-4 sm:px-8" aria-label="Breadcrumb">
+        <div className="mx-auto flex max-w-4xl items-center gap-3 text-xs">
+          <Link href="/" className="font-bold tracking-[0.16em] text-(--af-red)">AFROMATIONS</Link>
+          <span className="text-(--af-grey-light)">/</span>
+          <span>Apply</span>
+        </div>
       </nav>
 
-      <div className="max-w-2xl mx-auto px-6 py-16">
-        <div className="mb-2 text-[10px] tracking-[0.4em] text-(--af-red) uppercase">Invite-only · 21+</div>
-        <h1 className="text-3xl font-bold mb-4" style={{ fontFamily: 'Sora, sans-serif' }}>
-          Apply for Invite
+      <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-24">
+        <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-red) uppercase">Founding applications // 21+</p>
+        <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-[1.02] tracking-[-.045em] sm:text-6xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+          Start with the work. Protect the relationship. Build from there.
         </h1>
-        <p className="text-(--af-grey-light) mb-8 text-sm leading-relaxed">
-          We review every application personally. Expect a response within a few days. If you are accepted, we will follow up with next steps.
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-(--af-grey-light)">
+          Apply to join the no-fee founding artist roster or request the $1,495 done-for-you Hana Character Launch Agent.
+          We review every application personally.
         </p>
-        <ApplicationForm />
+
+        <div className="mt-10 border border-white/10 bg-white/[.025] p-5 sm:p-8">
+          <ApplicationForm />
+        </div>
       </div>
     </main>
   )

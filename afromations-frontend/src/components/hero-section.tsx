@@ -1,348 +1,133 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'motion/react'
-import { useI18n } from '@/lib/i18n'
-import { TextEffect } from '@/components/motion/text-effect'
-import { InView } from '@/components/motion/in-view'
+import { motion } from 'motion/react'
 
-const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ闇光影夢二元'
-
-/* ─── DUAL Manga Panel Images (Comic Sequence Order) ─── */
-const DUAL_MANGA_PANELS = [
-  // Chapter 1: Knock at the Door
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_31_02%20AM-B7vy71gu07vkvWHBDYmJZ39yBrHnIu.png', // Panel 1
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_30_02%20A_1-ADk1XqYmRuiBsn6QtnbP8AcQoTgyuk.png', // Panel 2 (Seattle hero)
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_27_46%20AM-H8m7lCZtS92OytMbr5b8jdE3LvEoXj.png', // Panel 3 (Dark, dialogue)
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_26_37%20AM-rvx18sjPqy1iO9QqtNtGiDZbxkjx3h.png', // Panel 4 (Knock at door)
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_26_28%20AM-ZcIl2H6KfYW59e67jUQHZKrs0Wmy3j.png', // Panel 5 (Encounter)
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_29_58%20AM-rnQmozAc0Tefgw4c0JMOcV8keZCt39.png', // Panel 6 (They used you)
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_27_40%20AM-fkdfJoLyhKO8uU7QLBw1KyJ113c1R6.png', // Panel 7 (Escape)
-]
-
-const DUAL_IMAGES = {
-  cover: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Apr%2028%2C%202026%2C%2002_25_37%20AM-fhMW4mJmUIV5lL44XH2ghKMLfnv77m.png',
-}
-
-function scramble(el: HTMLElement, final: string) {
-  let frame = 0
-  const total = 14
-  const interval = setInterval(() => {
-    el.textContent = final
-      .split('')
-      .map((ch, i) => {
-        if (i < Math.floor((frame / total) * final.length)) return ch
-        return CHARS[Math.floor(Math.random() * CHARS.length)]
-      })
-      .join('')
-    frame++
-    if (frame > total) {
-      el.textContent = final
-      clearInterval(interval)
-    }
-  }, 38)
-}
-
-/* ─── Image carousel rotation hook with canvas-based sizing ─── */
-function useMangaPanelCycle() {
-  const [currentPanelIndex, setCurrentPanelIndex] = useState(1) // Start with panel 2 (Seattle)
-
-  // Use canvas to calculate optimal image display dimensions (pretext-style approach)
-  useEffect(() => {
-    const calculateImageDimensions = () => {
-      // Load first image to get its natural aspect ratio
-      const img = new Image()
-      img.crossOrigin = 'anonymous'
-      
-      img.onload = () => {
-      }
-      
-      img.onerror = () => {
-      }
-      
-      img.src = DUAL_MANGA_PANELS[1]
-    }
-
-    calculateImageDimensions()
-  }, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPanelIndex((prev) => (prev + 1) % DUAL_MANGA_PANELS.length)
-    }, 5000) // Change image every 5 seconds
-
-    return () => clearInterval(interval)
-  }, [])
-
-  return { currentPanelIndex, currentPanel: DUAL_MANGA_PANELS[currentPanelIndex] }
-}
-
-/* ─── Subtle floating ember effect on hero ─── */
-function useEmberCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-    resize()
-
-    const ro = new ResizeObserver(resize)
-    ro.observe(canvas)
-
-    interface Particle { x: number; y: number; vx: number; vy: number; life: number; maxLife: number; size: number }
-    let particles: Particle[] = []
-    let raf: number
-
-    function emit() {
-      const w = canvas!.width
-      const h = canvas!.height
-      particles.push({
-        x: w * 0.3 + Math.random() * w * 0.4,
-        y: h * 0.5 + Math.random() * h * 0.3,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: -(0.3 + Math.random() * 0.7),
-        life: 0,
-        maxLife: 80 + Math.random() * 120,
-        size: 0.5 + Math.random() * 1.8,
-      })
-      if (particles.length > 60) particles.shift()
-    }
-
-    function loop() {
-      if (!ctx || !canvas) return
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      emit()
-      particles = particles.filter((p) => {
-        p.x += p.vx
-        p.y += p.vy
-        p.vy += 0.004
-        p.life++
-        const a = Math.pow(1 - p.life / p.maxLife, 1.6)
-        if (a <= 0) return false
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size + 1, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(212,160,23,${(a * 0.2).toFixed(3)})`
-        ctx.fill()
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(245,200,80,${a.toFixed(3)})`
-        ctx.fill()
-        return true
-      })
-      raf = requestAnimationFrame(loop)
-    }
-    loop()
-    return () => {
-      cancelAnimationFrame(raf)
-      ro.disconnect()
-    }
-  }, [])
-}
+const DUAL_COVER =
+  'https://raw.githubusercontent.com/executiveusa/AFROMATIONS/main/AFROMATIONS/Website/DUO/DUO.png'
 
 export function HeroSection() {
-  const headingRef = useRef<HTMLHeadingElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const taglineRef = useRef<HTMLDivElement>(null)
-  const taglineInView = useInView(taglineRef, { once: true })
-  const { t } = useI18n()
-  const { currentPanel } = useMangaPanelCycle()
-
-  useEmberCanvas(canvasRef)
-
-  useEffect(() => {
-    const el = headingRef.current
-    if (!el) return
-    const final = el.textContent ?? ''
-    const timer = setTimeout(() => scramble(el, final), 300)
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
     <section
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-12 sm:pt-16 md:pt-20 sm:px-6 md:px-8 md:min-h-svh"
-      aria-label="Hero"
+      className="relative isolate min-h-[92svh] overflow-hidden border-b border-white/5 px-5 pb-16 pt-28 sm:px-8 lg:px-12"
+      aria-labelledby="home-hero-title"
     >
-      {/* ── Cinematic DUAL Background — Rotating Manga Panels ── */}
+      <div className="absolute inset-0 -z-30 bg-(--af-black)" />
       <motion.div
-        key={currentPanel}
-        className="pointer-events-none absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.8 }}
-        style={{ 
-          width: '100%', 
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-        }}
+        initial={{ opacity: 0, scale: 1.035 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute inset-0 -z-20"
+        aria-hidden="true"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={currentPanel}
-          alt="DUAL manga panel"
-          className="object-cover"
-          style={{ 
-            width: '100%',
-            height: '100%',
-            filter: 'brightness(0.85) saturate(1.1) contrast(1.05)',
-            objectFit: 'cover',
-            objectPosition: 'center',
-          }}
+          src={DUAL_COVER}
+          alt=""
+          className="h-full w-full object-cover object-[62%_center] sm:object-center"
           loading="eager"
         />
       </motion.div>
 
-      {/* ── Vignettes & Scrims ── */}
-      <div className="pointer-events-none absolute inset-0">
-        {/* Radial vignette */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 25%, rgba(10,10,10,0.35) 60%, rgba(10,10,10,0.7) 100%)',
-          }}
-        />
-        {/* Bottom scrim */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-2/5"
-          style={{ background: 'linear-gradient(to top, #0a0a0a 0%, transparent 100%)' }}
-        />
-        {/* Top scrim */}
-        <div
-          className="absolute inset-x-0 top-0 h-32"
-          style={{ background: 'linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)' }}
-        />
-        {/* Subtle gold tint overlay */}
-        <div className="absolute inset-0" style={{ background: 'rgba(212,160,23,0.03)' }} />
-      </div>
-
-      {/* ── Ember Canvas ── */}
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute inset-0 z-[1] h-full w-full"
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(5,5,5,.98) 0%, rgba(5,5,5,.88) 34%, rgba(5,5,5,.35) 68%, rgba(5,5,5,.62) 100%), linear-gradient(0deg, #0a0a0a 0%, transparent 45%)',
+        }}
         aria-hidden="true"
       />
 
-      {/* ── DUAL silhouette panel — desktop only ── */}
-      <div
-        className="pointer-events-none absolute bottom-0 right-0 z-[2] hidden lg:block"
-        style={{ height: '88%', width: '36%' }}
-        aria-hidden="true"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={DUAL_IMAGES.cover}
-          alt=""
-          className="h-full w-full object-contain object-bottom"
-          style={{
-            filter: 'brightness(0.7) drop-shadow(-8px 0 40px rgba(212,160,23,0.3))',
-            maskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 50%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 50%, transparent 100%)',
-            opacity: 0.6,
-          }}
-        />
-      </div>
-
-      {/* ── Vertical line accents ── */}
-      <div className="pointer-events-none absolute inset-y-0 left-12 hidden w-px bg-linear-to-b from-transparent via-(--af-gold)/10 to-transparent sm:block" />
-      <div className="pointer-events-none absolute inset-y-0 right-12 hidden w-px bg-linear-to-b from-transparent via-(--af-gold)/10 to-transparent sm:block" />
-
-      {/* ── Kanji accent top-left — 二 (DUAL) ── */}
-      <div
-        className="pointer-events-none absolute left-5 top-20 z-[2] hidden sm:block"
-        aria-hidden="true"
-      >
-        <span
-          style={{
-            fontFamily: 'serif',
-            fontSize: 'clamp(48px, 6vw, 80px)',
-            color: 'rgba(212,160,23,0.18)',
-            fontWeight: 900,
-            lineHeight: 1,
-            display: 'block',
-          }}
-        >
-          二
-        </span>
-      </div>
-
-      {/* ── Main Content — fully centered ── */}
-      <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
-
-        {/* Primary headline */}
-        <h1
-          ref={headingRef}
-          className="text-center font-bold leading-[0.95] tracking-tight text-(--af-cream)"
-          style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(2.5rem, 12vw, 8rem)' }}
-        >
-          {t('hero.title')}
-        </h1>
-
-        {/* "Where Worlds Collide, Stories Ignite" — 20% bigger, centered, scroll-in */}
-        <div ref={taglineRef} className="mt-4 sm:mt-6 flex justify-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={taglineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="max-w-2xl text-center font-semibold leading-[1.2] text-(--af-cream)"
-            style={{
-              fontFamily: 'Sora, sans-serif',
-              fontSize: 'clamp(1.2rem, 5vw, 3.5rem)',
-              textWrap: 'balance',
-            } as React.CSSProperties}
+      <div className="mx-auto grid min-h-[72svh] max-w-7xl items-end gap-12 lg:grid-cols-[1.08fr_.92fr] lg:items-center">
+        <div className="max-w-3xl pb-8 lg:pb-0">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mb-5 text-[10px] font-semibold tracking-[0.32em] text-(--af-gold) uppercase sm:text-xs"
           >
-            {t('hero.subtitle')}
-          </motion.h2>
+            Seattle 2056 // Built by artists. Owned by artists.
+          </motion.p>
+
+          <motion.h1
+            id="home-hero-title"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl text-4xl font-extrabold leading-[.96] tracking-[-.055em] text-(--af-cream) sm:text-6xl lg:text-[5.8rem]"
+            style={{ fontFamily: 'Sora, sans-serif', textWrap: 'balance' }}
+          >
+            Every world starts with one original character.
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.36 }}
+            className="mt-6 max-w-2xl text-base leading-relaxed text-(--af-grey-light) sm:text-xl"
+          >
+            Enter Dual&apos;s story. Then watch Hana turn the same character into manga,
+            motion, merchandise, and an artist-owned creative business—with every human
+            creator credited, paid, and in control.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="mt-8 flex flex-col gap-3 sm:flex-row"
+          >
+            <a
+              href="/dual"
+              className="af-btn-primary inline-flex min-h-12 items-center justify-center rounded-full px-7 text-sm font-semibold tracking-wide"
+            >
+              Enter Dual&apos;s World
+            </a>
+            <a
+              href="/artist-partner-program"
+              className="af-btn-secondary inline-flex min-h-12 items-center justify-center rounded-full border px-7 text-sm font-semibold tracking-wide"
+            >
+              Tattoo Artists: Join the Founding Circle
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.72 }}
+            className="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/10 pt-5 text-[11px] tracking-wide text-(--af-grey-light)"
+          >
+            <span>AI-assisted</span>
+            <span aria-hidden="true">◆</span>
+            <span>Human-finished</span>
+            <span aria-hidden="true">◆</span>
+            <span>Creator-owned</span>
+            <span aria-hidden="true">◆</span>
+            <span>Proven from first sketch to final drop</span>
+          </motion.div>
         </div>
 
-        {/* Description — centered */}
-        <TextEffect
-          as="p"
-          per="word"
-          preset="fade-in-blur"
-          delay={0.35}
-          className="mx-auto mt-3 sm:mt-5 max-w-2xl px-2 text-center text-sm sm:text-lg md:text-xl leading-relaxed text-(--af-grey-light) sm:px-0"
+        <motion.aside
+          initial={{ opacity: 0, x: 26 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden self-end pb-8 lg:block"
+          aria-label="AFROMATIONS artist promise"
         >
-          {t('hero.description')}
-        </TextEffect>
-
-        {/* Primary CTA — single clear path */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.55 }}
-          className="mt-6 sm:mt-8 flex flex-col items-center gap-4"
-        >
-          <a
-            href="/studio"
-            className="af-btn-primary inline-flex h-12 items-center justify-center rounded-full px-10 text-sm font-semibold tracking-wider"
-            aria-label="Open Hana Studio and start creating"
-          >
-            Start Creating
-          </a>
-          <p
-            className="text-center text-[11px] tracking-[0.25em] uppercase"
-            style={{ color: 'var(--af-grey-light)', opacity: 0.7 }}
-          >
-            Powered by Agent{' '}
-            <span style={{ color: 'var(--af-red)' }}>Hana</span>
-            {' '}花
-          </p>
-        </motion.div>
-
-        {/* Scroll indicator — centered */}
-        <div className="mt-8 sm:mt-12 flex flex-col items-center gap-2 text-(--af-grey-light)">
-          <span className="text-[10px] tracking-[0.35em] uppercase">{t('hero.scroll')}</span>
-          <div className="h-8 w-px bg-linear-to-b from-(--af-grey-light) to-transparent" />
-        </div>
+          <div className="ml-auto max-w-sm border border-(--af-gold)/30 bg-black/70 p-1 backdrop-blur-sm">
+            <div className="border border-white/10 px-6 py-6">
+              <p className="text-[10px] font-semibold tracking-[0.28em] text-(--af-gold) uppercase">
+                The AFROMATIONS promise
+              </p>
+              <p className="mt-4 text-2xl font-bold leading-tight text-(--af-cream)" style={{ fontFamily: 'Sora, sans-serif' }}>
+                AI drafts. Artists author. We prove the process.
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-(--af-grey-light)">
+                No hidden training rights. No silent ownership grabs. Every collaboration gets
+                written terms, contributor credit, payment records, and a verifiable certificate.
+              </p>
+            </div>
+          </div>
+        </motion.aside>
       </div>
     </section>
   )

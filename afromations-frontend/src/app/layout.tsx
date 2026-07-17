@@ -11,21 +11,22 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'AFROMATIONS Studios | Black-Owned Anime Studio',
+  title: 'AFROMATIONS | Artist-Owned Anime Studio',
   description:
-    'The biggest black-owned anime community. Powered by Agent Hanna — AI-driven 3D anime production, character design, and storytelling.',
+    'AFROMATIONS connects tattoo artists, anime creators, and original characters to paid collaboration, ethical AI production, merchandise, marketing, and verifiable provenance.',
   keywords: [
     'anime',
     'black anime',
     'afromations',
     'anime studio',
-    'agent hanna',
-    '3d anime',
+    'agent hana',
+    'tattoo artists',
+    'artist sovereignty',
     'anime community',
   ],
   openGraph: {
     title: 'AFROMATIONS Studios',
-    description: 'Black-Owned Anime Studio powered by Agent Hanna',
+    description: 'Artist-owned anime studio powered by Hana',
     type: 'website',
   },
 }

@@ -1,55 +1,40 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
-import { useI18n, LOCALES } from '@/lib/i18n'
-import { CartBadge } from './cart-badge'
+import { LOCALES, useI18n } from '@/lib/i18n'
+
+const LINKS = [
+  { label: 'Dual', href: '/dual' },
+  { label: 'Hana', href: '/hana' },
+  { label: 'Tattoo Artists', href: '/artist-partner-program' },
+  { label: 'Sovereignty', href: '/provenance' },
+  { label: 'Drops', href: '/drops' },
+]
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { locale, setLocale, t } = useI18n()
+  const { locale, setLocale } = useI18n()
 
-  const links = [
-    { label: 'Hana', href: '/hana' },
-    { label: 'Dual', href: '/dual' },
-    { label: 'Manga', href: '/manga' },
-    { label: 'Artist Partner', href: '/artist-partner-program' },
-    { label: 'Provenance', href: '/provenance' },
-    { label: 'Drops', href: '/drops' },
-    { label: 'Studio', href: '/studio' },
-  ]
-
-  const currentLocale = LOCALES.find((l) => l.code === locale)
+  const currentLocale = LOCALES.find((item) => item.code === locale)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
+    const onScroll = () => setScrolled(window.scrollY > 12)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Lock body scroll when mobile menu is open; auto-close when viewport grows to desktop
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden'
-    } else {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
       document.body.style.overflow = ''
     }
-    return () => { document.body.style.overflow = '' }
   }, [open])
 
-  useEffect(() => {
-    const mql = window.matchMedia('(min-width: 768px)')
-    const onBreakpoint = (e: MediaQueryListEvent) => {
-      if (e.matches) { setOpen(false); setLangOpen(false) }
-    }
-    mql.addEventListener('change', onBreakpoint)
-    return () => mql.removeEventListener('change', onBreakpoint)
-  }, [])
-
-  function handleLinkClick() {
+  const closePanels = () => {
     setOpen(false)
     setLangOpen(false)
   }
@@ -58,72 +43,60 @@ export function Navbar() {
     <>
       <nav
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 border-b border-white/5 transition-all duration-200',
-          scrolled
-            ? 'bg-(--af-black)/95 backdrop-blur-md shadow-[0_1px_20px_rgba(0,0,0,0.4)]'
-            : 'bg-(--af-black)/80 backdrop-blur-sm'
+          'fixed inset-x-0 top-0 z-50 border-b border-white/5 transition-colors duration-200',
+          scrolled ? 'bg-(--af-black)/95 backdrop-blur-md' : 'bg-(--af-black)/82 backdrop-blur-sm'
         )}
+        aria-label="Primary navigation"
       >
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-2 shrink-0" onClick={handleLinkClick}>
-            <span className="text-sm font-bold tracking-widest text-(--af-red)">
-              {t('nav.brand')}
-            </span>
-            <span className="hidden text-[10px] tracking-[0.3em] text-(--af-grey-light) uppercase sm:block">
-              {t('nav.brand.sub')}
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+          <a href="/" onClick={closePanels} className="flex items-center gap-2" aria-label="AFROMATIONS home">
+            <span className="text-sm font-extrabold tracking-[0.16em] text-(--af-red)">AFROMATIONS</span>
+            <span className="hidden text-[9px] tracking-[0.28em] text-(--af-grey-light) uppercase sm:block">
+              Artist-owned anime studio
             </span>
           </a>
 
-          {/* Desktop links + language toggle */}
-          <div className="hidden md:flex items-center gap-8">
-            {links.map((l) => (
+          <div className="hidden items-center gap-6 lg:flex">
+            {LINKS.map((link) => (
               <a
-                key={l.href}
-                href={l.href}
-                className="text-xs tracking-wider text-(--af-grey-light) transition-colors hover:text-(--af-cream)"
+                key={link.href}
+                href={link.href}
+                className="text-xs font-medium tracking-wide text-(--af-grey-light) transition-colors hover:text-(--af-cream)"
               >
-                {l.label}
+                {link.label}
               </a>
             ))}
-
-            {/* Apply CTA */}
-            <a
-              href="/apply"
-              className="af-btn-primary px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider"
-            >
-              Apply
+            <a href="/apply?path=artist" className="af-btn-primary rounded-full px-5 py-2 text-xs font-semibold">
+              Join the Circle
             </a>
 
-            {/* Cart Badge */}
-            <CartBadge />
-
-            {/* Language toggle */}
             <div className="relative">
               <button
-                onClick={() => setLangOpen(!langOpen)}
-                className="flex items-center gap-1.5 text-[10px] font-medium tracking-wider text-(--af-grey-light) uppercase transition-colors hover:text-(--af-cream)"
+                type="button"
+                onClick={() => setLangOpen((value) => !value)}
+                className="flex min-h-10 min-w-10 items-center justify-center text-[10px] font-semibold tracking-wider text-(--af-grey-light)"
                 aria-label="Change language"
                 aria-expanded={langOpen}
               >
                 {currentLocale?.flag}
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className={cn('transition-transform duration-150', langOpen && 'rotate-180')}>
-                  <path d="M2 4l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                </svg>
               </button>
               {langOpen && (
-                <div className="absolute right-0 top-full mt-2 w-32 overflow-hidden rounded-sm border border-white/10 bg-(--af-black)">
-                  {LOCALES.map((l) => (
+                <div className="absolute right-0 top-full mt-2 w-36 border border-white/10 bg-(--af-black) p-1 shadow-2xl">
+                  {LOCALES.map((item) => (
                     <button
-                      key={l.code}
-                      onClick={() => { setLocale(l.code); setLangOpen(false) }}
+                      key={item.code}
+                      type="button"
+                      onClick={() => {
+                        setLocale(item.code)
+                        setLangOpen(false)
+                      }}
                       className={cn(
-                        'flex w-full items-center gap-2 px-3 py-2 text-left text-xs transition-colors hover:bg-white/5',
-                        locale === l.code ? 'text-(--af-red)' : 'text-(--af-grey-light)'
+                        'flex w-full items-center justify-between px-3 py-2 text-left text-xs transition-colors hover:bg-white/5',
+                        locale === item.code ? 'text-(--af-red)' : 'text-(--af-grey-light)'
                       )}
                     >
-                      <span className="text-[10px] font-medium tracking-wider">{l.flag}</span>
-                      {l.label}
+                      <span>{item.label}</span>
+                      <span>{item.flag}</span>
                     </button>
                   ))}
                 </div>
@@ -131,23 +104,30 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Mobile controls */}
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <button
-              onClick={() => { setLangOpen(!langOpen); setOpen(false) }}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-[14px] text-(--af-grey-light) transition-colors hover:text-(--af-cream)"
+              type="button"
+              onClick={() => {
+                setLangOpen((value) => !value)
+                setOpen(false)
+              }}
+              className="flex h-11 w-11 items-center justify-center text-[11px] font-semibold text-(--af-grey-light)"
               aria-label="Change language"
               aria-expanded={langOpen}
             >
               {currentLocale?.flag}
             </button>
             <button
-              onClick={() => { setOpen(!open); setLangOpen(false) }}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-(--af-cream)"
+              type="button"
+              onClick={() => {
+                setOpen((value) => !value)
+                setLangOpen(false)
+              }}
+              className="flex h-11 w-11 items-center justify-center text-(--af-cream)"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
             >
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
                 <path
                   d={open ? 'M5 5l12 12M5 17L17 5' : 'M4 6h14M4 11h14M4 16h14'}
                   stroke="currentColor"
@@ -159,101 +139,73 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile language panel */}
-        <div
-          className={cn(
-            'md:hidden overflow-hidden border-t border-white/5 bg-(--af-black)/95',
-            'transition-all duration-200',
-            langOpen ? 'max-h-48 py-3' : 'max-h-0 py-0'
-          )}
-        >
-          <div className="flex flex-wrap gap-2 px-4">
-            {LOCALES.map((l) => (
-              <button
-                key={l.code}
-                onClick={() => { setLocale(l.code); setLangOpen(false) }}
-                className={cn(
-                  'rounded-full px-4 py-2 text-xs transition-colors',
-                  locale === l.code
-                    ? 'bg-(--af-red) text-(--af-cream)'
-                    : 'border border-white/10 text-(--af-grey-light)'
-                )}
-              >
-                {l.flag} {l.label}
-              </button>
-            ))}
+        {langOpen && (
+          <div className="border-t border-white/5 bg-(--af-black) px-4 py-3 lg:hidden">
+            <div className="mx-auto flex max-w-7xl flex-wrap gap-2">
+              {LOCALES.map((item) => (
+                <button
+                  key={item.code}
+                  type="button"
+                  onClick={() => {
+                    setLocale(item.code)
+                    setLangOpen(false)
+                  }}
+                  className={cn(
+                    'rounded-full border px-4 py-2 text-xs',
+                    locale === item.code
+                      ? 'border-(--af-red) bg-(--af-red) text-(--af-cream)'
+                      : 'border-white/10 text-(--af-grey-light)'
+                  )}
+                >
+                  {item.flag} {item.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </nav>
 
-      {/* Mobile full-screen overlay menu */}
       <div
         className={cn(
-          'fixed inset-0 z-40 md:hidden flex flex-col',
-          'bg-(--af-black) transition-all duration-200',
-          open
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
+          'fixed inset-0 z-40 bg-(--af-black) pt-20 transition-opacity duration-200 lg:hidden',
+          open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         )}
-        style={{ paddingTop: '56px' }}
         aria-hidden={!open}
       >
-        <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-safe">
-          {/* Nav links */}
-          <nav className="mt-6 flex flex-col gap-1">
-            {links.map((l, i) => (
+        <div className="flex h-full flex-col overflow-y-auto px-5 pb-safe">
+          <div className="text-[10px] font-semibold tracking-[0.3em] text-(--af-red) uppercase">Navigate</div>
+          <nav className="mt-5 border-t border-white/10">
+            {LINKS.map((link) => (
               <a
-                key={l.href}
-                href={l.href}
-                onClick={handleLinkClick}
-                className={cn(
-                  'flex items-center justify-between rounded-xl px-4 py-4 text-base font-medium',
-                  'text-(--af-cream) transition-colors active:bg-white/5',
-                  'border-b border-white/5 last:border-0',
-                  open ? 'opacity-100' : 'opacity-0'
-                )}
-                style={{
-                  transition: `opacity 0.2s ease ${open ? i * 30 : 0}ms, background-color 0.15s ease`,
-                }}
+                key={link.href}
+                href={link.href}
+                onClick={closePanels}
+                className="flex min-h-16 items-center justify-between border-b border-white/10 text-lg font-semibold text-(--af-cream)"
               >
-                <span>{l.label}</span>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                {link.label}
+                <span className="text-(--af-red)" aria-hidden="true">→</span>
               </a>
             ))}
           </nav>
-
-          {/* Apply CTA */}
-          <div className="mt-8 mb-2">
+          <div className="mt-8 space-y-3">
             <a
-              href="/apply"
-              onClick={handleLinkClick}
-              className="af-btn-primary flex h-12 w-full items-center justify-center rounded-full text-sm font-semibold tracking-wider"
+              href="/apply?path=artist"
+              onClick={closePanels}
+              className="af-btn-primary flex min-h-12 w-full items-center justify-center rounded-full px-6 text-sm font-semibold"
             >
-              Apply for Invite
+              Join the Founding Artist Circle
+            </a>
+            <a
+              href="/apply?path=hana"
+              onClick={closePanels}
+              className="af-btn-secondary flex min-h-12 w-full items-center justify-center rounded-full border px-6 text-sm font-semibold"
+            >
+              Build Your World with Hana
             </a>
           </div>
-
-          {/* Discord */}
-          <div className="mb-4">
-            <a
-              href="https://discord.gg/afromations"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleLinkClick}
-              className="af-btn-secondary flex h-11 w-full items-center justify-center rounded-full text-sm font-semibold tracking-wider"
-              aria-label="Join the AFROMATIONS Discord community"
-            >
-              {t('hero.cta.discord')}
-            </a>
-          </div>
-
-          {/* Brand mark at bottom */}
-          <div className="mt-auto py-6 flex items-center justify-center gap-2 opacity-30">
-            <span className="text-xs font-bold tracking-widest text-(--af-red)">AFROMATIONS</span>
-            <span className="text-[9px] tracking-[0.3em] text-(--af-grey-light) uppercase">STUDIO</span>
-          </div>
+          <p className="mt-auto pb-8 pt-12 text-xs leading-relaxed text-(--af-grey-light)">
+            AI drafts. Artists author. AFROMATIONS proves the process.
+          </p>
         </div>
       </div>
     </>

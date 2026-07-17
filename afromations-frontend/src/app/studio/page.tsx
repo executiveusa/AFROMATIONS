@@ -1,293 +1,157 @@
-'use client'
-
-import { motion, AnimatePresence } from 'motion/react'
-import { InnerLayout } from '@/components/inner-layout'
-import { DualAvatar } from '@/components/dual-avatar'
-import { HtmlInCanvasBeta } from '@/components/studio/html-in-canvas-beta'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
-/* ─── Studio Modes ─── */
-const STUDIO_MODES = [
-  {
-    id: 'image',
-    name: 'Image Studio',
-    icon: '画',
-    tagline: 'AI image generation — available now',
-    description: 'Generate anime-style illustrations and character art from text prompts. Describe your scene, choose a style, and Hana builds it. Supports text-to-image and basic image editing.',
-    features: ['Text-to-Image', 'Anime & Cel-Shaded Styles', 'Character Portraits', 'Scene Illustration'],
-    models: ['Flux Dev', 'Seedream', 'GPT-4o'],
-    accentColor: 'var(--af-red)',
-    available: true,
-  },
-] as const
-
-const ROADMAP_MODES = [
-  { id: 'video', name: 'Video Studio', icon: '動', description: 'Animate scenes and characters from images or text.' },
-  { id: 'lipsync', name: 'Lip Sync', icon: '唇', description: 'Sync character portraits to dialogue and audio.' },
-  { id: 'blender', name: 'Blender Control', icon: '立', description: 'AI-assisted 3D modeling and toon rendering.' },
-  { id: 'workflow', name: 'Workflows', icon: '流', description: 'Chain generation steps into automated pipelines.' },
-] as const
-
-type StudioModeId = (typeof STUDIO_MODES)[number]['id']
-
-/* ─── Hana Agent Panel ─── */
-function DualAgentPanel({ activeModeId }: { activeModeId: StudioModeId }) {
-  const suggestions: Record<StudioModeId, string[]> = {
-    image: [
-      'Generate a cel-shaded anime character portrait',
-      'Draw a cyberpunk Seattle cityscape at night',
-      'Create a character in traditional Edo-period armor',
-    ],
-  }
-
-  return (
-    <div
-      className="rounded-sm border border-white/8 bg-[rgba(10,10,10,0.85)] p-5"
-      style={{ backdropFilter: 'blur(8px)' }}
-    >
-      {/* Agent header */}
-      <div className="mb-4 flex items-center gap-3">
-        <DualAvatar size={32} />
-        <div>
-          <p className="text-xs font-semibold text-(--af-cream)">Agent Hana 花</p>
-          <p className="text-[10px] text-(--af-grey-light)">Your creative partner</p>
-        </div>
-        <span
-          className="ml-auto flex items-center gap-1.5 text-[9px] tracking-wider uppercase"
-          style={{ color: 'var(--af-teal)' }}
-        >
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
-          Ready
-        </span>
-      </div>
-
-      {/* Suggested prompts */}
-      <p className="mb-3 text-[10px] tracking-[0.3em] text-(--af-grey-light) uppercase">
-        Try a prompt
-      </p>
-      <ul className="space-y-2" role="list">
-        {suggestions[activeModeId].map((s) => (
-          <li key={s}>
-            <button
-              className="w-full rounded border border-white/6 bg-white/3 px-3 py-2 text-left text-[11px] leading-snug text-(--af-grey-light) transition-colors hover:border-white/12 hover:text-(--af-cream)"
-              aria-label={`Ask DUAL: ${s}`}
-            >
-              <span style={{ color: 'var(--af-gold)' }}>→ </span>
-              {s}
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <p className="mt-4 text-[9px] leading-relaxed text-(--af-grey-light)" style={{ opacity: 0.6 }}>
-        Hana guides your creative process — describe what you want to make.
-      </p>
-    </div>
-  )
+export const metadata: Metadata = {
+  title: 'Hana Character Launch Agent — AFROMATIONS',
+  description:
+    'A $1,495 done-for-you private anime studio agent installation for creators with original characters. Includes consistent media, merchandise concepts, animation tests, content planning, voice control, and provenance records.',
 }
 
-/* ─── Main Studio Page ─── */
+const DELIVERABLES = [
+  ['Private Hana installation', 'Creator-specific soul, canon, brand rules, approvals, memory, and operating files.'],
+  ['Character consistency system', 'Reference organization and a reusable visual workflow for one primary original character.'],
+  ['15 campaign assets', 'Website, social, poster, launch, expression, pose, and scene variations.'],
+  ['5 merchandise concepts', 'Production-ready direction, transparent exports, placement notes, and initial mockups.'],
+  ['3 animation tests', 'Short motion proofs for vertical and landscape campaigns.'],
+  ['Voice and Telegram control', 'Request work, review status, approve output, and stop publishing from a phone.'],
+  ['30-day content engine', 'Content ideas, production-ready posts, short-video scripts, hooks, and schedule.'],
+  ['Provenance Starter Vault', 'Source record, human contribution log, AI disclosure, file fingerprints, and certificate structure.'],
+]
+
+const BONUSES = [
+  'Faceless YouTube starter system',
+  'Character business blueprint',
+  'One paid human finish pass',
+  'One public artwork verification page',
+  'One optional blockchain evidence anchor',
+  '45-day founding client tune-up',
+]
+
+const NOT_INCLUDED = [
+  'Unlimited content or generations',
+  'Physical samples and Printify order costs',
+  'Advertising spend and platform fees',
+  'Government copyright or trademark registration',
+  'Legal advice or ownership guarantees',
+  'Publishing without explicit owner approval',
+]
+
 export default function StudioPage() {
-  const activeMode: StudioModeId = 'image'
-  const activeStudio = STUDIO_MODES[0]
-
   return (
-    <InnerLayout>
-      <main
-        className="min-h-screen pt-24 pb-16"
-        style={{
-          background: `
-            linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
-            url('/images/seattle-2056.jpg')
-          `,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
-      >
-        {/* Header */}
-        <section className="px-6 sm:px-12 max-w-7xl mx-auto mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <DualAvatar size={48} />
-            <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-gold) mb-1">
-                AI-Powered Creative Suite
-              </p>
-              <h1
-                className="text-4xl sm:text-5xl font-bold text-(--af-cream)"
-                style={{ fontFamily: 'Sora, sans-serif' }}
-              >
-                Hana Studio
-              </h1>
+    <main className="min-h-screen bg-(--af-black) text-(--af-cream)">
+      <nav className="border-b border-white/5 px-5 py-4 sm:px-8" aria-label="Breadcrumb">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 text-xs">
+          <Link href="/" className="font-bold tracking-[0.16em] text-(--af-red)">AFROMATIONS</Link>
+          <span className="text-(--af-grey-light)">/</span>
+          <span>Hana Character Launch Agent</span>
+        </div>
+      </nav>
+
+      <section className="relative overflow-hidden border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="studio-title">
+        <div className="absolute right-0 top-0 h-full w-2/3 bg-[radial-gradient(circle_at_top_right,rgba(196,30,30,.18),transparent_62%)]" aria-hidden="true" />
+        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_.72fr] lg:items-center">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.34em] text-(--af-red) uppercase">Three founding installations</p>
+            <h1 id="studio-title" className="mt-5 max-w-5xl text-4xl font-extrabold leading-[.98] tracking-[-.055em] sm:text-6xl lg:text-7xl" style={{ fontFamily: 'Sora, sans-serif', textWrap: 'balance' }}>
+              Turn one original character into an AI-powered anime studio.
+            </h1>
+            <p className="mt-7 max-w-3xl text-lg leading-relaxed text-(--af-grey-light)">
+              AFROMATIONS installs a private Hana agent that creates consistent media, merchandise concepts,
+              animations, launch content, and provenance records around your original character.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-(--af-grey-light)">
+              <span>Done for you</span><span aria-hidden="true">◆</span>
+              <span>One original character</span><span aria-hidden="true">◆</span>
+              <span>Two creative revision rounds</span><span aria-hidden="true">◆</span>
+              <span>14-business-day target after intake approval</span>
             </div>
           </div>
-          <p className="text-(--af-grey-light) max-w-2xl text-sm leading-relaxed">
-            An AI-powered creative workspace for anime storytelling.
-            Generate characters, scenes, and illustrations — guided by Agent Hana.
-            Video, 3D, and workflow tools are on the roadmap.
-          </p>
-        </section>
 
-        {/* Available Studio Mode */}
-        <section className="px-6 sm:px-12 max-w-7xl mx-auto mb-8">
-          <div className="flex items-center gap-3">
-            <span
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1 text-[10px] font-semibold tracking-wider uppercase"
-              style={{ color: 'var(--af-teal)', borderColor: 'var(--af-teal)30' }}
-            >
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
-              Available Now
-            </span>
-            <span className="text-[10px] text-(--af-grey-light)">Image Studio</span>
+          <aside className="border border-(--af-red)/40 bg-(--af-black) p-1">
+            <div className="border border-white/10 p-7 sm:p-9">
+              <div className="text-[10px] font-semibold tracking-[0.28em] text-(--af-red) uppercase">Founding price</div>
+              <div className="mt-5 text-6xl font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>$1,495</div>
+              <div className="mt-2 text-sm text-(--af-grey-light)">Pay in full</div>
+              <div className="mt-6 border-t border-white/10 pt-5">
+                <div className="text-xl font-semibold">3 payments of $550</div>
+                <div className="mt-1 text-xs text-(--af-grey-light)">$1,650 total on the payment plan</div>
+              </div>
+              <div className="mt-5 text-sm text-(--af-grey-light)">Optional maintenance: $249/month. Cancel anytime.</div>
+              <Link href="/apply?path=hana" className="af-btn-primary mt-7 inline-flex min-h-12 w-full items-center justify-center rounded-full px-7 text-sm font-semibold">
+                Apply for a Founding Installation
+              </Link>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="border-b border-white/5 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="deliverables-title">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-gold) uppercase">The complete installation</p>
+          <h2 id="deliverables-title" className="mt-4 max-w-4xl text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+            The agent, the production system, and the first launch package.
+          </h2>
+          <div className="mt-12 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+            {DELIVERABLES.map(([title, body], index) => (
+              <article key={title} className="bg-(--af-black) p-6">
+                <div className="text-xs font-bold text-(--af-red)">{String(index + 1).padStart(2, '0')}</div>
+                <h3 className="mt-4 text-base font-semibold">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-(--af-grey-light)">{body}</p>
+              </article>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Active Studio Panel */}
-        <section className="px-6 sm:px-12 max-w-7xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeMode}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="grid gap-6 lg:grid-cols-3"
-            >
-              {/* Main Studio Card */}
-              <div className="af-card lg:col-span-2">
-                <div className="af-card-inner">
-                  <div className="flex items-start justify-between gap-4 mb-6">
-                    <div>
-                      <span
-                        className="mb-2 inline-block text-[10px] font-medium tracking-[0.3em] uppercase"
-                        style={{ color: activeStudio.accentColor }}
-                      >
-                        {activeStudio.tagline}
-                      </span>
-                      <h2
-                        className="text-2xl font-bold text-(--af-cream)"
-                        style={{ fontFamily: 'Sora, sans-serif' }}
-                      >
-                        {activeStudio.name}
-                      </h2>
-                    </div>
-                    <span
-                      aria-hidden="true"
-                      className="shrink-0 text-5xl"
-                      style={{ fontFamily: 'serif', opacity: 0.2, color: activeStudio.accentColor }}
-                    >
-                      {activeStudio.icon}
-                    </span>
-                  </div>
-
-                  <p className="text-sm leading-relaxed text-(--af-grey-light) mb-6">
-                    {activeStudio.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="mb-6">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-(--af-grey-light) mb-3">
-                      Capabilities
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {activeStudio.features.map((f) => (
-                        <span
-                          key={f}
-                          className="rounded-full border border-white/10 px-3 py-1 text-[10px] text-(--af-grey-light)"
-                        >
-                          {f}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Models */}
-                  <div className="mb-6">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-(--af-grey-light) mb-3">
-                      Available Models
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {activeStudio.models.map((m) => (
-                        <span
-                          key={m}
-                          className="rounded border px-2 py-1 text-[10px] font-medium"
-                          style={{ 
-                            borderColor: `${activeStudio.accentColor}40`,
-                            color: activeStudio.accentColor,
-                          }}
-                        >
-                          {m}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="flex flex-wrap gap-3">
-                    <Link
-                      href="/hana"
-                      className="af-btn-primary inline-flex h-10 items-center rounded-full px-6 text-xs font-semibold tracking-wider"
-                      style={{ background: activeStudio.accentColor }}
-                    >
-                      Meet Agent Hana
-                    </Link>
-                    <Link
-                      href="/learn"
-                      className="inline-flex h-10 items-center rounded-full border border-white/10 px-6 text-xs font-semibold tracking-wider text-(--af-grey-light) hover:border-white/20 hover:text-(--af-cream) transition-colors"
-                    >
-                      Explore Academy →
-                    </Link>
-                  </div>
+      <section className="border-b border-white/5 bg-(--af-grey)/35 px-5 py-20 sm:px-8 sm:py-28" aria-labelledby="bonuses-title">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-red) uppercase">Founding bonuses</p>
+            <h2 id="bonuses-title" className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+              Enough leverage to launch instead of leaving with another unfinished system.
+            </h2>
+            <div className="mt-8 border-t border-white/10">
+              {BONUSES.map((bonus, index) => (
+                <div key={bonus} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-white/10 py-5">
+                  <span className="text-xs font-bold text-(--af-red)">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="text-sm text-(--af-grey-light)">{bonus}</span>
                 </div>
-              </div>
-
-              {/* DUAL Agent Panel */}
-              <DualAgentPanel activeModeId={activeMode} />
-            </motion.div>
-          </AnimatePresence>
-
-        </section>
-
-        {/* Roadmap Section */}
-        <section className="px-6 sm:px-12 max-w-7xl mx-auto mt-16">
-          <div className="af-card">
-            <div className="af-card-inner">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-(--af-gold) mb-2 block">
-                What&apos;s Next
-              </span>
-              <h3 className="text-xl font-bold text-(--af-cream) mb-2" style={{ fontFamily: 'Sora, sans-serif' }}>
-                Studio Roadmap
-              </h3>
-              <p className="text-sm text-(--af-grey-light) leading-relaxed mb-6">
-                Image generation is live. These capabilities are in development and will be released as they reach production quality.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {ROADMAP_MODES.map((mode) => (
-                  <div
-                    key={mode.id}
-                    className="flex items-start gap-3 rounded border border-white/5 bg-white/2 px-4 py-3"
-                  >
-                    <span
-                      className="shrink-0 text-2xl"
-                      style={{ fontFamily: 'serif', opacity: 0.4, color: 'var(--af-grey-light)' }}
-                      aria-hidden="true"
-                    >
-                      {mode.icon}
-                    </span>
-                    <div>
-                      <p className="text-xs font-semibold text-(--af-cream)">{mode.name}</p>
-                      <p className="text-[10px] leading-relaxed text-(--af-grey-light) mt-0.5">{mode.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
-        </section>
 
-        {/* HTML-in-Canvas Beta Feature */}
-        <HtmlInCanvasBeta />
-      </main>
-    </InnerLayout>
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.32em] text-(--af-grey-light) uppercase">Scope boundaries</p>
+            <h2 className="mt-4 text-3xl font-bold leading-tight sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+              Clear limits protect the customer and the studio.
+            </h2>
+            <div className="mt-8 border-t border-white/10">
+              {NOT_INCLUDED.map((item, index) => (
+                <div key={item} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-white/10 py-5">
+                  <span className="text-xs font-bold text-(--af-grey-light)">—</span>
+                  <span className="text-sm text-(--af-grey-light)">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-20 sm:px-8 sm:py-28">
+        <div className="mx-auto max-w-5xl border border-(--af-red)/30 bg-(--af-red)/5 p-7 text-center sm:p-12">
+          <p className="text-[10px] font-semibold tracking-[0.3em] text-(--af-red) uppercase">Launch-ready guarantee</p>
+          <h2 className="mt-4 text-3xl font-bold sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>
+            The package is measured against a written acceptance checklist.
+          </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-(--af-grey-light)">
+            After complete intake and brief approval, we target delivery within 14 business days. Two creative revision rounds are included.
+            Technical defects do not use those rounds. If the package fails its agreed acceptance checklist, we continue correcting it without additional labor fees.
+          </p>
+          <Link href="/apply?path=hana" className="af-btn-primary mt-7 inline-flex min-h-12 items-center justify-center rounded-full px-8 text-sm font-semibold">
+            Apply for One of Three Founding Installs
+          </Link>
+        </div>
+      </section>
+    </main>
   )
 }
