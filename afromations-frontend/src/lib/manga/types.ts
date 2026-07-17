@@ -27,7 +27,7 @@ export interface MangaChapter {
   readingDirection?: 'rtl' | 'ltr'
   hasCover: boolean
   pageTurnMode: 'single' | 'spread'
-  layoutMode: 'inline' | 'browserFullscreen'
+  layoutMode: 'inline' | 'wide' | 'browserFullscreen' | 'nativeFullscreen'
   coverImageUrl?: string
   publishedAt?: string
   metadata?: Record<string, unknown>
@@ -51,22 +51,32 @@ export interface MangaPage {
   metadata?: Record<string, unknown>
 }
 
-export interface ComimiPageDefinition {
+export interface ComimiImagePageDefinition {
   id: string
-  type: 'image' | 'html'
-  src?: string
+  type: 'image'
+  src: string
   thumbnailSrc?: string
-  html?: string
   alt?: string
   label?: string
 }
 
+export interface ComimiHtmlPageDefinition {
+  id: string
+  type: 'html'
+  html: string
+  label?: string
+  sandbox?: string
+  aspectRatio?: number
+}
+
+export type ComimiPageDefinition = ComimiImagePageDefinition | ComimiHtmlPageDefinition
+
 export interface ReaderSettings {
-  layoutMode: 'inline' | 'browserFullscreen'
+  layoutMode: 'inline' | 'wide' | 'browserFullscreen' | 'nativeFullscreen'
   readingDirection: 'rtl' | 'ltr'
   hasCover: boolean
   pageTurnMode: 'single' | 'spread'
-  backgroundColor?: string
+  backgroundColor?: 'white' | 'black'
   lockLayoutMode?: boolean
 }
 
