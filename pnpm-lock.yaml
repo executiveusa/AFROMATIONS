@@ -117,10 +117,10 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: ^0.4.0
-        version: 0.4.3(hono@4.12.19)(zod@3.25.76)
+        version: 0.4.3(hono@4.12.25)(zod@3.25.76)
       hono:
-        specifier: ^4.12.18
-        version: 4.12.19
+        specifier: ^4.12.25
+        version: 4.12.25
       zod:
         specifier: ^3.24.0
         version: 3.25.76
@@ -1195,6 +1195,10 @@ packages:
     resolution: {integrity: sha512-xa3eYXYXx68XTT4hZ7dRzsXBhaq85ToSrlUJNoR0gwz/1Ap/CNwX47wfvV7pc/xWhjKVVkLT7zBJy8chhNguqQ==}
     engines: {node: '>=16.9.0'}
 
+  hono@4.12.25:
+    resolution: {integrity: sha512-2NFaIyNVgJmBs/ecmtGzlmluTFs5cHEWGTdu0t1HBwYzoGXOL5nUQBRMXsXWla5i4KkG//QMzVP88m1+I3fdAQ==}
+    engines: {node: '>=16.9.0'}
+
   http-errors@2.0.1:
     resolution: {integrity: sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ==}
     engines: {node: '>= 0.8'}
@@ -1926,9 +1930,9 @@ snapshots:
     dependencies:
       hono: 4.12.19
 
-  '@hono/zod-validator@0.4.3(hono@4.12.19)(zod@3.25.76)':
+  '@hono/zod-validator@0.4.3(hono@4.12.25)(zod@3.25.76)':
     dependencies:
-      hono: 4.12.19
+      hono: 4.12.25
       zod: 3.25.76
 
   '@img/colour@1.1.0': {}
@@ -2529,6 +2533,8 @@ snapshots:
       function-bind: 1.1.2
 
   hono@4.12.19: {}
+
+  hono@4.12.25: {}
 
   http-errors@2.0.1:
     dependencies:
