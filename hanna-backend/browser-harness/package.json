@@ -17,15 +17,15 @@
     "install:browser": "npx playwright install chromium"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.7.0",
-    "commander": "^12.1.0",
-    "pino": "^9.2.0",
-    "playwright": "^1.43.0",
-    "zod": "^3.24.0"
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "commander": "^15.0.0",
+    "pino": "^10.3.1",
+    "playwright": "^1.63.0",
+    "zod": "^4.6.2"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "tsx": "^4.15.0",
-    "typescript": "^5.8.0"
+    "@types/node": "^26.5.1",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
   }
 }
