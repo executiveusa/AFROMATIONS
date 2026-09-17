@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 LABEL maintainer="J. Gravelle <j@gravelle.us>"
 LABEL description="jCodeMunch MCP server — token-efficient code intelligence via tree-sitter AST parsing"
