@@ -19,13 +19,29 @@ export function HeroSection() {
         className="absolute inset-0 -z-20"
         aria-hidden="true"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={DUAL_COVER}
-          alt=""
-          className="h-full w-full object-cover object-[62%_center] sm:object-center"
-          loading="eager"
-        />
+        {DUAL_HERO_HAS_VIDEO ? (
+          <video
+            className="h-full w-full object-cover object-[62%_center] sm:object-center"
+            src={DUAL_HERO_VIDEO_URL}
+            poster={DUAL_HERO_POSTER_URL}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          />
+        ) : (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={DUAL_HERO_POSTER_URL}
+              alt=""
+              className="h-full w-full object-cover object-[62%_center] sm:object-center"
+              loading="eager"
+            />
+          </>
+        )}
       </motion.div>
 
       <div
