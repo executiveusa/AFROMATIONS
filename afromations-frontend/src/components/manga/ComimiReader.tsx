@@ -54,7 +54,7 @@ export function ComimiReader({
           return {
             id: p.id,
             type: 'image' as const,
-            src: p.src ?? '',
+            src: 'src' in p ? (p.src ?? '') : '',
             thumbnailSrc: p.thumbnailSrc,
             alt: p.alt,
             label: p.label,
