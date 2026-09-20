@@ -5,6 +5,12 @@ import { motion } from 'motion/react'
 const DUAL_COVER =
   'https://raw.githubusercontent.com/executiveusa/AFROMATIONS/main/AFROMATIONS/Website/DUO/DUO.png'
 
+// Hero media flags: no hero video asset exists in the repo yet, so the
+// video branch stays OFF and the DUO poster image renders (existing fallback).
+const DUAL_HERO_HAS_VIDEO = false
+const DUAL_HERO_VIDEO_URL = ''
+const DUAL_HERO_POSTER_URL = DUAL_COVER
+
 export function HeroSection() {
   return (
     <section
