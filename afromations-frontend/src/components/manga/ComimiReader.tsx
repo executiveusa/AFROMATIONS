@@ -75,7 +75,6 @@ export function ComimiReader({
             hasCover: manifest.settings.hasCover ?? true,
             pageTurnMode: manifest.settings.pageTurnMode ?? 'single',
             backgroundColor: manifest.settings.backgroundColor ?? 'black',
-            theme: 'dark',
           },
           locale,
         })
