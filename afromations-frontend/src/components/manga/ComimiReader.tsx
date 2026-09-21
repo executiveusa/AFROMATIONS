@@ -51,12 +51,13 @@ export function ComimiReader({
           if (p.type === 'html' && p.html) {
             return { id: p.id, type: 'html' as const, html: p.html, label: p.label }
           }
+          const img = p as { src?: string; thumbnailSrc?: string; alt?: string }
           return {
             id: p.id,
             type: 'image' as const,
-            src: p.src ?? '',
-            thumbnailSrc: p.thumbnailSrc,
-            alt: p.alt,
+            src: img.src ?? '',
+            thumbnailSrc: img.thumbnailSrc,
+            alt: img.alt,
             label: p.label,
           }
         })
@@ -74,7 +75,6 @@ export function ComimiReader({
             hasCover: manifest.settings.hasCover ?? true,
             pageTurnMode: manifest.settings.pageTurnMode ?? 'single',
             backgroundColor: manifest.settings.backgroundColor ?? 'black',
-            theme: 'dark',
           },
           locale,
         })
