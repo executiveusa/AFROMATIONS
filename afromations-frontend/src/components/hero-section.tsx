@@ -7,7 +7,8 @@ const DUAL_COVER =
   'https://raw.githubusercontent.com/executiveusa/AFROMATIONS/main/AFROMATIONS/Website/DUO/DUO.png'
 
 // Drop the approved hero video URL here when the final file is available.
-const DUAL_HERO_VIDEO_URL = ''
+const DUAL_HERO_VIDEO_URL =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_33irX78ICVwRYWpFZ5l6a5vZbf5/hf_20260920_123932_04bb61f5-59d7-4459-8823-cdadefbdb8bb.mp4'
 const DUAL_HERO_HAS_VIDEO = Boolean(DUAL_HERO_VIDEO_URL)
 
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
@@ -47,6 +48,7 @@ export function HeroSection() {
     if (!el) return
 
     const final = 'AFROMATIONS'
+    el.textContent = '闇光影夢刀剣侍忍花二元'
     const timer = window.setTimeout(() => {
       const stop = scramble(el, final)
       ;(el as HTMLElement & { __stopScramble?: () => void }).__stopScramble = stop
