@@ -4,6 +4,7 @@
   "private": true,
   "description": "AFROMATIONS Studios — Anime Landing Page & Community Hub",
   "type": "module",
+  "packageManager": "npm@10.9.0",
   "engines": {
     "node": ">=22.12.0"
   },
