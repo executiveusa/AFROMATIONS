@@ -78,7 +78,7 @@ const communityPaths = [
 
 const stories = ['Artist Story', 'Behind the Scenes', 'DUAL / Studio Journal']
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <p className="text-[10px] font-semibold tracking-[0.28em] text-(--af-red) uppercase">
       {children}
