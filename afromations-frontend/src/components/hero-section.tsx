@@ -1,21 +1,26 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 
 const DUAL_COVER =
   'https://raw.githubusercontent.com/executiveusa/AFROMATIONS/main/AFROMATIONS/Website/DUO/DUO.png'
 
-// Drop the approved hero video URL here when the final file is available.
+// Temporary source. Replace this URL with the user's final 12–15 second edit when ready.
+// The website timing and AFROMATIONS reveal are already wired for the final cut.
 const DUAL_HERO_VIDEO_URL =
   'https://d2ol7oe51mr4n9.cloudfront.net/user_33irX78ICVwRYWpFZ5l6a5vZbf5/95370aaf-e6ea-4605-b2b2-6b6c08fc3344.mp4'
+
 const DUAL_HERO_HAS_VIDEO = Boolean(DUAL_HERO_VIDEO_URL)
+const BRAND_REVEAL_DELAY_MS = 11500
+const BRAND_RESOLVE_DELAY_MS = 12000
+const COPY_REVEAL_DELAY_MS = 13000
 
 const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ花刀剣侍忍闇光影夢'
 
 function scramble(el: HTMLElement, final: string) {
   let frame = 0
-  const totalFrames = 18
+  const totalFrames = 22
 
   const interval = window.setInterval(() => {
     const progress = frame / totalFrames
@@ -35,28 +40,49 @@ function scramble(el: HTMLElement, final: string) {
       window.clearInterval(interval)
       el.textContent = final
     }
-  }, 40)
+  }, 42)
 
   return () => window.clearInterval(interval)
 }
 
 export function HeroSection() {
   const wordmarkRef = useRef<HTMLHeadingElement>(null)
+  const [brandVisible, setBrandVisible] = useState(false)
+  const [copyVisible, setCopyVisible] = useState(false)
 
   useEffect(() => {
     const el = wordmarkRef.current
     if (!el) return
 
-    const final = 'AFROMATIONS'
-    el.textContent = '闇光影夢刀剣侍忍花二元'
-    const timer = window.setTimeout(() => {
-      const stop = scramble(el, final)
-      ;(el as HTMLElement & { __stopScramble?: () => void }).__stopScramble = stop
-    }, 600)
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (reducedMotion) {
+      el.textContent = 'AFROMATIONS'
+      setBrandVisible(true)
+      setCopyVisible(true)
+      return
+    }
+
+    let stopScramble: (() => void) | undefined
+
+    const revealTimer = window.setTimeout(() => {
+      el.textContent = '闇光影夢刀剣侍忍花二元'
+      setBrandVisible(true)
+    }, BRAND_REVEAL_DELAY_MS)
+
+    const resolveTimer = window.setTimeout(() => {
+      stopScramble = scramble(el, 'AFROMATIONS')
+    }, BRAND_RESOLVE_DELAY_MS)
+
+    const copyTimer = window.setTimeout(() => {
+      setCopyVisible(true)
+    }, COPY_REVEAL_DELAY_MS)
 
     return () => {
-      window.clearTimeout(timer)
-      ;(el as HTMLElement & { __stopScramble?: () => void }).__stopScramble?.()
+      window.clearTimeout(revealTimer)
+      window.clearTimeout(resolveTimer)
+      window.clearTimeout(copyTimer)
+      stopScramble?.()
     }
   }, [])
 
@@ -68,7 +94,7 @@ export function HeroSection() {
       <div className="absolute inset-0 -z-30 bg-(--af-black)" />
 
       <motion.div
-        initial={{ opacity: 0, scale: 1.02 }}
+        initial={{ opacity: 0, scale: 1.015 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-0 -z-20"
@@ -76,7 +102,7 @@ export function HeroSection() {
       >
         {DUAL_HERO_HAS_VIDEO ? (
           <video
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
             src={DUAL_HERO_VIDEO_URL}
             poster={DUAL_COVER}
             autoPlay
@@ -90,50 +116,50 @@ export function HeroSection() {
           <img
             src={DUAL_COVER}
             alt=""
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
             loading="eager"
           />
         )}
       </motion.div>
 
       <div
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(5,5,5,.18)_0%,rgba(5,5,5,.28)_42%,rgba(5,5,5,.92)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(5,5,5,.10)_0%,rgba(5,5,5,.18)_40%,rgba(5,5,5,.88)_100%)]"
         aria-hidden="true"
       />
 
-      <div className="mx-auto flex min-h-[100svh] max-w-7xl items-end px-5 pb-14 pt-24 sm:px-8 sm:pb-20 lg:px-12">
-        <div className="max-w-4xl">
-          <motion.h1
-            ref={wordmarkRef}
-            id="home-hero-title"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.15 }}
-            className="text-4xl font-extrabold tracking-[-0.055em] text-(--af-cream) sm:text-6xl lg:text-[5.5rem]"
-            style={{ fontFamily: 'Sora, sans-serif' }}
-          >
-            AFROMATIONS
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.42 }}
-            className="mt-5 max-w-3xl text-2xl font-semibold leading-tight tracking-[-0.03em] text-(--af-cream) sm:text-4xl"
-            style={{ textWrap: 'balance' }}
-          >
-            Original Worlds. Real Artists. Community Impact.
-          </motion.p>
+      <div className="mx-auto flex min-h-[100svh] max-w-7xl items-end px-5 pb-12 pt-24 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
+        <div className="w-full max-w-5xl">
+          <div className="min-h-[7rem] sm:min-h-[10rem]">
+            <motion.h1
+              ref={wordmarkRef}
+              id="home-hero-title"
+              initial={false}
+              animate={{ opacity: brandVisible ? 1 : 0, y: brandVisible ? 0 : 14 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl font-extrabold leading-none tracking-[-0.055em] text-(--af-cream) sm:text-6xl lg:text-[5.5rem]"
+              style={{ fontFamily: 'Sora, sans-serif' }}
+              aria-live="polite"
+            >
+              AFROMATIONS
+            </motion.h1>
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.62 }}
-            className="mt-8"
+            initial={false}
+            animate={{ opacity: copyVisible ? 1 : 0, y: copyVisible ? 0 : 12 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            aria-hidden={!copyVisible}
           >
+            <p
+              className="mt-3 max-w-3xl text-2xl font-semibold leading-tight tracking-[-0.035em] text-(--af-cream) sm:text-4xl"
+              style={{ textWrap: 'balance' }}
+            >
+              Original Worlds. Real Artists. Community Impact.
+            </p>
+
             <a
               href="#work"
-              className="af-btn-primary inline-flex min-h-12 items-center justify-center rounded-full px-7 text-sm font-semibold"
+              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-(--af-cream) px-7 text-sm font-semibold text-(--af-black) transition-opacity hover:opacity-85"
             >
               Explore
             </a>
