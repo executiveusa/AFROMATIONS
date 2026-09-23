@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { HeroSection } from '@/components/hero-section'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
