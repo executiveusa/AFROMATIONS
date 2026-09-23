@@ -49,10 +49,12 @@ jobs:
     steps:
       - name: Check trigger phrase
         id: check
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          REVIEW_BODY: ${{ github.event.comment.body }}
         run: |
-          EVENT="${{ github.event_name }}"
-          COMMENT_BODY="${{ github.event.comment.body }}"
-          REVIEW_BODY="${{ github.event.comment.body }}"
+          EVENT="$EVENT_NAME"
 
           if [[ "$EVENT" == "workflow_dispatch" ]]; then
             echo "should-run=true" >> "$GITHUB_OUTPUT"
@@ -143,7 +145,7 @@ jobs:
             const branch  = '${{ steps.setup.outputs.branch }}';
             const merged  = '${{ steps.merge.outputs.merged }}'.trim();
             const skipped = '${{ steps.merge.outputs.skipped }}'.trim();
-            const reason  = '${{ inputs.reason || "Landing the plane 🛬" }}';
+            const reason  = ${{ toJSON(inputs.reason) }} || 'Landing the plane 🛬';
 
             const body = [
               '## 🛬 Land the Plane — Consolidated Deploy',
