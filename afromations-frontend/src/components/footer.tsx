@@ -1,9 +1,10 @@
 const footerLinks = [
-  { label: 'Work', href: '#work' },
-  { label: 'Artists', href: '#artists' },
-  { label: 'Community', href: '#community' },
-  { label: 'Stories', href: '#stories' },
-  { label: 'Studio', href: '#studio' },
+  { label: 'Work', href: '/work' },
+  { label: 'Artists', href: '/artists' },
+  { label: 'Community', href: '/community' },
+  { label: 'Stories', href: '/stories' },
+  { label: 'Studio', href: '/studio' },
+  { label: 'Shop', href: '/store' },
 ]
 
 export function Footer() {
@@ -12,7 +13,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="text-sm font-bold tracking-[0.16em] text-(--af-cream)">AFROMATIONS</div>
+            <a href="/" className="text-sm font-bold tracking-[0.16em] text-(--af-cream)">AFROMATIONS</a>
             <div className="mt-3 max-w-md text-xs leading-6 text-(--af-grey-light)">
               Original Worlds. Real Artists. Community Impact.
             </div>
@@ -27,8 +28,9 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-10 border-t border-white/8 pt-5 text-[11px] text-white/30">
-          © {new Date().getFullYear()} AFROMATIONS
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/8 pt-5 text-[11px] text-white/30 sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} AFROMATIONS</span>
+          <a href="/apply?path=project" className="transition-colors hover:text-(--af-cream)">Work With Us</a>
         </div>
       </div>
     </footer>

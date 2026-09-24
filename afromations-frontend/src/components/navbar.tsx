@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 const LINKS = [
-  { label: 'Work', href: '#work' },
-  { label: 'Hana', href: '#hana' },
-  { label: 'Artists', href: '#artists' },
-  { label: 'Community', href: '#community' },
-  { label: 'Stories', href: '#stories' },
+  { label: 'Work', href: '/work' },
+  { label: 'Artists', href: '/artists' },
+  { label: 'Community', href: '/community' },
+  { label: 'Stories', href: '/stories' },
+  { label: 'Studio', href: '/studio' },
+  { label: 'Shop', href: '/store' },
 ]
 
 export function Navbar() {
@@ -34,16 +35,16 @@ export function Navbar() {
       <nav
         className={cn(
           'fixed inset-x-0 top-0 z-50 border-b border-white/5 transition-colors duration-200',
-          scrolled ? 'bg-(--af-black)/95 backdrop-blur-md' : 'bg-transparent'
+          scrolled || open ? 'bg-(--af-black)/95 backdrop-blur-md' : 'bg-transparent'
         )}
         aria-label="Primary navigation"
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <a href="/" className="text-sm font-extrabold tracking-[0.16em] text-(--af-cream)" aria-label="AFROMATIONS home">
             AFROMATIONS
           </a>
 
-          <div className="hidden items-center gap-6 lg:flex">
+          <div className="hidden items-center gap-5 lg:flex">
             {LINKS.map((link) => (
               <a key={link.href} href={link.href} className="text-xs font-medium text-(--af-grey-light) transition-colors hover:text-(--af-cream)">
                 {link.label}
