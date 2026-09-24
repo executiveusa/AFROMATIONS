@@ -9,7 +9,7 @@ const LINKS = [
   { label: 'Community', href: '/community' },
   { label: 'Stories', href: '/stories' },
   { label: 'Studio', href: '/studio' },
-  { label: 'Shop', href: '/store' },
+  { label: 'Shop', href: '/shop' },
 ]
 
 export function Navbar() {
@@ -40,13 +40,21 @@ export function Navbar() {
         aria-label="Primary navigation"
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <a href="/" className="text-sm font-extrabold tracking-[0.16em] text-(--af-cream)" aria-label="AFROMATIONS home">
+          <a
+            href="/"
+            className="text-sm font-extrabold tracking-[0.16em] text-(--af-cream)"
+            aria-label="AFROMATIONS home"
+          >
             AFROMATIONS
           </a>
 
           <div className="hidden items-center gap-5 lg:flex">
             {LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="text-xs font-medium text-(--af-grey-light) transition-colors hover:text-(--af-cream)">
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-xs font-medium text-(--af-grey-light) transition-colors hover:text-(--af-cream)"
+              >
                 {link.label}
               </a>
             ))}
