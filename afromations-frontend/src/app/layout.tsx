@@ -11,23 +11,29 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'AFROMATIONS | Artist-Owned Anime Studio',
+  title: 'AFROMATIONS | Original Worlds. Real Artists. Community Impact.',
   description:
-    'AFROMATIONS connects tattoo artists, anime creators, and original characters to paid collaboration, ethical AI production, merchandise, marketing, and verifiable provenance.',
+    'AFROMATIONS is a Seattle-based art and animation studio creating original worlds, working with real artists, and building community-facing creative projects.',
   keywords: [
+    'AFROMATIONS',
+    'animation studio',
     'anime',
-    'black anime',
-    'afromations',
-    'anime studio',
-    'agent hana',
-    'tattoo artists',
-    'artist sovereignty',
-    'anime community',
+    'original IP',
+    'artists',
+    'manga',
+    'Seattle art',
+    'community art',
+    'creative studio',
   ],
   openGraph: {
-    title: 'AFROMATIONS Studios',
-    description: 'Artist-owned anime studio powered by Hana',
+    title: 'AFROMATIONS',
+    description: 'Original Worlds. Real Artists. Community Impact.',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'AFROMATIONS',
+    description: 'Original Worlds. Real Artists. Community Impact.',
   },
 }
 
@@ -45,9 +51,7 @@ export default function RootLayout({
         />
       </head>
       <body className="grain">
-        <I18nProvider>
-          {children}
-        </I18nProvider>
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   )
