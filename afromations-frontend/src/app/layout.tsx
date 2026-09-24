@@ -11,23 +11,36 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'AFROMATIONS | Artist-Owned Anime Studio',
+  metadataBase: new URL('https://afromations.netlify.app'),
+  title: {
+    default: 'AFROMATIONS — Original Worlds. Real Artists. Community Impact.',
+    template: '%s — AFROMATIONS',
+  },
   description:
-    'AFROMATIONS connects tattoo artists, anime creators, and original characters to paid collaboration, ethical AI production, merchandise, marketing, and verifiable provenance.',
+    'AFROMATIONS is a Seattle-based art and animation studio creating original worlds, working with real artists, and connecting creative projects to community impact.',
   keywords: [
-    'anime',
-    'black anime',
-    'afromations',
+    'AFROMATIONS',
     'anime studio',
-    'agent hana',
-    'tattoo artists',
-    'artist sovereignty',
-    'anime community',
+    'animation studio',
+    'original IP',
+    'manga',
+    'artist collaborations',
+    'Seattle artists',
+    'community art',
+    'DUAL',
+    'Hana',
   ],
   openGraph: {
-    title: 'AFROMATIONS Studios',
-    description: 'Artist-owned anime studio powered by Hana',
+    title: 'AFROMATIONS',
+    description: 'Original Worlds. Real Artists. Community Impact.',
     type: 'website',
+    siteName: 'AFROMATIONS',
+    url: 'https://afromations.netlify.app',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AFROMATIONS',
+    description: 'Original Worlds. Real Artists. Community Impact.',
   },
 }
 
@@ -45,9 +58,7 @@ export default function RootLayout({
         />
       </head>
       <body className="grain">
-        <I18nProvider>
-          {children}
-        </I18nProvider>
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   )
