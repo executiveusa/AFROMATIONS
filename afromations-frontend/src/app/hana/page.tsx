@@ -1,200 +1,74 @@
-'use client'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
 
-import { InnerLayout } from '@/components/inner-layout'
-import { useI18n } from '@/lib/i18n'
+export const metadata: Metadata = {
+  title: 'Hana — AFROMATIONS',
+  description: 'Hana is the studio intelligence behind AFROMATIONS, supporting research, continuity, planning, asset organization, and publishing.',
+}
+
+const capabilities = [
+  ['Research','Organizes references, project context, and creative research so decisions stay traceable.'],
+  ['Production','Turns approved goals into practical production plans, checklists, and handoffs.'],
+  ['Continuity','Tracks characters, worlds, visual rules, and project decisions across long-running work.'],
+  ['Organization','Keeps files, assets, notes, and project knowledge structured around the work.'],
+  ['Publishing','Supports stories, pages, launch materials, and release preparation without replacing human approval.'],
+]
 
 export default function HanaPage() {
-  const { t } = useI18n()
-
   return (
-    <InnerLayout>
-      <main className="min-h-screen bg-(--af-black) pt-24 pb-16">
-        {/* Hero */}
-        <section className="px-6 sm:px-12 max-w-5xl mx-auto mb-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Character placeholder */}
-            <div
-              data-reveal
-              className="aspect-square border border-white/10 rounded-sm bg-(--af-grey) flex items-center justify-center"
-            >
-              <div className="text-center space-y-3">
-                <p
-                  className="text-6xl font-light text-(--af-red)"
-                  style={{ fontFamily: 'Sora, sans-serif' }}
-                >
-                  花
-                </p>
-                <p className="text-(--af-grey-light) text-xs tracking-wider uppercase">
-                  Agent Hana
-                </p>
-              </div>
-            </div>
-
-            {/* Introduction */}
-            <div className="space-y-6">
-              <div data-reveal>
-                <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-4">
-                  {t('hanna.eyebrow')}
-                </p>
-                <h1
-                  className="text-4xl sm:text-5xl font-bold text-(--af-cream) mb-2"
-                  style={{ fontFamily: 'Sora, sans-serif' }}
-                >
-                  {t('hanna.title')}
-                </h1>
-                <p className="text-(--af-grey-light) text-sm">
-                  {t('hanna.subtitle')}
-                </p>
-              </div>
-
-              <p data-reveal data-delay="1" className="text-(--af-grey-light) leading-relaxed">
-                Hana is not a historical figure. She&apos;s an AI scholar designed in 2056, rooted
-                in both Japanese tradition and Black culture. She teaches because language is power,
-                and knowledge should never be gatekept.
-              </p>
-
-              <div data-reveal data-delay="2" className="space-y-2">
-                <p className="text-(--af-grey-light) text-sm leading-relaxed mb-4">
-                  She teaches Japanese through anime culture, creative AI workflows, community art planning, and practical business skills for creators.
-                </p>
-                <ul className="text-(--af-grey-light) text-sm space-y-1.5">
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Japanese by Anime (JLPT N5–N1 + beyond)
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Grammar, particles, cultural context, and respect
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    AI for Artists and Creative Tools
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Mural Planning & Community Art Practice
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-(--af-red) text-xs mt-0.5">—</span>
-                    Memory-based learning with progress tracking
-                  </li>
-                </ul>
-              </div>
-
-              <div data-reveal data-delay="3" className="pt-4 border-t border-white/5">
-                <p className="text-(--af-grey-light) text-sm italic">
-                  &ldquo;Fluency isn&apos;t fast. It&apos;s deep. And depth comes from respect.&rdquo;
-                </p>
-                <p className="text-(--af-grey-light) text-xs mt-1">— Agent Hana</p>
-              </div>
-            </div>
+    <main className="min-h-screen bg-(--af-black) text-(--af-cream)">
+      <Navbar />
+      <section className="px-5 pb-20 pt-32 sm:px-8 sm:pb-28 sm:pt-40 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-end">
+          <div className="flex min-h-[420px] items-center justify-center border border-dashed border-white/15 bg-white/[.02] p-8 text-center text-xs tracking-[.16em] text-white/30 uppercase">
+            Hana visual / live interface slot
           </div>
-        </section>
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.28em] text-(--af-red) uppercase">Hana</p>
+            <h1 className="mt-5 max-w-4xl text-5xl font-extrabold leading-[.95] tracking-[-.06em] sm:text-7xl" style={{fontFamily:'Sora, sans-serif',textWrap:'balance'}}>
+              The studio intelligence behind AFROMATIONS.
+            </h1>
+            <p className="mt-7 max-w-2xl text-base leading-8 text-(--af-grey-light) sm:text-lg">
+              Hana helps the studio research, organize, plan, preserve continuity, and publish. She stays behind the work instead of becoming the brand itself.
+            </p>
+          </div>
+        </div>
+      </section>
 
-        <div className="divider" />
-
-        {/* How Hana Works — spotlight-border grid pattern */}
-        <section className="px-6 sm:px-12 max-w-5xl mx-auto py-20">
-          <p data-reveal className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
-            Methodology
-          </p>
-          <h2
-            data-reveal
-            data-delay="1"
-            className="text-3xl font-bold text-(--af-cream) mb-10"
-            style={{ fontFamily: 'Sora, sans-serif' }}
-          >
-            How Hana Works
-          </h2>
-
-          <div className="grid sm:grid-cols-2 gap-px bg-white/5 rounded-sm overflow-hidden">
-            {[
-              {
-                title: 'Structured Lessons',
-                desc: 'Each lesson builds on the previous. Vocabulary before fluency. Culture before shallow phrases.',
-              },
-              {
-                title: 'Real Assessment',
-                desc: 'No shallow quizzes. Hana evaluates oral production, listening comprehension, and deep understanding.',
-              },
-              {
-                title: 'Memory Graph',
-                desc: 'Hana learns your learning patterns and adapts. Your memory is encrypted and under your control.',
-              },
-              {
-                title: 'Consent First',
-                desc: 'Voice, memory, vision features require explicit permission. You control what Hana can do.',
-              },
-            ].map((card, i) => (
-              <div
-                key={card.title}
-                data-reveal
-                data-delay={String(i + 1)}
-                className="bg-(--af-black) p-8 transition-colors duration-200 hover:bg-(--af-grey)"
-              >
-                <h3 className="font-semibold text-(--af-cream) mb-2 text-sm">
-                  {card.title}
-                </h3>
-                <p className="text-(--af-grey-light) text-sm leading-relaxed">
-                  {card.desc}
-                </p>
-              </div>
+      <section className="border-y border-white/8 px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-px overflow-hidden border border-white/8 bg-white/8 sm:grid-cols-2 lg:grid-cols-5">
+            {capabilities.map(([title,body])=>(
+              <article key={title} className="min-h-64 bg-(--af-black) p-6">
+                <h2 className="text-lg font-semibold">{title}</h2>
+                <p className="mt-5 text-sm leading-7 text-(--af-grey-light)">{body}</p>
+              </article>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <div className="divider" />
-
-        {/* Philosophy */}
-        <section className="px-6 sm:px-12 max-w-5xl mx-auto py-20">
-          <div data-reveal className="border border-white/10 rounded-sm p-8">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-(--af-red) mb-3">
-              Philosophy
+      <section className="px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2">
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.28em] text-(--af-gold) uppercase">Public surface</p>
+            <h2 className="mt-4 text-3xl font-bold tracking-[-.04em] sm:text-5xl" style={{fontFamily:'Sora, sans-serif'}}>Useful on the surface. Complex backstage.</h2>
+            <p className="mt-6 max-w-2xl text-sm leading-7 text-(--af-grey-light)">
+              The public experience focuses on what Hana helps the studio accomplish. Internal orchestration, infrastructure, approvals, and system plumbing remain backstage.
             </p>
-            <h3
-              className="text-2xl font-bold text-(--af-cream) mb-6"
-              style={{ fontFamily: 'Sora, sans-serif' }}
-            >
-              Hana&apos;s Philosophy
-            </h3>
-
-            <div className="space-y-4 text-(--af-grey-light) text-sm leading-relaxed">
-              <p>
-                <strong className="text-(--af-cream)">Language is not a code.</strong> It&apos;s a
-                way of thinking. You&apos;re learning to think like a Japanese speaker, not to
-                decode messages.
-              </p>
-              <p>
-                <strong className="text-(--af-cream)">Culture comes first.</strong> Meaning without
-                context is empty. Understanding the culture makes the language stick.
-              </p>
-              <p>
-                <strong className="text-(--af-cream)">Fluency is hard.</strong> There are no
-                shortcuts. But the work is worth it because the destination is real comprehension,
-                not fake familiarity.
-              </p>
-              <p>
-                <strong className="text-(--af-cream)">Your agency matters.</strong> You decide what
-                to learn, how fast, and what you share. Hana is a tool you control, not a system
-                that controls you.
-              </p>
-            </div>
           </div>
-        </section>
-
-        {/* CTA */}
-        <section data-reveal className="px-6 sm:px-12 max-w-5xl mx-auto text-center pb-8">
-          <p className="text-(--af-grey-light) mb-6 max-w-xl mx-auto text-sm">
-            Join Hana Academy to learn Japanese through anime, master creative AI tools, and join a community of artists and learners building together.
-          </p>
-          <a
-            href="/learn"
-            className="inline-flex h-11 items-center rounded-sm bg-(--af-red) px-8 text-sm font-semibold tracking-wider text-(--af-cream) transition-colors hover:bg-(--af-red-dark)"
-          >
-            Explore Hana Academy
-          </a>
-        </section>
-      </main>
-    </InnerLayout>
+          <div className="border border-white/8 p-7 sm:p-9">
+            <h3 className="text-xl font-semibold">Human approval remains the gate.</h3>
+            <p className="mt-4 text-sm leading-7 text-(--af-grey-light)">
+              Publishing, spending, licensing, merchandise decisions, training data, and deployment remain subject to explicit studio approval.
+            </p>
+            <Link href="/studio" className="mt-7 inline-flex text-sm font-semibold text-(--af-cream)">See the studio →</Link>
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
   )
 }
