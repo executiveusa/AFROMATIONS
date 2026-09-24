@@ -1,0 +1,35 @@
+name: AFROMATIONS Preview Build
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'afromations-frontend/**'
+      - 'hanna-backend/api/package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/afromations-preview-build.yml'
+
+jobs:
+  frontend-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.6.1 --activate
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build AFROMATIONS frontend
+        run: pnpm --dir afromations-frontend run build
