@@ -174,7 +174,7 @@ export default function Home() {
             <SectionHeading
               number="01"
               title="Selected Work"
-              body="Four clear entry points. The structure is finished now; the final copy and media can be inserted without rebuilding the page."
+              body="A focused view of the worlds, tools, collaborations, and community work taking shape inside AFROMATIONS."
             />
           </div>
 
@@ -191,7 +191,7 @@ export default function Home() {
                       <p className="mt-2 text-sm leading-6 text-(--af-grey-light)">{item.meta}</p>
                     </div>
                     <span className="mt-6 text-[10px] font-semibold tracking-[0.18em] text-white/35 uppercase">
-                      {item.active ? 'View project' : 'Reserved slot'}
+                      {item.active ? 'View project' : 'In development'}
                     </span>
                   </div>
                 </>
@@ -228,13 +228,13 @@ export default function Home() {
             <SectionHeading
               number="02"
               title="Hana"
-              body="The studio intelligence behind AFROMATIONS. The homepage explains the outcome, not the orchestration stack."
+              body="The studio intelligence behind AFROMATIONS, supporting research, continuity, production planning, organization, and publishing."
             />
           </div>
 
           <div className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
             <MediaPlaceholder
-              label="Hana character / device / live interface placeholder"
+              label="Hana visual / live interface"
               ratio="min-h-[360px] lg:min-h-[520px]"
             />
 
@@ -280,7 +280,7 @@ export default function Home() {
             <SectionHeading
               number="03"
               title="Real Artists"
-              body="Three verified profiles are enough to launch this section. Each slot is ready for a portrait, artwork, name, city, discipline, and project."
+              body="Artists are presented through their work, location, discipline, and the projects they help bring to life."
             />
           </div>
 
@@ -315,7 +315,7 @@ export default function Home() {
             <SectionHeading
               number="04"
               title="Community Impact"
-              body="The section is built around actions people can actually take. Copy and proof can be added one block at a time."
+              body="Creative work can connect artists, organizations, neighborhoods, and new opportunities through clear ways to participate."
             />
           </div>
 
@@ -376,7 +376,7 @@ export default function Home() {
                 <MediaPlaceholder label="Story image" ratio="aspect-[16/10]" />
                 <div className="min-h-36 p-5 sm:p-6">
                   <p className="text-lg font-semibold text-(--af-cream)">{story}</p>
-                  <p className="mt-3 text-sm text-(--af-grey-light)">Headline placeholder</p>
+                  <p className="mt-3 text-sm text-(--af-grey-light)">Story coming soon</p>
                 </div>
               </article>
             ))}
