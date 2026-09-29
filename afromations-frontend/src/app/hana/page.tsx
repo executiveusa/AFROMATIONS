@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { MediaSlot, SectionLabel } from '@/components/site-primitives'
 
 export const metadata: Metadata = {
   title: 'Hana — AFROMATIONS',
@@ -9,29 +10,28 @@ export const metadata: Metadata = {
 }
 
 const capabilities = [
-  ['Research','Organizes references, project context, and creative research so decisions stay traceable.'],
-  ['Production','Turns approved goals into practical production plans, checklists, and handoffs.'],
-  ['Continuity','Tracks characters, worlds, visual rules, and project decisions across long-running work.'],
-  ['Organization','Keeps files, assets, notes, and project knowledge structured around the work.'],
-  ['Publishing','Supports stories, pages, launch materials, and release preparation without replacing human approval.'],
+  ['Research', 'Organizes references, context, and creative research so decisions remain traceable.'],
+  ['Production', 'Turns approved goals into practical plans, checklists, and handoffs.'],
+  ['Continuity', 'Tracks characters, worlds, visual rules, and project decisions across long-running work.'],
+  ['Organization', 'Keeps files, assets, notes, and project knowledge structured around the work.'],
+  ['Publishing', 'Supports stories, pages, launch materials, and release preparation without replacing human approval.'],
 ]
 
 export default function HanaPage() {
   return (
     <main className="min-h-screen bg-(--af-black) text-(--af-cream)">
       <Navbar />
+
       <section className="px-5 pb-20 pt-32 sm:px-8 sm:pb-28 sm:pt-40 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-end">
-          <div className="flex min-h-[420px] items-center justify-center border border-dashed border-white/15 bg-white/[.02] p-8 text-center text-xs tracking-[.16em] text-white/30 uppercase">
-            Hana visual / live interface slot
-          </div>
+          <MediaSlot label="Hana portrait / embodiment / live interface" className="min-h-[480px]" />
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.28em] text-(--af-red) uppercase">Hana</p>
-            <h1 className="mt-5 max-w-4xl text-5xl font-extrabold leading-[.95] tracking-[-.06em] sm:text-7xl" style={{fontFamily:'Sora, sans-serif',textWrap:'balance'}}>
+            <SectionLabel>Hana</SectionLabel>
+            <h1 className="mt-5 max-w-4xl text-5xl font-extrabold leading-[.95] tracking-[-.06em] sm:text-7xl" style={{ fontFamily: 'Sora, sans-serif', textWrap: 'balance' }}>
               The studio intelligence behind AFROMATIONS.
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-8 text-(--af-grey-light) sm:text-lg">
-              Hana helps the studio research, organize, plan, preserve continuity, and publish. She stays behind the work instead of becoming the brand itself.
+              Hana helps the studio research, organize, plan, preserve continuity, and publish. She supports the work without replacing the people making it.
             </p>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function HanaPage() {
       <section className="border-y border-white/8 px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-px overflow-hidden border border-white/8 bg-white/8 sm:grid-cols-2 lg:grid-cols-5">
-            {capabilities.map(([title,body])=>(
+            {capabilities.map(([title, body]) => (
               <article key={title} className="min-h-64 bg-(--af-black) p-6">
                 <h2 className="text-lg font-semibold">{title}</h2>
                 <p className="mt-5 text-sm leading-7 text-(--af-grey-light)">{body}</p>
@@ -51,12 +51,23 @@ export default function HanaPage() {
       </section>
 
       <section className="px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <SectionLabel>Public surfaces</SectionLabel>
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            <MediaSlot label="Hana conversation / voice interface" className="min-h-[320px]" />
+            <MediaSlot label="Worldbuilding / character continuity view" className="min-h-[320px]" />
+            <MediaSlot label="Production planning / publishing surface" className="min-h-[320px]" />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-white/8 px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2">
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.28em] text-(--af-gold) uppercase">Public surface</p>
-            <h2 className="mt-4 text-3xl font-bold tracking-[-.04em] sm:text-5xl" style={{fontFamily:'Sora, sans-serif'}}>Useful on the surface. Complex backstage.</h2>
+            <SectionLabel>Boundary</SectionLabel>
+            <h2 className="mt-4 text-3xl font-bold tracking-[-.04em] sm:text-5xl" style={{ fontFamily: 'Sora, sans-serif' }}>Useful on the surface. Complex backstage.</h2>
             <p className="mt-6 max-w-2xl text-sm leading-7 text-(--af-grey-light)">
-              The public experience focuses on what Hana helps the studio accomplish. Internal orchestration, infrastructure, approvals, and system plumbing remain backstage.
+              The public experience shows what Hana helps the studio accomplish. Internal orchestration, infrastructure, and approval systems stay backstage.
             </p>
           </div>
           <div className="border border-white/8 p-7 sm:p-9">
