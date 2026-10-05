@@ -1,11 +1,11 @@
-fastapi==0.141.1
-uvicorn[standard]==0.53.0
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
 celery[redis]==5.6.3
 redis==8.1.0
-sqlalchemy[asyncio]==2.0.54
+sqlalchemy[asyncio]==2.1.2
 asyncpg==0.31.0
 alembic==1.20.0
-boto3==1.43.97
+boto3==1.43.107
 pydantic==2.13.5
 pydantic-settings==2.15.0
 python-jose[cryptography]==3.5.0
@@ -14,4 +14,4 @@ python-multipart==0.0.32
 httpx==0.28.1
 structlog==26.1.0
 tenacity==9.1.4
-networkx==3.6.1
+networkx==3.7
