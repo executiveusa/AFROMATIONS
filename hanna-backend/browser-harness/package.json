@@ -17,7 +17,7 @@
     "install:browser": "npx playwright install chromium"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@modelcontextprotocol/sdk": "^1.31.0",
     "commander": "^15.0.0",
     "pino": "^10.3.1",
     "playwright": "^1.63.0",
